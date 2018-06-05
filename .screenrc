@@ -1,0 +1,14 @@
+# start as login shell
+shell -${SHELL}
+
+# disable visual bell
+vbell off
+
+# hide startup message
+startup_message off
+
+#change focus between splits
+bind j focus down
+bind k focus up
+bind l focus right
+bind h focus left
