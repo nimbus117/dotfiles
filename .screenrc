@@ -7,6 +7,21 @@ vbell off
 # hide startup message
 startup_message off
 
+# auto detach on disconnect
+autodetach on
+
+# scrollback buffer
+defscrollback 1000
+
+#prevent full-screen programs like vim remaining in the scrollback buffer
+altscreen on
+
+# status line at bottom
+hardstatus alwayslastline
+hardstatus string '%{= kG}[%{G}%H%? %1`%?%{g}][%= %{= kw}%-w%{+b yk} %n*%t%?(%u)%? %{-}%+w %=%{g}][%{B}%m/%d %{W}%C%A%{g}]'
+
+### key bindings
+
 #change focus between splits
 bind j focus down
 bind k focus up
