@@ -30,9 +30,9 @@ filetype plugin indent on " load filetype plugins/indent settings
 " Vundle end
 
 " colour scheme
-colorscheme solarized " colour scheme
-set background=dark " background colour
-" colour scheme
+colorscheme solarized
+set background=dark
+" colour scheme end
 
 " lightline
 set laststatus=2
@@ -48,13 +48,6 @@ set noshowmode " Hide Insert, Replace or Visual on last line
 " netrw file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
-"let g:netrw_browse_split = 4
-"let g:netrw_altv = 1
-"let g:netrw_winsize = 20
-"augroup ProjectDrawer
-"  autocmd!
-"  autocmd VimEnter * :Vexplore
-"augroup END
 " netrw end
 
 " ### General Settings
@@ -81,7 +74,7 @@ set hidden " causes files to be hidden instead of closed
 set history=200 " command line mode history
 
 set list " show invisibles
-set listchars=tab:»\ ,eol:¬ " set symbols for tabstops and EOLs
+set listchars=tab:│\ ,eol:¬ " set symbols for tabstops and EOLs
 highlight SpecialKey ctermbg=NONE " no background color for tab char
 
 set wrap " wrap text
