@@ -74,8 +74,9 @@ set hidden " causes files to be hidden instead of closed
 set history=200 " command line mode history
 
 set list " show invisibles
-set listchars=tab:│\ ,eol:¬ " set symbols for tabstops and EOLs
-highlight SpecialKey ctermbg=NONE " no background color for tab char
+set listchars=tab:│\ ,eol:∙ " set symbols for tabstops and EOLs
+highlight SpecialKey ctermbg=NONE ctermfg=magenta " tab char colors
+highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
 
 set wrap " wrap text
 set linebreak " don't split words when wrapping text
