@@ -1,0 +1,14 @@
+[user]
+	name = nimbus117
+	email = mail@nimbus117.co.uk
+[color]
+	ui = auto
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = false

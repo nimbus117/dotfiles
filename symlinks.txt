@@ -1,0 +1,5 @@
+ln -s ~/code/dotfiles/.vimrc .vimrc -f
+ln -s ~/code/dotfiles/.zshrc .zshrc -f
+ln -s ~/code/dotfiles/.screenrc .screenrc -f
+ln -s ~/code/dotfiles/.gitconfig .gitconfig -f
+ln -s ~/code/dotfiles/.config .config -f
