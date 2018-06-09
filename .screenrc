@@ -13,20 +13,21 @@ autodetach on
 # scrollback buffer
 defscrollback 1000
 
-#prevent full-screen programs like vim remaining in the scrollback buffer
+# prevent full-screen programs like vim remaining in the scrollback buffer
 altscreen on
 
 # status line and caption
 hardstatus alwayslastline
-hardstatus string '%{Bk} %H%? %1`%? %{kG}%= %{= kG}%-w%{+b bk} %n*%t%?(%u)%? %{-}%+w %=%{Gk} %d/%m %{Bk} %0c '
+hardstatus string '%{Bk} %H %{kG}%=%{=kG}%-w%{+b bk} %n %t %{-}%+w%=%{Gk} %d/%m %{Bk} %0c '
 caption string '%{G}%2n %t'
 rendition so = kG
 
-# create 2 more windows at startup
+# create 3 more windows at startup
 screen -t ~ 2
 screen -t ~ 3
+screen -t ~ 4
 
-#Window numbering starts at 1
+# window numbering starts at 1
 bind c screen 1
 bind ^c screen 1
 bind 0 select 10
@@ -36,33 +37,31 @@ screen 1
 layout new a
 select 1
 layout new v1
-select 1
-split -v
-resize -h 67%
-focus right
 select 2
-focus left
+split -v
+resize -h 34%
+focus right
+select 1
 layout new v2
-select 1
-split -v
-resize -h 67%
-focus right
 select 2
+split -v
+resize -h 34%
 split
 focus down
 select 3
-focus left
+focus right
+select 1
 layout new h1
 select 1
 split
-resize -v 67%
+resize -v 70%
 focus down
 select 2
 focus up
 layout new h2
 select 1
 split
-resize -v 67%
+resize -v 70%
 focus down
 select 2
 split -v
@@ -73,8 +72,21 @@ layout select a
 
 ### key bindings
 
-#change focus between splits
+# change focus between regions
 bind j focus down
 bind k focus up
 bind l focus right
 bind h focus left
+
+# F3 and F4 to move one window forward or back
+bindkey -k k3 prev
+bindkey -k k4 next
+
+# F5 and F6 to move one layout forward or back
+bindkey -k k5 layout prev
+bindkey -k k6 layout next
+
+# disable keys
+bind s
+bind z
+bind x
