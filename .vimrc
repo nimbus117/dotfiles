@@ -2,7 +2,7 @@
 let notNew=1
 let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
 if !filereadable(vundle_readme) 
-	echo "Installing Vundle.."
+	echo "Installing Vundle..."
 	echo ""
 	silent !mkdir -p ~/.vim/bundle
 	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
@@ -20,11 +20,11 @@ Plugin 'mattn/emmet-vim'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jiangmiao/auto-pairs'
 if notNew == 0
-	echo "Installing Vundles, please ignore key map error messages"
+	echo "Installing Plugins..."
 	echo ""
 	:PluginInstall
 endif
-call vundle#end() 
+call vundle#end()
 "must be last
 filetype plugin indent on " load filetype plugins/indent settings
 " Vundle end
@@ -84,7 +84,11 @@ set linebreak " don't split words when wrapping text
 set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
 
-" ### Mappings
+set foldmethod=indent " automatically fold on indents
+set foldnestmax=10 " sets the maximum nesting of folds
+set nofoldenable " start with all folds open
+
+" ### key mappings
 
 " remap jk/kj to exit
 inoremap kj <Esc>`^
@@ -94,4 +98,25 @@ inoremap jk <Esc>`^
 " allows normal movement through soft wrapped lines
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
-" https://www.reddit.com/r/vim/comments/2k4cbr/problem_with_gj_and_gk/
+
+" open (zz) and close (ZZ) DiffWithSaved tab
+nnoremap zz :DiffOpen<CR>
+nnoremap ZZ :tabclose<CR>
+
+" ### functions
+
+" Diff the current buffer and original file
+	" opens a new tab with a vertical split
+	" the left window shows the original saved file
+	" the right window shows the current buffer
+function! s:DiffWithSaved()
+	let filetype=&ft
+	tabedit %
+	diffthis
+	vnew | r # | normal! 1Gdd
+	diffthis
+	execute "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
+	set nocursorline
+	execute "normal \<c-w>l"
+endfunction
+command! DiffOpen call s:DiffWithSaved()
