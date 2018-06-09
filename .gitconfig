@@ -12,3 +12,5 @@
 	conflictstyle = diff3
 [mergetool]
 	prompt = false
+[core]
+	editor = vim
