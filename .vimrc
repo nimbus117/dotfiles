@@ -1,48 +1,42 @@
-" ### Setting up Vundle
-let notNew=1
+" ### plugins
+
+" vundle plugin manager
+let new=0
 let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
 if !filereadable(vundle_readme) 
 	echo "Installing Vundle..."
 	echo ""
 	silent !mkdir -p ~/.vim/bundle
 	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	let notNew=0
+	let new=1
 endif
-set nocompatible " be iMproved, required
+set nocompatible " required
 filetype off     " required
 set rtp+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-"Add bundles here
+" add plugins here
 Plugin 'itchyny/lightline.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'mattn/emmet-vim'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jiangmiao/auto-pairs'
-if notNew == 0
-	echo "Installing Plugins..."
-	echo ""
+if new == 1
 	:PluginInstall
+	echo "you may need to close and re-open vim"
 endif
 call vundle#end()
-"must be last
-filetype plugin indent on " load filetype plugins/indent settings
-" Vundle end
+" vundle end
 
-" colour scheme
-colorscheme solarized
-set background=dark
-" colour scheme end
-
-" lightline
-set laststatus=2
+" lightline status line
+set laststatus=2 " always show status line"
+set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ }
 if !has('gui_running')
   set t_Co=256
 endif
-set noshowmode " Hide Insert, Replace or Visual on last line
 " lightline end
 
 " netrw file explorer
@@ -50,9 +44,15 @@ let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 " netrw end
 
+
 " ### General Settings
 
+colorscheme solarized " load color scheme"
+set background=dark " light/dark
+
 syntax enable " enable syntax highlighting
+
+filetype plugin indent on " enable filetype detection, plugins and indent settings
 
 set number " Show line numbers
 
@@ -69,7 +69,7 @@ set incsearch " search as characters are typed
 
 set spell spelllang=en_gb " enable spell check and set language to English GB
 
-set hidden " causes files to be hidden instead of closed
+set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
 
 set history=200 " command line mode history
 
@@ -85,8 +85,9 @@ set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
 
 set foldmethod=indent " automatically fold on indents
-set foldnestmax=10 " sets the maximum nesting of folds
+set foldnestmax=10 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
+
 
 " ### key mappings
 
@@ -99,16 +100,49 @@ inoremap jk <Esc>`^
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
-" open (zz) and close (ZZ) DiffWithSaved tab
-nnoremap zz :DiffOpen<CR>
-nnoremap ZZ :tabclose<CR>
+" mappings using the leader key
+
+" set <Leader> key to space bar
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
+
+" cycle between windows by pressing <Leader> key twice
+nnoremap <Leader><Leader> <c-w><c-w>
+
+" toggle file explorer
+nnoremap <Leader>e :20Lexplore<CR>
+
+" show buffer list
+nnoremap <Leader>l :buffers<CR>
+
+" follow by buffer name and/or <TAB> and hit enter
+nnoremap <Leader>b :buffer 
+
+" go to next buffer
+nnoremap <Leader>n :bnext<CR>
+
+" go to previous buffer
+nnoremap <Leader>p :bprevious<CR>
+
+" go to alternate buffer
+nnoremap <Leader>a :buffer #<CR>
+
+" open new tab
+nnoremap <Leader>to :tabnew<CR>
+
+" close tab
+nnoremap <Leader>tc :tabclose<CR>
+
+" see DiffWithSaved function below
+nnoremap <Leader>d :DiffOpen<CR>
+
 
 " ### functions
 
-" Diff the current buffer and original file
-	" opens a new tab with a vertical split
-	" the left window shows the original saved file
-	" the right window shows the current buffer
+" diff the current buffer and original file
+"   opens a new tab with a vertical split
+"   the left window shows the original saved file
+"   the right window shows the current buffer
 function! s:DiffWithSaved()
 	let filetype=&ft
 	tabedit %
@@ -116,7 +150,7 @@ function! s:DiffWithSaved()
 	vnew | r # | normal! 1Gdd
 	diffthis
 	execute "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-	set nocursorline
+	setlocal nocursorline
 	execute "normal \<c-w>l"
 endfunction
 command! DiffOpen call s:DiffWithSaved()
