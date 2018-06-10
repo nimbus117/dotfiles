@@ -13,12 +13,9 @@ autodetach on
 # scrollback buffer
 defscrollback 1000
 
-# prevent full-screen programs like vim remaining in the scrollback buffer
-altscreen on
-
 # status line and caption
 hardstatus alwayslastline
-hardstatus string '%{Bk} %H %{kG}%=%{=kG}%-w%{+b bk} %n %t %{-}%+w%=%{Gk} %d/%m %{Bk} %0c '
+hardstatus string '%{bk} %H %{Gk} %D %d %{kG}%=%-Lw%{+b bk} %n*%f %t %{-}%+Lw%=%{Gk} %M %Y %{Bk} %0c '
 caption string '%{G}%2n %t'
 rendition so = kG
 
@@ -39,13 +36,13 @@ select 1
 layout new v1
 select 2
 split -v
-resize -h 34%
+resize -h 33%
 focus right
 select 1
 layout new v2
 select 2
 split -v
-resize -h 34%
+resize -h 33%
 split
 focus down
 select 3
