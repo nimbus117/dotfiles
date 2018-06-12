@@ -1,6 +1,5 @@
-" ### plugins
+" ### vundle plugin manager {{{
 
-" vundle plugin manager
 let new=0
 let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
 if !filereadable(vundle_readme) 
@@ -27,6 +26,9 @@ if new == 1
 endif
 call vundle#end()
 " vundle end
+" }}}
+
+" ### plugin settings {{{
 
 " lightline status line
 set laststatus=2 " always show status line"
@@ -44,9 +46,9 @@ let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = '.*\.swp$,\.orig$' " hide files
 " netrw end
+" }}}
 
-
-" ### General Settings
+" ### General Settings {{{
 
 colorscheme solarized " load color scheme"
 set background=dark " light/dark
@@ -89,9 +91,9 @@ set smartcase " enable case sensitive search when capitals are used
 set foldmethod=indent " automatically fold on indents
 set foldnestmax=10 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
+" }}}
 
-
-" ### key mappings
+" ### key mappings {{{
 
 " set <Leader> key to space bar
 nnoremap <SPACE> <Nop>
@@ -150,9 +152,9 @@ nnoremap <Leader>tc :tabclose<CR>
 
 " see DiffWithSaved function below
 nnoremap <Leader>d :DiffOpen<CR>
+" }}}
 
-
-" ### functions
+" ### functions {{{
 
 " diff the current buffer and original file
 "   opens a new tab with a vertical split
@@ -169,8 +171,9 @@ function! s:DiffWithSaved()
 	execute "normal \<c-w>l"
 endfunction
 command! DiffOpen call s:DiffWithSaved()
+" }}}
 
-" ### autocmds
+" ### autocmds {{{
 
 augroup BufReadPost_AllFiles
 	" remove ALL autocommands for the current group
@@ -178,3 +181,13 @@ augroup BufReadPost_AllFiles
 	" return to last edit position when opening files
 	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup END
+
+
+augroup filetype_vim
+	autocmd!
+	" set foldmethod to marker when editing vim files
+	autocmd FileType vim setlocal foldmethod=marker
+	" start with all folds closed
+	autocmd FileType vim setlocal foldenable
+augroup END
+" }}}
