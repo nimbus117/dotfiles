@@ -42,6 +42,7 @@ endif
 " netrw file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
+let g:netrw_list_hide = '.*\.swp$,\.orig$' " hide files
 " netrw end
 
 
@@ -66,6 +67,7 @@ set cursorline " highlight current line
 set wildmenu " visual autocomplete for command menu
 
 set incsearch " search as characters are typed
+set hlsearch " highlight all search matches
 
 set spell spelllang=en_gb " enable spell check and set language to English GB
 
@@ -91,7 +93,11 @@ set nofoldenable " start with all folds open
 
 " ### key mappings
 
-" remap jk/kj to exit
+" set <Leader> key to space bar
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
+
+" map jk/kj to exit, doesn't move cursor back
 inoremap kj <Esc>`^
 inoremap jk <Esc>`^
 
@@ -100,14 +106,23 @@ inoremap jk <Esc>`^
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
-" mappings using the leader key
+" move cursor down 10 lines
+nnoremap <Leader>j 10j
 
-" set <Leader> key to space bar
-nnoremap <SPACE> <Nop>
-let mapleader = "\<Space>"
+" move cursor up 10 lines
+nnoremap <Leader>k 10k
+
+" inserts a blank line below the current line
+nnoremap <CR> o<ESC>k
+
+" inserts a blank line above the current line
+nnoremap <Leader><CR> O<ESC>j
 
 " cycle between windows by pressing <Leader> key twice
 nnoremap <Leader><Leader> <c-w><c-w>
+
+" stop current search highlighting 
+nnoremap <Leader>/ :nohlsearch<CR>
 
 " toggle file explorer
 nnoremap <Leader>e :20Lexplore<CR>
@@ -154,3 +169,12 @@ function! s:DiffWithSaved()
 	execute "normal \<c-w>l"
 endfunction
 command! DiffOpen call s:DiffWithSaved()
+
+" ### autocmds
+
+augroup BufReadPost_AllFiles
+	" remove ALL autocommands for the current group
+	autocmd!
+	" return to last edit position when opening files
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup END
