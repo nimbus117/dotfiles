@@ -75,7 +75,7 @@ layout select a
 select 4
 stuff " cd ; clear^M"
 select 3
-stuff " clear^M"
+stuff " cd ; clear^M"
 select 2
 stuff " clear^M"
 select 1
