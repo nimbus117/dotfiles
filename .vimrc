@@ -3,15 +3,15 @@
 let new=0
 let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
 if !filereadable(vundle_readme) 
-	echo "Installing Vundle..."
-	echo ""
+	echo 'Installing Vundle...'
+	echo ''
 	silent !mkdir -p ~/.vim/bundle
 	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
 	let new=1
 endif
 set nocompatible " required
 filetype off     " required
-set rtp+=~/.vim/bundle/Vundle.vim/
+set runtimepath+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " add plugins here
@@ -20,12 +20,11 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'mattn/emmet-vim'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jiangmiao/auto-pairs'
+call vundle#end()
 if new == 1
 	:PluginInstall
-	echo "you may need to close and re-open vim"
+	echo 'you may need to close and re-open vim'
 endif
-call vundle#end()
-" vundle end
 " }}}
 
 " ### plugin settings {{{
@@ -39,57 +38,68 @@ let g:lightline = {
 if !has('gui_running')
   set t_Co=256
 endif
-" lightline end
 
 " netrw file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = '.*\.swp$,\.orig$' " hide files
-" netrw end
 " }}}
 
 " ### General Settings {{{
 
-colorscheme solarized " load color scheme"
-set background=dark " light/dark
+set encoding=utf-8 " set character encoding
 
 syntax enable " enable syntax highlighting
 
 filetype plugin indent on " enable filetype detection, plugins and indent settings
 
+set lazyredraw " stops the screen being redrawn during some operations, better performance
+
+set ttyfast " fast terminal connection, smooth!
+
+set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
+
+set spell spelllang=en_gb " enable spell check and set language to English GB
+
+set history=200 " command line mode history
+
+set wildmenu " enhanced autocomplete for command menu
+
+set showcmd " Show (partial) command in the last line of the screen
+
+set backspace=2 " allow backspace over indent, eol, start
+
+colorscheme solarized " load color scheme
+set background=dark " light/dark
+highlight Normal ctermbg=NONE " transparent background
+
 set number " Show line numbers
+set numberwidth=3 " set number column to start at 3
+set nowrap " don't wrap text
+set linebreak " don't split words when wrapping text
+set cursorline " highlight current line
+set scrolloff=2 " number of screen lines to keep above and below the cursor
 
 "set expandtab " insert space characters whenever the tab key is pressed
 set tabstop=2 " number of visual spaces per TAB
 set softtabstop=2 " number of spaces in TAB when editing
 set shiftwidth=2 "Number of spaces to use for each step of (auto)indent
 
-set cursorline " highlight current line
-
-set wildmenu " visual autocomplete for command menu
+set autoindent " always set autoindenting on
+set smartindent " smart autoindenting when no indent file
 
 set incsearch " search as characters are typed
 set hlsearch " highlight all search matches
-
-set spell spelllang=en_gb " enable spell check and set language to English GB
-
-set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
-
-set history=200 " command line mode history
-
-set list " show invisibles
-set listchars=tab:│\ ,eol:∙ " set symbols for tabstops and EOLs
-highlight SpecialKey ctermbg=NONE ctermfg=magenta " tab char colors
-highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
-
-set wrap " wrap text
-set linebreak " don't split words when wrapping text
-
 set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
 
+set list " show invisibles
+set listchars=tab:│\ ,eol:∙ " set symbols for tabstops and EOLs
+highlight SpecialKey ctermbg=NONE ctermfg=magenta guibg=NONE guifg=magenta " tab char colors
+highlight NonText ctermbg=NONE ctermfg=darkmagenta guibg=NONE guifg=darkmagenta " eol char colors
+
 set foldmethod=indent " automatically fold on indents
-set foldnestmax=10 " sets the maximum nest level of folds
+set foldnestmax=3 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
 " }}}
 
@@ -123,11 +133,17 @@ nnoremap <Leader><CR> O<ESC>j
 " cycle between windows by pressing <Leader> key twice
 nnoremap <Leader><Leader> <c-w><c-w>
 
-" stop current search highlighting 
+" same as <c-w>
+nnoremap <Leader>w <c-w>
+
+" stop current search highlighting
 nnoremap <Leader>/ :nohlsearch<CR>
 
 " toggle file explorer
-nnoremap <Leader>e :20Lexplore<CR>
+"nnoremap <Leader>e :20Lexplore<CR>
+"nnoremap <Leader>e :Rexplore<CR>
+nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+"nnoremap <expr> <leader>e exists(':Rexplore') ? ':Rexplore<CR>' : ':Explore<CR>'
 
 " show buffer list
 nnoremap <Leader>l :buffers<CR>
@@ -150,7 +166,10 @@ nnoremap <Leader>to :tabnew<CR>
 " close tab
 nnoremap <Leader>tc :tabclose<CR>
 
-" see DiffWithSaved function below
+" insert uuid, see InsertUuid function below
+nnoremap <Leader>uu :InsertUuid<CR>
+
+" open diff tab, see DiffWithSaved function below
 nnoremap <Leader>d :DiffOpen<CR>
 " }}}
 
@@ -161,27 +180,50 @@ nnoremap <Leader>d :DiffOpen<CR>
 "   the left window shows the original saved file
 "   the right window shows the current buffer
 function! s:DiffWithSaved()
-	let filetype=&ft
-	tabedit %
-	diffthis
-	vnew | r # | normal! 1Gdd
-	diffthis
-	execute "setlocal bt=nofile bh=wipe nobl noswf ro ft=" . filetype
-	setlocal nocursorline
-	execute "normal \<c-w>l"
+	if &modified
+		if filereadable(expand('%:p'))
+			let filetype=&ft
+			tabedit %
+			diffthis
+			vnew | r # | normal! 1Gdd
+			diffthis
+			execute 'setlocal bt=nofile bh=wipe nobl noswf ro ft=' . filetype
+			setlocal nocursorline
+			execute "normal! \<c-w>l"
+		else
+			echo 'no file to diff'
+		endif
+	else
+		echo 'no changes to diff'
+	endif
 endfunction
 command! DiffOpen call s:DiffWithSaved()
+
+" generate and insert a uuid
+"   uses uuidgen to generate a uuid
+"   the uuid is saved to the 'u' register so it can be used again
+"   the content of the 'u' register is then put after the cursor
+function! s:InsertUuid()
+	if executable('uuidgen')
+		call setreg('u', system('uuidgen | tr -d "\n"'), 'c')
+		execute "normal! \"up"
+	else
+		echo 'uuidgen command not found'
+	endif
+endfunction
+command! InsertUuid call s:InsertUuid()
 " }}}
 
 " ### autocmds {{{
 
-augroup BufReadPost_AllFiles
+augroup allfiles
 	" remove ALL autocommands for the current group
 	autocmd!
 	" return to last edit position when opening files
-	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+	autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
+	" disable automatic comment leader insertion
+	autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 augroup END
-
 
 augroup filetype_vim
 	autocmd!
