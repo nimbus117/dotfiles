@@ -20,6 +20,7 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'mattn/emmet-vim'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'tpope/vim-fugitive.git'
 call vundle#end()
 if new == 1
 	:PluginInstall
@@ -34,6 +35,13 @@ set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
 	\ 'colorscheme': 'solarized',
+	\ 'active': {
+		\ 'left': [ [ 'mode', 'paste'  ],
+		\         [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ]
+		\ },
+	\ 'component_function': {
+		\   'gitbranch': 'fugitive#head'
+		\ }
 	\ }
 if !has('gui_running')
 	set t_Co=256
@@ -130,19 +138,15 @@ nnoremap <CR> o<ESC>k
 " inserts a blank line above the current line
 nnoremap <Leader><CR> O<ESC>j
 
-" cycle between windows by pressing <Leader> key twice
-nnoremap <Leader><Leader> <c-w><c-w>
-
-" same as <c-w>
-nnoremap <Leader>w <c-w>
-
 " stop current search highlighting
 nnoremap <Leader>/ :nohlsearch<CR>
 
 " toggle file explorer
 "nnoremap <Leader>e :20Lexplore<CR>
 "nnoremap <Leader>e :Rexplore<CR>
-nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+"nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+"nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':edit.<CR>' : ':Rexplore<CR>'
+nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':edit.<CR>' : '<c-^>'
 "nnoremap <expr> <leader>e exists(':Rexplore') ? ':Rexplore<CR>' : ':Explore<CR>'
 
 " show buffer list
@@ -160,6 +164,18 @@ nnoremap <Leader>p :bprevious<CR>
 " go to alternate buffer
 nnoremap <Leader>a :buffer #<CR>
 
+" cycle between windows by pressing <Leader> key twice
+nnoremap <Leader><Leader> <c-w><c-w>
+
+" same as <c-w>
+nnoremap <Leader>w <c-w>
+
+" open a split with file explorer
+nnoremap <Leader>s :split.<CR>
+
+" open a vertical split with file explorer
+nnoremap <Leader>v :vsplit.<CR>
+
 " open new tab
 nnoremap <Leader>to :tabnew<CR>
 
@@ -171,6 +187,9 @@ nnoremap <Leader>uu :InsertUuid<CR>
 
 " open diff tab, see DiffWithSaved function below
 nnoremap <Leader>d :DiffOpen<CR>
+
+" open diff tab, see DiffWithSaved function below
+nnoremap <Leader>gd :GitDiffOpen<CR>
 " }}}
 
 " ### functions {{{
@@ -188,9 +207,7 @@ function! s:DiffWithSaved()
 			vnew | r # | normal! 1Gdd
 			diffthis
 			execute 'setlocal bt=nofile bh=wipe nobl noswf ro ft=' . filetype
-			setlocal nocursorline
 			setlocal foldmethod=diff
-			execute "normal! \<c-w>l"
 		else
 			echo 'no file to diff'
 		endif
@@ -199,6 +216,20 @@ function! s:DiffWithSaved()
 	endif
 endfunction
 command! DiffOpen call s:DiffWithSaved()
+
+" use vim to do a git diff of the current buffer
+"   opens a new tab with a vertical split
+"   the left window shows the version in the index
+"   the right window shows the current buffer
+function! s:DiffWithGit()
+	if exists(':Gdiff')
+		tabedit %
+		Gdiff
+	else
+		echo 'Gdiff not available'
+	endif
+endfunction
+command! GitDiffOpen call s:DiffWithGit()
 
 " generate and insert a uuid
 "   uses uuidgen to generate a uuid
@@ -217,12 +248,12 @@ command! InsertUuid call s:InsertUuid()
 
 " ### autocmds {{{
 
-if has("autocmd")
+if has('autocmd')
 	augroup allfiles
 		" remove ALL autocommands for the current group
 		autocmd!
 		" return to last edit position when opening files
-		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
+		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"zz" | endif
 		" disable automatic comment leader insertion
 		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 	augroup END
