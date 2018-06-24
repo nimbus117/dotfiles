@@ -127,10 +127,10 @@ nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
 " move cursor down 10 lines
-nnoremap <Leader>j 10j
+nnoremap <Leader>j 20j
 
 " move cursor up 10 lines
-nnoremap <Leader>k 10k
+nnoremap <Leader>k 20k
 
 " inserts a blank line below the current line
 nnoremap <CR> o<ESC>k
@@ -144,9 +144,9 @@ nnoremap <Leader>/ :nohlsearch<CR>
 " toggle file explorer
 "nnoremap <Leader>e :20Lexplore<CR>
 "nnoremap <Leader>e :Rexplore<CR>
-"nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
 "nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':edit.<CR>' : ':Rexplore<CR>'
-nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':edit.<CR>' : '<c-^>'
+"nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':edit.<CR>' : '<c-^>'
 "nnoremap <expr> <leader>e exists(':Rexplore') ? ':Rexplore<CR>' : ':Explore<CR>'
 
 " show buffer list
@@ -165,7 +165,7 @@ nnoremap <Leader>p :bprevious<CR>
 nnoremap <Leader>a :buffer #<CR>
 
 " cycle between windows by pressing <Leader> key twice
-nnoremap <Leader><Leader> <c-w><c-w>
+nnoremap <Leader><Leader> <c-w>w
 
 " same as <c-w>
 nnoremap <Leader>w <c-w>
@@ -224,7 +224,7 @@ command! DiffOpen call s:DiffWithSaved()
 function! s:DiffWithGit()
 	if exists(':Gdiff')
 		tabedit %
-		Gdiff
+		Gvdiff
 	else
 		echo 'Gdiff not available'
 	endif
@@ -252,8 +252,8 @@ if has('autocmd')
 	augroup allfiles
 		" remove ALL autocommands for the current group
 		autocmd!
-		" return to last edit position when opening files
-		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"zz" | endif
+		" return to the last cursor position when opening files
+		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
 		" disable automatic comment leader insertion
 		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 	augroup END
