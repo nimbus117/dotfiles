@@ -50,7 +50,7 @@ endif
 " netrw file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
-let g:netrw_list_hide = '.*\.swp$,\.orig$' " hide files
+let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides all git-ignored files)"
 " }}}
 
 " ### General Settings {{{
