@@ -249,21 +249,23 @@ command! InsertUuid call s:InsertUuid()
 " ### autocmds {{{
 
 if has('autocmd')
-	augroup allfiles
+	augroup vimrc
 		" remove ALL autocommands for the current group
 		autocmd!
+
 		" return to the last cursor position when opening files
 		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
+
 		" disable automatic comment leader insertion
 		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-	augroup END
 
-	augroup filetype_vim
-		autocmd!
 		" set foldmethod to marker when editing vim files
 		autocmd FileType vim setlocal foldmethod=marker
 		" start with all folds closed
 		autocmd FileType vim setlocal foldenable
+
+		" auto-clean fugitive buffers
+		autocmd BufReadPost fugitive://* set bufhidden=delete
 	augroup END
 endif
 " }}}
