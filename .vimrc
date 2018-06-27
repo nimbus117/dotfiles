@@ -141,12 +141,6 @@ nnoremap <Leader>j <c-d>
 " scroll window upwards half a screen
 nnoremap <Leader>k <c-u>
 
-" inserts a blank line below the current line
-nnoremap <CR> o<ESC>k
-
-" inserts a blank line above the current line
-nnoremap <Leader><CR> O<ESC>j
-
 " stop current search highlighting
 nnoremap <Leader>/ :nohlsearch<CR>
 
