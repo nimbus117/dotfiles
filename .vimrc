@@ -59,7 +59,6 @@ runtime macros/matchit.vim " enable matchit
 
 " Emmet - expand html/css abbreviations
 let g:user_emmet_install_global = 0 " disable globally (enable for html/ css in autocmd)
-let g:user_emmet_leader_key='<C-Z>' " redefine trigger key
 " }}}
 
 " ### General Settings {{{
@@ -168,11 +167,14 @@ nnoremap <Leader><Leader> <c-w>w
 " same as <c-w>
 nnoremap <Leader>w <c-w>
 
+" open current window in a new tab
+nnoremap <Leader>wt <c-w>T
+
 " open a split with file explorer
-nnoremap <Leader>s :split.<CR>
+nnoremap <Leader>s :split<CR>
 
 " open a vertical split with file explorer
-nnoremap <Leader>v :vsplit.<CR>
+nnoremap <Leader>v :vsplit<CR>
 
 " open new tab
 nnoremap <Leader>to :tabnew<CR>
