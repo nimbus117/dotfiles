@@ -21,6 +21,8 @@ Plugin 'mattn/emmet-vim'
 Plugin 'jelera/vim-javascript-syntax'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-fugitive.git'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'JulesWang/css.vim'
 call vundle#end()
 if new == 1
 	:PluginInstall
@@ -30,7 +32,7 @@ endif
 
 " ### plugin settings {{{
 
-" lightline status line
+" lightline - status line
 set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
@@ -47,10 +49,17 @@ if !has('gui_running')
 	set t_Co=256
 endif
 
-" netrw file explorer
+" netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides all git-ignored files)"
+
+" matchit - extended matching with %
+runtime macros/matchit.vim " enable matchit
+
+" Emmet - expand html/css abbreviations
+let g:user_emmet_install_global = 0 " disable globally (enable for html/ css in autocmd)
+let g:user_emmet_leader_key='<C-Z>' " redefine trigger key
 " }}}
 
 " ### General Settings {{{
@@ -63,8 +72,6 @@ filetype plugin indent on " enable filetype detection, plugins and indent settin
 
 set lazyredraw " stops the screen being redrawn during some operations, better performance
 
-set ttyfast " fast terminal connection, smooth!
-
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
 
 set spell spelllang=en_gb " enable spell check and set language to English GB
@@ -76,6 +83,8 @@ set wildmenu " enhanced autocomplete for command menu
 set showcmd " Show (partial) command in the last line of the screen
 
 set backspace=2 " allow backspace over indent, eol, start
+
+set display+=lastline " show as much as possible of the last line
 
 colorscheme solarized " load color scheme
 set background=dark " light/dark
@@ -126,11 +135,11 @@ inoremap jk <Esc>`^
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
-" move cursor down 10 lines
-nnoremap <Leader>j 20j
+" scroll window downwards half a screen
+nnoremap <Leader>j <c-d>
 
-" move cursor up 10 lines
-nnoremap <Leader>k 20k
+" scroll window upwards half a screen
+nnoremap <Leader>k <c-u>
 
 " inserts a blank line below the current line
 nnoremap <CR> o<ESC>k
@@ -142,12 +151,7 @@ nnoremap <Leader><CR> O<ESC>j
 nnoremap <Leader>/ :nohlsearch<CR>
 
 " toggle file explorer
-"nnoremap <Leader>e :20Lexplore<CR>
-"nnoremap <Leader>e :Rexplore<CR>
 nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
-"nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':edit.<CR>' : ':Rexplore<CR>'
-"nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':edit.<CR>' : '<c-^>'
-"nnoremap <expr> <leader>e exists(':Rexplore') ? ':Rexplore<CR>' : ':Explore<CR>'
 
 " show buffer list
 nnoremap <Leader>l :buffers<CR>
@@ -266,6 +270,11 @@ if has('autocmd')
 
 		" auto-clean fugitive buffers
 		autocmd BufReadPost fugitive://* set bufhidden=delete
+
+		" enable emmet for html and css files and use tab key as the abbreviation expander
+		autocmd FileType html,css
+			\ EmmetInstall |
+			\ imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
 	augroup END
 endif
 " }}}
