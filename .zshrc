@@ -109,8 +109,29 @@ thematrix() {
 	echo -e "\e[1;40m" ; clear ; while :; do echo $LINES $COLUMNS $(( $RANDOM % $COLUMNS)) $(( $RANDOM % 72 )) ;sleep 0.05; done|awk '{ letters="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()"; c=$4; letter=substr(letters,c,1);a[$3]=0;for (x in a) {o=a[x];a[x]=a[x]+1; printf "\033[%s;%sH\033[2;32m%s",o,x,letter; printf "\033[%s;%sH\033[1;37m%s\033[0;0H",a[x],x,letter;if (a[x] >= $1) { a[x]=0; } }}'
 }
 
+# get the weather
+weather() {
+	if [ $# -eq 0  ]
+	then
+		curl 'wttr.in/unitedkindom+edinburgh'
+	else
+		curl 'wttr.in/'$1
+	fi
+}
+
+# dictionary lookup
+dict() {
+	if [ $# -eq 0  ]
+	then
+		echo 'no word given'
+	else
+		curl -s "dict://dict.org/d:"$1 | tail -n+3 | head -n -2| more
+	fi
+}
+
 # environment variables
 
+# home page for w3m browser
 export WWW_HOME='www.google.com'
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
