@@ -100,7 +100,7 @@ alias cls='tput reset'
 alias h='history'
 
 # 'hs' to search history
-alias hs='history | grep'
+alias hs='history | grep -i'
 
 # Functions
 
