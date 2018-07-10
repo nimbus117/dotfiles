@@ -8,7 +8,13 @@
 # it'll load a random theme each time that oh-my-zsh is loaded.
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
 
-ZSH_THEME="simple"
+
+if [ "$(uname 2> /dev/null)" != "Linux"  ]; then
+	ZSH_THEME="agnoster"
+	DEFAULT_USER=`whoami`
+else
+	ZSH_THEME="simple"
+fi
 
 # Set list of themes to load
 # Setting this variable when ZSH_THEME=random
@@ -125,7 +131,8 @@ dict() {
 	then
 		echo 'no word given'
 	else
-		curl -s "dict://dict.org/d:"$1 | tail -n+3 | head -n -2| more
+		curl -s "dict://dict.org/d:"$1 | tail -n+3 | more
+		#curl -s "dict://dict.org/d:"$1 | tail -n+3 | head -n -2| more
 	fi
 }
 
@@ -133,6 +140,10 @@ dict() {
 
 # home page for w3m browser
 export WWW_HOME='www.google.com'
+
+# set default editor
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
