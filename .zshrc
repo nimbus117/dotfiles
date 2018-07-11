@@ -132,9 +132,14 @@ dict() {
 	then
 		echo 'no word given'
 	else
-		curl -s "dict://dict.org/d:"$1 | tail -n+3 | more
-		#curl -s "dict://dict.org/d:"$1 | tail -n+3 | head -n -2| more
+		curl -s "dict://dict.org/d:"$1 | tail -n+3 | less
+		#curl -s "dict://dict.org/d:"$1 | tail -n+3 | head -n -2| less
 	fi
+}
+
+# cheat.sh
+cheat() {
+	curl -s "https://cheat.sh/"$1 | less
 }
 
 ## environment variables
