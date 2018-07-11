@@ -97,7 +97,8 @@ source $ZSH/oh-my-zsh.sh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
-# aliases
+
+## aliases
 
 # 'cls' properly clears the terminal
 alias cls='tput reset'
@@ -108,7 +109,7 @@ alias h='history'
 # 'hs' to search history
 alias hs='history | grep -i'
 
-# Functions
+## functions
 
 # matrix effect - https://gist.github.com/khakimov/3558086
 thematrix() {
@@ -136,7 +137,7 @@ dict() {
 	fi
 }
 
-# environment variables
+## environment variables
 
 # home page for w3m browser
 export WWW_HOME='www.google.com'
@@ -145,5 +146,20 @@ export WWW_HOME='www.google.com'
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
+# add git-extra-status to path
+# https://github.com/sandeep1995/git-extra-status.git
+if [ -d $HOME/git-extra-status ]
+then
+	export PATH=$PATH:$HOME/git-extra-status/bin
+fi
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+## misc
+
+# load rbenv
+if command -v rbenv >/dev/null
+then
+	eval "$(rbenv init - --no-rehash)"
+fi
