@@ -170,10 +170,10 @@ nnoremap <Leader>w <c-w>
 " open current window in a new tab
 nnoremap <Leader>wt <c-w>T
 
-" open a split with file explorer
+" open a split
 nnoremap <Leader>s :split<CR>
 
-" open a vertical split with file explorer
+" open a vertical split
 nnoremap <Leader>v :vsplit<CR>
 
 " open new tab
