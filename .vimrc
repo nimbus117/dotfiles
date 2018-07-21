@@ -249,24 +249,36 @@ command! InsertUuid call s:InsertUuid()
 " ### autocmds {{{
 
 if has('autocmd')
-	augroup vimrc
+	augroup misc
 		" remove ALL autocommands for the current group
 		autocmd!
-
 		" return to the last cursor position when opening files
 		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
-
 		" disable automatic comment leader insertion
 		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+		" auto-clean fugitive buffers
+		autocmd BufReadPost fugitive://* set bufhidden=delete
+	augroup END
 
+	augroup vim
+		autocmd!
 		" set foldmethod to marker when editing vim files
 		autocmd FileType vim setlocal foldmethod=marker
 		" start with all folds closed
 		autocmd FileType vim setlocal foldenable
+	augroup END
 
-		" auto-clean fugitive buffers
-		autocmd BufReadPost fugitive://* set bufhidden=delete
+	augroup ruby
+		autocmd!
+		" for ruby files the tab key inserts two space characters
+		autocmd FileType ruby set expandtab
+		autocmd FileType ruby set tabstop=2
+		autocmd FileType ruby set softtabstop=2
+		autocmd FileType ruby set shiftwidth=2
+	augroup END
 
+	augroup htmlCss
+		autocmd!
 		" enable emmet for html and css files and use tab key as the abbreviation expander
 		autocmd FileType html,css
 			\ EmmetInstall |
