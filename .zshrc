@@ -142,6 +142,15 @@ cheat() {
 	curl -s "https://cheat.sh/"$1 | less
 }
 
+# open google search for the given args
+google() {
+	searchStr=
+	for i in "$@"; do
+		searchStr="$searchStr+$i"
+	done
+	open "https://www.google.co.uk/search?q="$searchStr
+}
+
 ## environment variables
 
 # home page for w3m browser
@@ -153,13 +162,28 @@ export EDITOR="$VISUAL"
 
 # add git-extra-status to path
 # https://github.com/sandeep1995/git-extra-status.git
-if [ -d $HOME/git-extra-status ]
+if [ -d "$HOME/git-extra-status" ]
 then
-	export PATH=$PATH:$HOME/git-extra-status/bin
+	export PATH="$PATH:$HOME/git-extra-status/bin"
+fi
+
+# from codeclan mac setup script, not sure why??
+if [ -d  "$HOME/.bin" ]
+then
+	export PATH="$HOME/.bin:$PATH"
+fi
+
+# recommended by brew doctor
+if command -v brew >/dev/null
+then
+	export PATH="/usr/local/bin:$PATH"
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+if [ -d  $HOME/.rvm/bin ]
+then
+	export PATH="$PATH:$HOME/.rvm/bin"
+fi
 
 ## misc
 
@@ -168,3 +192,4 @@ if command -v rbenv >/dev/null
 then
 	eval "$(rbenv init - --no-rehash)"
 fi
+
