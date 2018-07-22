@@ -148,7 +148,14 @@ google() {
 	for i in "$@"; do
 		searchStr="$searchStr+$i"
 	done
-	open "https://www.google.co.uk/search?q="$searchStr
+	url="https://www.google.co.uk/search?q="$searchStr
+	if [[ $OSTYPE == "linux-gnu" ]]
+	then
+		xdg-open $url >> /dev/null
+	elif [[ $OSTYPE == "darwin"* ]]
+	then
+		open $url
+	fi
 }
 
 ## environment variables
