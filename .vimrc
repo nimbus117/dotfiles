@@ -23,6 +23,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'JulesWang/css.vim'
+Plugin 'lifepillar/vim-mucomplete'
 call vundle#end()
 if new == 1
 	:PluginInstall
@@ -59,6 +60,12 @@ runtime macros/matchit.vim " enable matchit
 
 " Emmet - expand html/css abbreviations
 let g:user_emmet_install_global = 0 " disable globally (enable for html/ css in autocmd)
+
+" MUcomplete - auto complete
+set completeopt+=menuone " use the popup menu even if there is only one match
+set completeopt+=noselect " do not select a match in the menu
+set shortmess+=c   " Shut off completion messages"
+let g:mucomplete#enable_auto_at_startup = 1
 " }}}
 
 " ### General Settings {{{
@@ -73,7 +80,7 @@ set lazyredraw " stops the screen being redrawn during some operations, better p
 
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
 
-set spell spelllang=en_gb " enable spell check and set language to English GB
+set spelllang=en_gb " set spelling language to English GB
 
 set history=200 " command line mode history
 
@@ -262,7 +269,7 @@ if has('autocmd')
 
 	augroup vim
 		autocmd!
-		" set foldmethod to marker when editing vim files
+		" set foldmethod to marker when editing
 		autocmd FileType vim setlocal foldmethod=marker
 		" start with all folds closed
 		autocmd FileType vim setlocal foldenable
@@ -270,7 +277,7 @@ if has('autocmd')
 
 	augroup ruby
 		autocmd!
-		" for ruby files the tab key inserts two space characters
+		" tab key inserts two space characters
 		autocmd FileType ruby set expandtab
 		autocmd FileType ruby set tabstop=2
 		autocmd FileType ruby set softtabstop=2
@@ -279,10 +286,12 @@ if has('autocmd')
 
 	augroup htmlCss
 		autocmd!
-		" enable emmet for html and css files and use tab key as the abbreviation expander
+		" enable emmet and use tab key as the abbreviation expander
 		autocmd FileType html,css
 			\ EmmetInstall |
 			\ imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+		" disable MUcomplete auto enabled at startup
+		autocmd FileType html,css let g:mucomplete#enable_auto_at_startup = 0
 	augroup END
 endif
 " }}}
