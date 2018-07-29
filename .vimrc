@@ -18,13 +18,13 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'itchyny/lightline.vim'
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'mattn/emmet-vim'
-"Plugin 'jelera/vim-javascript-syntax'
 Plugin 'pangloss/vim-javascript'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'JulesWang/css.vim'
 Plugin 'lifepillar/vim-mucomplete'
+Plugin 'google/vim-searchindex'
 call vundle#end()
 if new == 1
 	:PluginInstall
@@ -65,8 +65,8 @@ let g:user_emmet_install_global = 0 " disable globally (enable for html/ css in 
 " MUcomplete - auto complete
 set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
-set shortmess+=c   " Shut off completion messages"
-let g:mucomplete#enable_auto_at_startup = 1
+set shortmess+=c " disable completion messages"
+let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
 " }}}
 
 " ### General Settings {{{
