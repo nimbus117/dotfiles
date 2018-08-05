@@ -142,6 +142,12 @@ inoremap jk <Esc>`^
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
 
+" use arrow keys to resize windows
+nnoremap <Up> :resize +2<CR>
+nnoremap <Down> :resize -2<CR>
+nnoremap <Left> :vertical resize +2<CR>
+nnoremap <Right> :vertical resize -2<CR>
+
 " scroll window downwards half a screen
 nnoremap <Leader>j <c-d>
 
