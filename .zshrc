@@ -109,6 +109,9 @@ alias h='history'
 # 'hs' to search history
 alias hs='history | grep -i'
 
+# 'rb' = ruby
+alias rb='ruby'
+
 ## functions
 
 # matrix effect - https://gist.github.com/khakimov/3558086
