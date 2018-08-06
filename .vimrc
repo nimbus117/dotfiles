@@ -272,6 +272,9 @@ if has('autocmd')
 		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 		" auto-clean fugitive buffers
 		autocmd BufReadPost fugitive://* set bufhidden=delete
+		" highlight leading spaces
+		autocmd BufWinEnter,BufReadPre * setlocal conceallevel=2 concealcursor=nv
+		autocmd BufWinEnter * syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=·
 	augroup END
 
 	augroup vim
