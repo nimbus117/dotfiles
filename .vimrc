@@ -15,16 +15,18 @@ set runtimepath+=~/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " add plugins here
-Plugin 'itchyny/lightline.vim'
 Plugin 'altercation/vim-colors-solarized'
-Plugin 'mattn/emmet-vim'
-Plugin 'pangloss/vim-javascript'
+Plugin 'google/vim-searchindex'
+Plugin 'itchyny/lightline.vim'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'tpope/vim-fugitive.git'
-Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'JulesWang/css.vim'
 Plugin 'lifepillar/vim-mucomplete'
-Plugin 'google/vim-searchindex'
+Plugin 'mattn/emmet-vim'
+Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-fugitive.git'
+Plugin 'tpope/vim-surround'
+Plugin 'tpope/vim-commentary'
 call vundle#end()
 if new == 1
 	:PluginInstall
@@ -67,6 +69,9 @@ set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
 set shortmess+=c " disable completion messages"
 let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
+let g:mucomplete#chains = {
+	\ 'default' : ['path', 'omni', 'keyn', 'c-n']
+	\ }
 " }}}
 
 " ### General Settings {{{
