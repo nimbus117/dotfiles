@@ -28,7 +28,7 @@ Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-surround'
-plugin 'tpope/vim-unimpaired'
+Plugin 'tpope/vim-unimpaired'
 call vundle#end()
 if new == 1
 	:PluginInstall
@@ -71,9 +71,17 @@ set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
 set shortmess+=c " disable completion messages"
 let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
+" default complete chain
+" file names > omni-completion > keywords in complete
 let g:mucomplete#chains = {
-	\ 'default' : ['path', 'omni', 'keyn', 'c-n']
+	\ 'default' : ['path', 'omni', 'c-n']
 	\ }
+" trigger omni-completion after a dot or after two keyword characters
+" let g:mucomplete#can_complete = {
+" 	\ 'default': {
+" 		\ 'omni': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\|\.\)$' }
+" 		\ }
+" 	\ }
 " }}}
 
 " ### General Settings {{{
