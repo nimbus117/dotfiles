@@ -114,11 +114,6 @@ alias rb='ruby'
 
 ## functions
 
-# matrix effect - https://gist.github.com/khakimov/3558086
-thematrix() {
-	echo -e "\e[1;40m" ; clear ; while :; do echo $LINES $COLUMNS $(( $RANDOM % $COLUMNS)) $(( $RANDOM % 72 )) ;sleep 0.05; done|awk '{ letters="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()"; c=$4; letter=substr(letters,c,1);a[$3]=0;for (x in a) {o=a[x];a[x]=a[x]+1; printf "\033[%s;%sH\033[2;32m%s",o,x,letter; printf "\033[%s;%sH\033[1;37m%s\033[0;0H",a[x],x,letter;if (a[x] >= $1) { a[x]=0; } }}'
-}
-
 # get the weather
 weather() {
 	if [ $# -eq 0  ]
@@ -169,13 +164,6 @@ export WWW_HOME='www.google.com'
 # set default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
-
-# add git-extra-status to path
-# https://github.com/sandeep1995/git-extra-status.git
-if [ -d "$HOME/git-extra-status" ]
-then
-	export PATH="$PATH:$HOME/git-extra-status/bin"
-fi
 
 # from codeclan mac setup script, not sure why??
 if [ -d  "$HOME/.bin" ]
