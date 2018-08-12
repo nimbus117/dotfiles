@@ -181,12 +181,6 @@ nnoremap <Leader>l :buffers<CR>
 " follow by buffer name and/or <TAB> and hit enter
 nnoremap <Leader>b :buffer 
 
-" go to next buffer
-nnoremap <Leader>n :bnext<CR>
-
-" go to previous buffer
-nnoremap <Leader>p :bprevious<CR>
-
 " go to alternate buffer
 nnoremap <Leader>a :buffer #<CR>
 
