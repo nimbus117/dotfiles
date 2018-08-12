@@ -119,7 +119,6 @@ set linebreak " don't split words when wrapping text
 set cursorline " highlight current line
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 
-"set expandtab " insert space characters whenever the tab key is pressed
 set tabstop=2 " number of visual spaces per TAB
 set softtabstop=2 " number of spaces in TAB when editing
 set shiftwidth=2 "Number of spaces to use for each step of (auto)indent
@@ -134,7 +133,7 @@ set smartcase " enable case sensitive search when capitals are used
 
 set list " show invisibles
 set listchars=tab:│\ ,eol:∙ " set symbols for tabstops and EOLs
-highlight SpecialKey ctermbg=NONE ctermfg=magenta guibg=NONE guifg=magenta " tab char colors
+highlight SpecialKey ctermbg=NONE ctermfg=green guibg=NONE guifg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta guibg=NONE guifg=darkmagenta " eol char colors
 
 set foldmethod=indent " automatically fold on indents
@@ -281,36 +280,36 @@ if has('autocmd')
 		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
 		" auto-clean fugitive buffers
 		autocmd BufReadPost fugitive://* set bufhidden=delete
-		" highlight leading spaces
-		autocmd BufWinEnter,BufReadPre * setlocal conceallevel=2 concealcursor=nv
-		autocmd BufWinEnter * syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=·
 	augroup END
 
 	augroup vim
 		autocmd!
 		" set foldmethod to marker when editing
-		autocmd FileType vim setlocal foldmethod=marker
 		" start with all folds closed
-		autocmd FileType vim setlocal foldenable
+		autocmd FileType vim
+			\ setlocal foldmethod=marker |
+			\ setlocal foldenable
 	augroup END
 
-	augroup ruby
+	augroup spaces_instead_of_tabs
 		autocmd!
 		" tab key inserts two space characters
-		autocmd FileType ruby set expandtab
-		autocmd FileType ruby set tabstop=2
-		autocmd FileType ruby set softtabstop=2
-		autocmd FileType ruby set shiftwidth=2
+		" show leading spaces as '∙' character
+		autocmd FileType ruby 
+			\ setlocal expandtab |
+			\ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
+			\ setlocal conceallevel=2 concealcursor=nv |
+			\ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
 	augroup END
 
 	augroup htmlCss
 		autocmd!
+		" disable MUcomplete
 		" enable emmet and use tab key as the abbreviation expander
 		autocmd FileType html,css
+			\ MUcompleteAutoOff |
 			\ EmmetInstall |
 			\ imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-		" disable MUcomplete auto enabled at startup
-		autocmd FileType html,css let g:mucomplete#enable_auto_at_startup = 0
 	augroup END
 endif
 " }}}
