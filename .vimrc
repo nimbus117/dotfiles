@@ -24,9 +24,11 @@ Plugin 'lifepillar/vim-mucomplete'
 Plugin 'mattn/emmet-vim'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'pangloss/vim-javascript'
+Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-commentary'
+plugin 'tpope/vim-unimpaired'
 call vundle#end()
 if new == 1
 	:PluginInstall
