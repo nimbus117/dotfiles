@@ -269,7 +269,7 @@ if has('autocmd')
 		" return to the last cursor position when opening files
 		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
 		" disable automatic comment leader insertion
-		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
 		" auto-clean fugitive buffers
 		autocmd BufReadPost fugitive://* set bufhidden=delete
 		" highlight leading spaces
