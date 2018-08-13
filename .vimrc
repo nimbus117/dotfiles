@@ -29,6 +29,7 @@ Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'vim-scripts/dbext.vim'
 call vundle#end()
 if new == 1
 	:PluginInstall
@@ -38,7 +39,7 @@ endif
 
 " ### plugin settings {{{
 
-" lightline - status line
+" -- lightline - status line
 set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
@@ -55,33 +56,45 @@ if !has('gui_running')
 	set t_Co=256
 endif
 
-" netrw - file explorer
+" -- netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides all git-ignored files)"
 
-" matchit - extended matching with %
+" -- matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
 
-" Emmet - expand html/css abbreviations
+" -- Emmet - expand html/css abbreviations
 let g:user_emmet_install_global = 0 " disable globally (enable for html/ css in autocmd)
 
-" MUcomplete - auto complete
+" -- MUcomplete - auto complete
 set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
 set shortmess+=c " disable completion messages"
 let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
-" default complete chain
-" file names > omni-completion > keywords in complete
-let g:mucomplete#chains = {
-	\ 'default' : ['path', 'omni', 'c-n']
+
+" custom completion methods
+let g:mucomplete#user_mappings = {}
+let g:mucomplete#user_mappings.sqla = "\<c-c>a"
+let g:mucomplete#user_mappings.sqls = "\<c-c>s"
+let g:mucomplete#user_mappings.sqlk = "\<c-c>k"
+
+" define conditions before a given method is tried
+let g:mucomplete#can_complete = {}
+let g:mucomplete#can_complete.sql = {
+	\ 'sqls': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
+	\ 'sqlk': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
+	\ 'sqla': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' }
 	\ }
 " trigger omni-completion after a dot or after two keyword characters
-" let g:mucomplete#can_complete = {
-" 	\ 'default': {
-" 		\ 'omni': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\|\.\)$' }
-" 		\ }
+" let g:mucomplete#can_complete.default = {'omni':
+" 	\ { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\|\.\)$' }
 " 	\ }
+
+" complete chains
+let g:mucomplete#chains = {}
+let g:mucomplete#chains.default = ['path', 'omni', 'c-n']
+let g:mucomplete#chains.sql = ['path', 'sqla', 'c-n']
 " }}}
 
 " ### General Settings {{{
@@ -155,12 +168,6 @@ inoremap jk <Esc>`^
 " allows normal movement through soft wrapped lines
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
-
-" use arrow keys to resize windows
-"nnoremap <Up> :resize +2<CR>
-"nnoremap <Down> :resize -2<CR>
-"nnoremap <Left> :vertical resize +2<CR>
-"nnoremap <Right> :vertical resize -2<CR>
 
 " scroll window downwards half a screen
 nnoremap <Leader>j <c-d>
@@ -295,7 +302,7 @@ if has('autocmd')
 		autocmd!
 		" tab key inserts two space characters
 		" show leading spaces as '∙' character
-		autocmd FileType ruby 
+		autocmd FileType ruby
 			\ setlocal expandtab |
 			\ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
 			\ setlocal conceallevel=2 concealcursor=nv |
