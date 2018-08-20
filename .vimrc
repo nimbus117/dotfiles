@@ -149,8 +149,8 @@ set listchars=tab:│\ ,eol:∙ " set symbols for tabstops and EOLs
 highlight SpecialKey ctermbg=NONE ctermfg=green guibg=NONE guifg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta guibg=NONE guifg=darkmagenta " eol char colors
 
-set foldmethod=indent " automatically fold on indents
-set foldnestmax=3 " sets the maximum nest level of folds
+set foldmethod=indent " by default fold on indents
+set foldnestmax=10 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
 " }}}
 
@@ -287,6 +287,10 @@ if has('autocmd')
 		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
 		" auto-clean fugitive buffers
 		autocmd BufReadPost fugitive://* set bufhidden=delete
+		" set foldmethod to manual when entering insert mode and back to 'last_fdm' when leaving insert mode or window
+		" prevents slowdown and folds from opening below when inserting text that which creates a new fold
+		autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+		autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 	augroup END
 
 	augroup vim
@@ -309,7 +313,7 @@ if has('autocmd')
 			\ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
 	augroup END
 
-	augroup htmlCss
+	augroup html_css
 		autocmd!
 		" disable MUcomplete
 		" enable emmet and use tab key as the abbreviation expander
@@ -317,6 +321,14 @@ if has('autocmd')
 			\ MUcompleteAutoOff |
 			\ EmmetInstall |
 			\ imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
+	augroup END
+
+	augroup syntax_folding
+		autocmd!
+		" set foldmethod to syntax
+		autocmd FileType ruby
+			\ setlocal foldmethod=syntax |
+			\ setlocal foldenable
 	augroup END
 endif
 " }}}
