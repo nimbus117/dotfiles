@@ -3,11 +3,11 @@
 let new=0
 let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
 if !filereadable(vundle_readme) 
-	echo 'Installing Vundle...'
-	echo ''
-	silent !mkdir -p ~/.vim/bundle
-	silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
-	let new=1
+  echo 'Installing Vundle...'
+  echo ''
+  silent !mkdir -p ~/.vim/bundle
+  silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+  let new=1
 endif
 set nocompatible " required
 filetype off     " required
@@ -32,8 +32,8 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/dbext.vim'
 call vundle#end()
 if new == 1
-	:PluginInstall
-	echo 'you may need to close and re-open vim'
+  :PluginInstall
+  echo 'you may need to close and re-open vim'
 endif
 " }}}
 
@@ -43,17 +43,17 @@ endif
 set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
-	\ 'colorscheme': 'solarized',
-	\ 'active': {
-		\ 'left': [ [ 'mode', 'paste'  ],
-		\         [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ]
-		\ },
-	\ 'component_function': {
-		\   'gitbranch': 'fugitive#head'
-		\ }
-	\ }
+  \ 'colorscheme': 'solarized',
+  \ 'active': {
+    \ 'left': [ [ 'mode', 'paste'  ],
+    \         [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ]
+    \ },
+  \ 'component_function': {
+    \   'gitbranch': 'fugitive#head'
+    \ }
+  \ }
 if !has('gui_running')
-	set t_Co=256
+  set t_Co=256
 endif
 
 " -- netrw - file explorer
@@ -63,9 +63,6 @@ let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides
 
 " -- matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
-
-" -- Emmet - expand html/css abbreviations
-let g:user_emmet_install_global = 0 " disable globally (enable for html/ css in autocmd)
 
 " -- MUcomplete - auto complete
 set completeopt+=menuone " use the popup menu even if there is only one match
@@ -82,14 +79,14 @@ let g:mucomplete#user_mappings.sqlk = "\<c-c>k"
 " define conditions before a given method is tried
 let g:mucomplete#can_complete = {}
 let g:mucomplete#can_complete.sql = {
-	\ 'sqls': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
-	\ 'sqlk': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
-	\ 'sqla': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' }
-	\ }
+  \ 'sqls': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
+  \ 'sqlk': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
+  \ 'sqla': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' }
+  \ }
 " trigger omni-completion after a dot or after two keyword characters
 " let g:mucomplete#can_complete.default = {'omni':
-" 	\ { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\|\.\)$' }
-" 	\ }
+"   \ { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\|\.\)$' }
+"   \ }
 
 " complete chains
 let g:mucomplete#chains = {}
@@ -132,9 +129,10 @@ set linebreak " don't split words when wrapping text
 set cursorline " highlight current line
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 
+set expandtab " use spaces instead of TAB
 set tabstop=2 " number of visual spaces per TAB
 set softtabstop=2 " number of spaces in TAB when editing
-set shiftwidth=2 "Number of spaces to use for each step of (auto)indent
+set shiftwidth=2 " number of spaces to use for each step of (auto)indent
 
 set autoindent " always set autoindenting on
 set smartindent " smart autoindenting when no indent file
@@ -222,21 +220,21 @@ nnoremap <Leader>gd :GitDiffOpen<CR>
 "   the left window shows the original saved file
 "   the right window shows the current buffer
 function! s:DiffWithSaved()
-	if &modified
-		if filereadable(expand('%:p'))
-			let filetype=&ft
-			tabedit %
-			diffthis
-			vnew | r # | normal! 1Gdd
-			diffthis
-			execute 'setlocal bt=nofile bh=wipe nobl noswf ro ft=' . filetype
-			setlocal foldmethod=diff
-		else
-			echo 'no file to diff'
-		endif
-	else
-		echo 'no changes to diff'
-	endif
+  if &modified
+    if filereadable(expand('%:p'))
+      let filetype=&ft
+      tabedit %
+      diffthis
+      vnew | r # | normal! 1Gdd
+      diffthis
+      execute 'setlocal bt=nofile bh=wipe nobl noswf ro ft=' . filetype
+      setlocal foldmethod=diff
+    else
+      echo 'no file to diff'
+    endif
+  else
+    echo 'no changes to diff'
+  endif
 endfunction
 command! DiffOpen call s:DiffWithSaved()
 
@@ -245,12 +243,12 @@ command! DiffOpen call s:DiffWithSaved()
 "   the left window shows the version in the index
 "   the right window shows the current buffer
 function! s:DiffWithGit()
-	if exists(':Gdiff')
-		tabedit %
-		Gvdiff
-	else
-		echo 'Gdiff not available'
-	endif
+  if exists(':Gdiff')
+    tabedit %
+    Gvdiff
+  else
+    echo 'Gdiff not available'
+  endif
 endfunction
 command! GitDiffOpen call s:DiffWithGit()
 
@@ -259,12 +257,12 @@ command! GitDiffOpen call s:DiffWithGit()
 "   the uuid is saved to the 'u' register so it can be used again
 "   the content of the 'u' register is then put after the cursor
 function! s:InsertUuid()
-	if executable('uuidgen')
-		call setreg('u', system('uuidgen | tr -d "\n"'), 'c')
-		execute "normal! \"up"
-	else
-		echo 'uuidgen command not found'
-	endif
+  if executable('uuidgen')
+    call setreg('u', system('uuidgen | tr -d "\n"'), 'c')
+    execute "normal! \"up"
+  else
+    echo 'uuidgen command not found'
+  endif
 endfunction
 command! InsertUuid call s:InsertUuid()
 " }}}
@@ -272,57 +270,40 @@ command! InsertUuid call s:InsertUuid()
 " ### autocmds {{{
 
 if has('autocmd')
-	augroup misc
-		" remove ALL autocommands for the current group
-		autocmd!
-		" return to the last cursor position when opening files
-		autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
-		" disable automatic comment leader insertion
-		autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
-		" auto-clean fugitive buffers
-		autocmd BufReadPost fugitive://* set bufhidden=delete
-		" set foldmethod to manual when entering insert mode and back to 'last_fdm' when leaving insert mode or window
-		" prevents slowdown and folds from opening below when inserting text that which creates a new fold
-		autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-		autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-	augroup END
+  augroup misc
+    " remove ALL autocommands for the current group
+    autocmd!
+    " return to the last cursor position when opening files
+    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
+    " disable automatic comment leader insertion
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
+    " auto-clean fugitive buffers
+    autocmd BufReadPost fugitive://* set bufhidden=delete
+    " set foldmethod to manual when entering insert mode and back to 'last_fdm' when leaving insert mode or window
+    " prevents slowdown and folds from opening below when inserting text that creates a new fold
+    autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
+    autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+    " highlight leading spaces with '·'
+    autocmd FileType *
+      \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
+      \ setlocal conceallevel=2 concealcursor=nv |
+      \ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
+  augroup END
 
-	augroup vim
-		autocmd!
-		" set foldmethod to marker when editing
-		" start with all folds closed
-		autocmd FileType vim
-			\ setlocal foldmethod=marker |
-			\ setlocal foldenable
-	augroup END
+  augroup vim
+    autocmd!
+    " set foldmethod to marker and start with all folds closed
+    autocmd FileType vim
+      \ setlocal foldmethod=marker |
+      \ setlocal foldenable
+  augroup END
 
-	augroup spaces_instead_of_tabs
-		autocmd!
-		" tab key inserts two space characters
-		" show leading spaces as '∙' character
-		autocmd FileType ruby
-			\ setlocal expandtab |
-			\ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
-			\ setlocal conceallevel=2 concealcursor=nv |
-			\ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
-	augroup END
-
-	augroup html_css
-		autocmd!
-		" disable MUcomplete
-		" enable emmet and use tab key as the abbreviation expander
-		autocmd FileType html,css
-			\ MUcompleteAutoOff |
-			\ EmmetInstall |
-			\ imap <buffer> <expr> <tab> emmet#expandAbbrIntelligent("\<tab>")
-	augroup END
-
-	augroup syntax_folding
-		autocmd!
-		" set foldmethod to syntax
-		autocmd FileType ruby
-			\ setlocal foldmethod=syntax |
-			\ setlocal foldenable
-	augroup END
+  augroup syntax_folding
+    autocmd!
+    " set foldmethod to syntax
+    autocmd FileType ruby
+      \ setlocal foldmethod=syntax |
+      \ setlocal foldenable
+  augroup END
 endif
 " }}}
