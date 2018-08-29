@@ -68,6 +68,7 @@ fi
 plugins=(
   git
   colored-man-pages
+  rvm
 )
 
 source $ZSH/oh-my-zsh.sh
