@@ -22,6 +22,7 @@ Plugin 'jiangmiao/auto-pairs'
 Plugin 'JulesWang/css.vim'
 Plugin 'lifepillar/vim-mucomplete'
 Plugin 'mattn/emmet-vim'
+Plugin 'mbbill/undotree'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'pangloss/vim-javascript'
 Plugin 'tpope/vim-commentary'
@@ -150,6 +151,11 @@ highlight NonText ctermbg=NONE ctermfg=darkmagenta guibg=NONE guifg=darkmagenta 
 set foldmethod=indent " by default fold on indents
 set foldnestmax=10 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
+
+set undofile " use persistent undo
+set undodir=~/.vim/undodir " set persistent undo directory
+" create undo dir if it doesn't exist
+silent !mkdir -p -m 0700 ~/.vim/undodir
 " }}}
 
 " ### key mappings {{{
@@ -202,6 +208,9 @@ nnoremap <Leader>to :tabnew<CR>
 
 " close tab
 nnoremap <Leader>tc :tabclose<CR>
+
+" toggle Undotree
+nnoremap <Leader>ut :UndotreeToggle<CR>
 
 " insert uuid, see InsertUuid function below
 nnoremap <Leader>uu :InsertUuid<CR>
