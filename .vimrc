@@ -203,8 +203,11 @@ nnoremap <Leader>w <c-w>
 " open current window in a new tab
 nnoremap <Leader>wt <c-w>T
 
+" close all other tabs
+nnoremap <Leader>to :tabonly<CR>
+
 " open new tab
-nnoremap <Leader>to :tabnew<CR>
+nnoremap <Leader>tn :tabnew<CR>
 
 " close tab
 nnoremap <Leader>tc :tabclose<CR>
