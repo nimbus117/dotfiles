@@ -20,6 +20,7 @@ Plugin 'google/vim-searchindex'
 Plugin 'itchyny/lightline.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'JulesWang/css.vim'
+Plugin 'Konfekt/FastFold'
 Plugin 'lifepillar/vim-mucomplete'
 Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree'
@@ -291,10 +292,6 @@ if has('autocmd')
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
     " auto-clean fugitive buffers
     autocmd BufReadPost fugitive://* set bufhidden=delete
-    " set foldmethod to manual when entering insert mode and back to 'last_fdm' when leaving insert mode or window
-    " prevents slowdown and folds from opening below when inserting text that creates a new fold
-    autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-    autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
     " highlight leading spaces with '·'
     autocmd FileType *
       \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
