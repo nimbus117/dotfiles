@@ -118,7 +118,9 @@ set showcmd " Show (partial) command in the last line of the screen
 
 set backspace=2 " allow backspace over indent, eol, start
 
-set display+=lastline " show as much as possible of the last line
+set cursorline " highlight current line
+
+set scrolloff=2 " number of screen lines to keep above and below the cursor
 
 colorscheme solarized " load color scheme
 set background=dark " light/dark
@@ -126,10 +128,10 @@ highlight Normal ctermbg=NONE " transparent background
 
 set number " Show line numbers
 set numberwidth=3 " set number column to start at 3
+
 set nowrap " don't wrap text
 set linebreak " don't split words when wrapping text
-set cursorline " highlight current line
-set scrolloff=2 " number of screen lines to keep above and below the cursor
+set display+=lastline " show as much as possible of the last line
 
 set expandtab " use spaces instead of TAB
 set tabstop=2 " number of visual spaces per TAB
@@ -161,10 +163,6 @@ silent !mkdir -p -m 0700 ~/.vim/undodir
 
 " ### key mappings {{{
 
-" set <Leader> key to space bar
-nnoremap <SPACE> <Nop>
-let mapleader = "\<Space>"
-
 " map jk/kj to exit, doesn't move cursor back
 inoremap kj <Esc>`^
 inoremap jk <Esc>`^
@@ -173,6 +171,10 @@ inoremap jk <Esc>`^
 " allows normal movement through soft wrapped lines
 nnoremap <expr> j v:count ? 'j' : 'gj'
 nnoremap <expr> k v:count ? 'k' : 'gk'
+
+" set <Leader> key to space bar
+nnoremap <SPACE> <Nop>
+let mapleader = "\<Space>"
 
 " scroll window downwards half a screen
 nnoremap <Leader>j <c-d>
