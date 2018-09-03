@@ -46,15 +46,15 @@ endif
 set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
-  \ 'colorscheme': 'solarized',
-  \ 'active': {
-    \ 'left': [ [ 'mode', 'paste'  ],
-    \         [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ]
-    \ },
-  \ 'component_function': {
-    \   'gitbranch': 'fugitive#head'
-    \ }
-  \ }
+      \ 'colorscheme': 'solarized',
+      \ 'active': {
+      \ 'left': [ [ 'mode', 'paste'  ],
+      \         [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'fugitive#head'
+      \ }
+      \ }
 if !has('gui_running')
   set t_Co=256
 endif
@@ -82,10 +82,10 @@ let g:mucomplete#user_mappings.sqlk = "\<c-c>k"
 " define conditions before a given method is tried
 let g:mucomplete#can_complete = {}
 let g:mucomplete#can_complete.sql = {
-  \ 'sqls': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
-  \ 'sqlk': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
-  \ 'sqla': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' }
-  \ }
+      \ 'sqls': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
+      \ 'sqlk': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
+      \ 'sqla': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' }
+      \ }
 " trigger omni-completion after a dot or after two keyword characters
 " let g:mucomplete#can_complete.default = {'omni':
 "   \ { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\|\.\)$' }
@@ -93,8 +93,8 @@ let g:mucomplete#can_complete.sql = {
 
 " complete chains
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = ['path', 'omni', 'c-n']
-let g:mucomplete#chains.sql = ['path', 'sqla', 'c-n']
+let g:mucomplete#chains.default = [ 'path', 'omni', 'c-n' ]
+let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-n' ]
 " }}}
 
 " ### General Settings {{{
@@ -297,25 +297,21 @@ if has('autocmd')
     autocmd BufReadPost fugitive://* set bufhidden=delete
     " highlight leading spaces with '·'
     autocmd FileType *
-      \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
-      \ setlocal conceallevel=2 concealcursor=nv |
-      \ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
+          \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
+          \ setlocal conceallevel=2 concealcursor=nv |
+          \ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
   augroup END
 
-  augroup vim
+  augroup folding
     autocmd!
-    " set foldmethod to marker and start with all folds closed
+    " set foldmethod to marker
     autocmd FileType vim
-      \ setlocal foldmethod=marker |
-      \ setlocal foldenable
-  augroup END
-
-  augroup syntax_folding
-    autocmd!
+          \ setlocal foldmethod=marker |
+          \ setlocal foldenable
     " set foldmethod to syntax
-    autocmd FileType ruby
-      \ setlocal foldmethod=syntax |
-      \ setlocal foldenable
+    autocmd FileType ruby,javascript
+          \ setlocal foldmethod=syntax |
+          \ setlocal foldenable
   augroup END
 endif
 " }}}
