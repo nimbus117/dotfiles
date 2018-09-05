@@ -19,13 +19,12 @@ Plugin 'altercation/vim-colors-solarized'
 Plugin 'google/vim-searchindex'
 Plugin 'itchyny/lightline.vim'
 Plugin 'jiangmiao/auto-pairs'
-Plugin 'JulesWang/css.vim'
 Plugin 'Konfekt/FastFold'
 Plugin 'lifepillar/vim-mucomplete'
 Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree'
 Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'pangloss/vim-javascript'
+Plugin 'sheerun/vim-polyglot'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive.git'
@@ -156,10 +155,12 @@ set foldmethod=indent " by default fold on indents
 set foldnestmax=10 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
 
-set undofile " use persistent undo
-set undodir=~/.vim/undodir " set persistent undo directory
-" create undo dir if it doesn't exist
-silent !mkdir -p -m 0700 ~/.vim/undodir
+if has('persistent_undo')
+  set undofile " use persistent undo
+  set undodir=~/.vim/undodir " set persistent undo directory
+  " create undo dir if it doesn't exist
+  silent !mkdir -p -m 0700 ~/.vim/undodir
+endif
 " }}}
 
 " ### key mappings {{{
