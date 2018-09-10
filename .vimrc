@@ -47,8 +47,8 @@ set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
-      \ 'left': [ [ 'mode', 'paste'  ],
-      \         [ 'gitbranch', 'readonly', 'filename', 'modified'  ] ]
+      \   'left': [ [ 'mode', 'paste' ],
+      \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
