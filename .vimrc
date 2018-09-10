@@ -294,10 +294,8 @@ if has('autocmd')
     autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
-    " auto-clean fugitive buffers
-    autocmd BufReadPost fugitive://* set bufhidden=delete
     " clean up netrw hidden buffers
-    autocmd FileType netrw setl bufhidden=wipe
+    autocmd FileType netrw setlocal bufhidden=wipe
     " highlight leading spaces with '·'
     autocmd FileType *
           \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
