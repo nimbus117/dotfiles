@@ -113,6 +113,9 @@ alias hs='history | grep -i'
 # 'rb' = ruby
 alias rb='ruby'
 
+# alias for vimAll
+alias va='vimAll'
+
 ## functions
 
 # get the weather
@@ -155,6 +158,11 @@ google() {
   then
     open $url
   fi
+}
+
+# open all files in vim, excludes .git, populates arglist and opens netrw in parent folder
+vimAll() {
+  vim . $(find . ! -iwholename '*.git*' -type f)
 }
 
 ## environment variables
