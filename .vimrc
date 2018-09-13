@@ -165,8 +165,7 @@ endif
 
 " ### key mappings {{{
 
-" map jk/kj to exit, doesn't move cursor back
-inoremap kj <Esc>`^
+" map jk to exit, doesn't move cursor back
 inoremap jk <Esc>`^
 
 " use gj/gk for moving up and down unless a number is given
@@ -226,7 +225,7 @@ nnoremap <Leader>uu :InsertUuid<CR>
 " open diff tab, see DiffWithSaved function below
 nnoremap <Leader>d :DiffOpen<CR>
 
-" open diff tab, see DiffWithSaved function below
+" open git diff tab, see DiffWithGit function below
 nnoremap <Leader>gd :GitDiffOpen<CR>
 " }}}
 
