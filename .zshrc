@@ -160,9 +160,9 @@ google() {
   fi
 }
 
-# open all files in vim, excludes .git, populates arglist and opens netrw in parent folder
+# open all files in vim, excludes .git etc - (populates arglist)
 vimAll() {
-  vim . $(find . ! -iwholename '*.git*' ! -iwholename '*node_modules*' -type f)
+  vim $(find . ! -iwholename '*.git*' ! -iwholename '*node_modules*' ! -iwholename '*bundle.js' -type f)
 }
 
 ## environment variables
