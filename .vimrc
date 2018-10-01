@@ -1,17 +1,17 @@
 " ### vundle plugin manager {{{
 
 let new=0
-let vundle_readme=expand('~/.vim/bundle/Vundle.vim/README.md')
+let vundle_readme=expand("$HOME/.vim/bundle/Vundle.vim/README.md")
 if !filereadable(vundle_readme) 
   echo 'Installing Vundle...'
   echo ''
-  silent !mkdir -p ~/.vim/bundle
-  silent !git clone https://github.com/VundleVim/Vundle.vim ~/.vim/bundle/Vundle.vim
+  silent !mkdir -p "$HOME/.vim/bundle"
+  silent !git clone "https://github.com/VundleVim/Vundle.vim" "$HOME/.vim/bundle/Vundle.vim"
   let new=1
 endif
 set nocompatible " required
 filetype off     " required
-set runtimepath+=~/.vim/bundle/Vundle.vim/
+set runtimepath+=$HOME/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " add plugins here
@@ -61,7 +61,7 @@ endif
 " -- netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
-let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides all git-ignored files)"
+let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides all git-ignored files)
 
 " -- matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
@@ -71,29 +71,23 @@ set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
 set shortmess+=c " disable completion messages"
 let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
+let g:mucomplete#buffer_relative_paths = 1 " interpret paths relative to the directory of the current buffer
 
 " custom completion methods
 let g:mucomplete#user_mappings = {}
 let g:mucomplete#user_mappings.sqla = "\<c-c>a"
-let g:mucomplete#user_mappings.sqls = "\<c-c>s"
-let g:mucomplete#user_mappings.sqlk = "\<c-c>k"
 
 " define conditions before a given method is tried
 let g:mucomplete#can_complete = {}
 let g:mucomplete#can_complete.sql = {
-      \ 'sqls': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
-      \ 'sqlk': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' },
       \ 'sqla': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' }
       \ }
-" trigger omni-completion after a dot or after two keyword characters
-" let g:mucomplete#can_complete.default = {'omni':
-"   \ { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\|\.\)$' }
-"   \ }
 
 " complete chains
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = [ 'path', 'omni', 'c-n' ]
-let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-n' ]
+let g:mucomplete#chains.default = [ 'path', 'omni', 'c-p' ]
+let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-p' ]
+let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-p' ]
 " }}}
 
 " ### General Settings {{{
@@ -112,8 +106,6 @@ set spelllang=en_gb " set spelling language to English GB
 
 set history=200 " command line mode history
 
-set wildmenu " enhanced autocomplete for command menu
-
 set showcmd " Show (partial) command in the last line of the screen
 
 set backspace=2 " allow backspace over indent, eol, start
@@ -121,6 +113,9 @@ set backspace=2 " allow backspace over indent, eol, start
 set cursorline " highlight current line
 
 set scrolloff=2 " number of screen lines to keep above and below the cursor
+
+set wildmenu " enhanced autocomplete for command menu
+set path+=** " search down into subfolders
 
 colorscheme solarized " load color scheme
 set background=dark " light/dark
@@ -157,9 +152,9 @@ set nofoldenable " start with all folds open
 
 if has('persistent_undo')
   set undofile " use persistent undo
-  set undodir=~/.vim/undodir " set persistent undo directory
+  set undodir=$HOME/.vim/undodir " set persistent undo directory
   " create undo dir if it doesn't exist
-  silent !mkdir -p -m 0700 ~/.vim/undodir
+  silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
 endif
 " }}}
 
@@ -186,14 +181,26 @@ nnoremap <Leader>k <c-u>
 " stop current search highlighting
 nnoremap <Leader>/ :nohlsearch<CR>
 
+" toggle relative numbering
+nnoremap <Leader>r :setlocal relativenumber!<CR>
+
+" toggle paste mode
+nnoremap <Leader>p :setlocal paste!<CR>
+
 " toggle file explorer
 nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
 
-" show buffer list
-nnoremap <Leader>l :buffers<CR>
+" find file
+nnoremap <Leader>f :find ./
+
+" search help
+nnoremap <Leader>h :help 
 
 " follow by buffer name and/or <TAB> and hit enter
 nnoremap <Leader>b :buffer 
+
+" show buffer list
+nnoremap <Leader>l :buffers<CR>
 
 " go to alternate buffer
 nnoremap <Leader>a :buffer #<CR>
