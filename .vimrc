@@ -14,7 +14,7 @@ filetype off     " required
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
-" add plugins here
+" add plugins here {{{
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'google/vim-searchindex'
 Plugin 'itchyny/lightline.vim'
@@ -32,6 +32,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/dbext.vim'
+" }}}
 call vundle#end()
 if new == 1
   :PluginInstall
@@ -41,7 +42,7 @@ endif
 
 " ### plugin settings {{{
 
-" -- lightline - status line
+" -- lightline - status line {{{
 set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
@@ -57,6 +58,7 @@ let g:lightline = {
 if !has('gui_running')
   set t_Co=256
 endif
+" }}}
 
 " -- netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
@@ -66,7 +68,7 @@ let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides
 " -- matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
 
-" -- MUcomplete - auto complete
+" -- MUcomplete - auto complete {{{
 set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
 set shortmess+=c " disable completion messages"
@@ -88,6 +90,7 @@ let g:mucomplete#chains = {}
 let g:mucomplete#chains.default = [ 'path', 'omni', 'c-p' ]
 let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-p' ]
 let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-p' ]
+" }}}
 " }}}
 
 " ### General Settings {{{
@@ -236,16 +239,16 @@ nnoremap <Leader>d :DiffOpen<CR>
 " open git diff tab, see DiffWithGit function below
 nnoremap <Leader>gd :GitDiffOpen<CR>
 
-" search using vimgrep, see VGrep function below
+" search files using vimgrep, see VGrep function below
 nnoremap <Leader>vg :VGrep 
 " }}}
 
 " ### functions {{{
 
-" diff the current buffer and original file
-"   opens a new tab with a vertical split
-"   the left window shows the original saved file
-"   the right window shows the current buffer
+" diff the current buffer and original file {{{
+" opens a new tab with a vertical split
+" the left window shows the original saved file
+" the right window shows the current buffer
 function! s:DiffWithSaved()
   if &modified
     if filereadable(expand('%:p'))
@@ -264,11 +267,12 @@ function! s:DiffWithSaved()
   endif
 endfunction
 command! DiffOpen call s:DiffWithSaved()
+" }}}
 
-" use vim to do a git diff of the current buffer
-"   opens a new tab with a vertical split
-"   the left window shows the version in the index
-"   the right window shows the current buffer
+" run git diff against the current buffer {{{
+" opens a new tab with a vertical split
+" the left window shows the version in the index
+" the right window shows the current buffer
 function! s:DiffWithGit()
   if exists(':Gdiff')
     tabedit %
@@ -278,11 +282,12 @@ function! s:DiffWithGit()
   endif
 endfunction
 command! GitDiffOpen call s:DiffWithGit()
+" }}}
 
-" generate and insert a uuid
-"   uses uuidgen to generate a uuid
-"   the uuid is saved to the 'u' register so it can be used again
-"   the content of the 'u' register is then put after the cursor
+" generate and insert a uuid {{{
+" uses uuidgen to generate a uuid
+" the uuid is saved to the 'u' register so it can be used again
+" the content of the 'u' register is then put after the cursor
 function! s:InsertUuid()
   if executable('uuidgen')
     call setreg('u', system('uuidgen | tr -d "\n"'), 'c')
@@ -292,8 +297,11 @@ function! s:InsertUuid()
   endif
 endfunction
 command! InsertUuid call s:InsertUuid()
+" }}}
 
-" execute vimgrep
+" search files using vimgrep {{{
+" searches in pwd recursively by default
+" if any matches are found the quickfix window is opened
 function! s:VGrep(searchStr, ...)
   let path = a:0 >= 1 ? a:1 : '**'
   noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
@@ -303,17 +311,22 @@ function! s:VGrep(searchStr, ...)
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
 " }}}
+" }}}
 
 " ### autocmds {{{
 
 if has('autocmd')
+  " misc {{{
   augroup misc
     " remove ALL autocommands for the current group
     autocmd!
     " return to the last cursor position when opening files
-    autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line('$') | exe "normal! g'\"" | endif
+    autocmd BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line('$') |
+          \ exe "normal! g'\"" |
+          \ endif
     " disable automatic comment leader insertion, remove comment leader when joining lines
-    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o formatoptions+=j
+    autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " clean up netrw hidden buffers
     autocmd FileType netrw setlocal bufhidden=wipe
     " highlight leading spaces with '·'
@@ -322,7 +335,9 @@ if has('autocmd')
           \ setlocal conceallevel=2 concealcursor=nv |
           \ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
   augroup END
+  " }}}
 
+  " folds {{{
   augroup folding
     autocmd!
     " set foldmethod to marker
@@ -334,5 +349,6 @@ if has('autocmd')
           \ setlocal foldmethod=syntax |
           \ setlocal foldenable
   augroup END
+  " }}}
 endif
 " }}}
