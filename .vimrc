@@ -115,6 +115,7 @@ set cursorline " highlight current line
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 
 set wildmenu " enhanced autocomplete for command menu
+set wildignore+=*.swp,*/node_modules/*,bundle.js " exclude from wildmenu and vimgrep
 set path+=** " search down into subfolders
 
 colorscheme solarized " load color scheme
@@ -234,6 +235,9 @@ nnoremap <Leader>d :DiffOpen<CR>
 
 " open git diff tab, see DiffWithGit function below
 nnoremap <Leader>gd :GitDiffOpen<CR>
+
+" search using vimgrep, see VGrep function below
+nnoremap <Leader>vg :VGrep 
 " }}}
 
 " ### functions {{{
@@ -288,6 +292,16 @@ function! s:InsertUuid()
   endif
 endfunction
 command! InsertUuid call s:InsertUuid()
+
+" execute vimgrep
+function! s:VGrep(searchStr, ...)
+  let path = a:0 >= 1 ? a:1 : '**'
+  noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
+  if !empty(getqflist())
+    copen
+  endif
+endfunction
+command! -nargs=* VGrep call s:VGrep(<f-args>)
 " }}}
 
 " ### autocmds {{{
