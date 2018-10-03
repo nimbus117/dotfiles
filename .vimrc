@@ -25,6 +25,7 @@ Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'takac/vim-hardtime'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive.git'
@@ -91,6 +92,10 @@ let g:mucomplete#chains.default = [ 'path', 'omni', 'c-p' ]
 let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-p' ]
 let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-p' ]
 " }}}
+
+" -- hardtime - stop repeating the basic movement keys
+let g:hardtime_default_on = 1 " on by default
+let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 " }}}
 
 " ### General Settings {{{
@@ -118,14 +123,15 @@ set cursorline " highlight current line
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 
 set wildmenu " enhanced autocomplete for command menu
+set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,bundle.js " exclude from wildmenu and vimgrep
-set path+=** " search down into subfolders
 
 colorscheme solarized " load color scheme
 set background=dark " light/dark
 highlight Normal ctermbg=NONE " transparent background
 
-set number " Show line numbers
+set number " show line numbers
+set relativenumber " show relative line numbers
 set numberwidth=3 " set number column to start at 3
 
 set nowrap " don't wrap text
@@ -167,11 +173,6 @@ endif
 " map jk to exit, doesn't move cursor back
 inoremap jk <Esc>`^
 
-" use gj/gk for moving up and down unless a number is given
-" allows normal movement through soft wrapped lines
-nnoremap <expr> j v:count ? 'j' : 'gj'
-nnoremap <expr> k v:count ? 'k' : 'gk'
-
 " set <Leader> key to space bar
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
@@ -192,10 +193,10 @@ nnoremap <Leader>r :setlocal relativenumber!<CR>
 nnoremap <Leader>p :setlocal paste!<CR>
 
 " toggle file explorer
-nnoremap <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+nnoremap <expr> <leader>f match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
 
-" find file
-nnoremap <Leader>f :find ./
+" find and edit file
+nnoremap <Leader>e :edit **/*
 
 " search help
 nnoremap <Leader>h :help 
@@ -307,6 +308,7 @@ function! s:VGrep(searchStr, ...)
   noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
   if !empty(getqflist())
     copen
+    setlocal norelativenumber
   endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
