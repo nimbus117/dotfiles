@@ -125,6 +125,7 @@ set scrolloff=2 " number of screen lines to keep above and below the cursor
 set wildmenu " enhanced autocomplete for command menu
 set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,bundle.js " exclude from wildmenu and vimgrep
+set wildignorecase " case is ignored when completing file names
 
 colorscheme solarized " load color scheme
 set background=dark " light/dark
