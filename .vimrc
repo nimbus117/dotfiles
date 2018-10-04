@@ -43,7 +43,7 @@ endif
 
 " ### plugin settings {{{
 
-" -- lightline - status line {{{
+" lightline - status line {{{
 set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
 let g:lightline = {
@@ -61,15 +61,15 @@ if !has('gui_running')
 endif
 " }}}
 
-" -- netrw - file explorer
+" netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides all git-ignored files)
 
-" -- matchit - extended matching with %
+" matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
 
-" -- MUcomplete - auto complete {{{
+" MUcomplete - auto complete {{{
 set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
 set shortmess+=c " disable completion messages"
@@ -93,7 +93,7 @@ let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-p' ]
 let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-p' ]
 " }}}
 
-" -- hardtime - stop repeating the basic movement keys
+" hardtime - stop repeating the basic movement keys
 let g:hardtime_default_on = 1 " on by default
 let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 " }}}
@@ -112,7 +112,7 @@ set hidden " causes buffers to be hidden instead of abandoned, allows changing b
 
 set spelllang=en_gb " set spelling language to English GB
 
-set history=200 " command line mode history
+set history=500 " command line mode history
 
 set showcmd " Show (partial) command in the last line of the screen
 
@@ -178,56 +178,61 @@ inoremap jk <Esc>`^
 nnoremap <SPACE> <Nop>
 let mapleader = "\<Space>"
 
+" leader key bindings {{{
+
+" cycle between windows by pressing <Leader> key twice
+nnoremap <Leader><Leader> <c-w>w
+
+" stop current search highlighting
+nnoremap <Leader>/ :nohlsearch<CR>
+
+" go to alternate buffer
+nnoremap <Leader>a :buffer #<CR>
+
+" follow by buffer name and/or <TAB> and hit enter
+nnoremap <Leader>b :buffer 
+
+" open diff tab, see DiffWithSaved function below
+nnoremap <Leader>d :DiffOpen<CR>
+
+" toggle file explorer
+nnoremap <expr> <Leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+
+" find and edit file
+nnoremap <Leader>f :edit **/*
+
+" open git diff tab, see DiffWithGit function below
+nnoremap <Leader>gd :GitDiffOpen<CR>
+
+" search help
+nnoremap <Leader>h :help 
+
 " scroll window downwards half a screen
 nnoremap <Leader>j <c-d>
 
 " scroll window upwards half a screen
 nnoremap <Leader>k <c-u>
 
-" stop current search highlighting
-nnoremap <Leader>/ :nohlsearch<CR>
+" show buffer list
+nnoremap <Leader>l :buffers<CR>
 
 " toggle relative numbering
-nnoremap <Leader>r :setlocal relativenumber!<CR>
+nnoremap <Leader>n :setlocal relativenumber!<CR>
 
 " toggle paste mode
 nnoremap <Leader>p :setlocal paste!<CR>
 
-" toggle file explorer
-nnoremap <expr> <leader>f match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+" substitute current word
+nnoremap <Leader>r :%s/<c-r><c-w>//g<left><left>
 
-" find and edit file
-nnoremap <Leader>e :edit **/*
-
-" search help
-nnoremap <Leader>h :help 
-
-" follow by buffer name and/or <TAB> and hit enter
-nnoremap <Leader>b :buffer 
-
-" show buffer list
-nnoremap <Leader>l :buffers<CR>
-
-" go to alternate buffer
-nnoremap <Leader>a :buffer #<CR>
-
-" cycle between windows by pressing <Leader> key twice
-nnoremap <Leader><Leader> <c-w>w
-
-" same as <c-w>
-nnoremap <Leader>w <c-w>
-
-" open current window in a new tab
-nnoremap <Leader>wt <c-w>T
-
-" close all other tabs
-nnoremap <Leader>to :tabonly<CR>
+" close tab
+nnoremap <Leader>tc :tabclose<CR>
 
 " open new tab
 nnoremap <Leader>tn :tabnew<CR>
 
-" close tab
-nnoremap <Leader>tc :tabclose<CR>
+" close all other tabs
+nnoremap <Leader>to :tabonly<CR>
 
 " toggle Undotree
 nnoremap <Leader>ut :UndotreeToggle<CR>
@@ -235,14 +240,15 @@ nnoremap <Leader>ut :UndotreeToggle<CR>
 " insert uuid, see InsertUuid function below
 nnoremap <Leader>uu :InsertUuid<CR>
 
-" open diff tab, see DiffWithSaved function below
-nnoremap <Leader>d :DiffOpen<CR>
-
-" open git diff tab, see DiffWithGit function below
-nnoremap <Leader>gd :GitDiffOpen<CR>
-
 " search files using vimgrep, see VGrep function below
 nnoremap <Leader>vg :VGrep 
+
+" same as <c-w>
+nnoremap <Leader>w <c-w>
+
+" open current window in a new tab
+nnoremap <Leader>wt <c-w>T
+" }}}
 " }}}
 
 " ### functions {{{
