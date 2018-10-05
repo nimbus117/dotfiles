@@ -222,8 +222,8 @@ nnoremap <Leader>n :setlocal relativenumber!<CR>
 " toggle paste mode
 nnoremap <Leader>p :setlocal paste!<CR>
 
-" substitute current word
-nnoremap <Leader>r :%s/<c-r><c-w>//g<left><left>
+" find/replace all on word under cursor
+nnoremap <Leader>r :%s/<c-r><c-w>\C//g<left><left>
 
 " close tab
 nnoremap <Leader>tc :tabclose<CR>
