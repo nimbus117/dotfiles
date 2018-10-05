@@ -120,8 +120,6 @@ set showcmd " Show (partial) command in the last line of the screen
 
 set backspace=2 " allow backspace over indent, eol, start
 
-set cursorline " highlight current line
-
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 
 set spelllang=en_gb " set spelling language to English GB
@@ -167,7 +165,8 @@ if has('persistent_undo')
 endif
 
 " highlighting {{{
-highlight Normal ctermbg=NONE " transparent background
+" highlight Normal ctermbg=NONE " transparent background
+highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on fold lines
 highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
 highlight SpellBad cterm=underline " underline spelling mistakes
