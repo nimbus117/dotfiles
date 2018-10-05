@@ -1,6 +1,7 @@
 # start as login shell
 shell -${SHELL}
 
+# change background-color-erase setting 
 defbce "on"
 
 # disable visual bell
