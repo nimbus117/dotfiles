@@ -106,11 +106,13 @@ syntax enable " enable syntax highlighting
 
 filetype plugin indent on " enable filetype detection, plugins and indent settings
 
+colorscheme solarized " load color scheme
+
+set background=dark " light/dark
+
 set lazyredraw " stops the screen being redrawn during some operations, better performance
 
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
-
-set spelllang=en_gb " set spelling language to English GB
 
 set history=500 " command line mode history
 
@@ -122,14 +124,12 @@ set cursorline " highlight current line
 
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 
+set spelllang=en_gb " set spelling language to English GB
+
 set wildmenu " enhanced autocomplete for command menu
 set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,bundle.js " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
-
-colorscheme solarized " load color scheme
-set background=dark " light/dark
-highlight Normal ctermbg=NONE " transparent background
 
 set number " show line numbers
 set relativenumber " show relative line numbers
@@ -154,8 +154,6 @@ set smartcase " enable case sensitive search when capitals are used
 
 set list " show invisibles
 set listchars=tab:│\ ,eol:∙ " set symbols for tabstops and EOLs
-highlight SpecialKey ctermbg=NONE ctermfg=green guibg=NONE guifg=green " tab char colors
-highlight NonText ctermbg=NONE ctermfg=darkmagenta guibg=NONE guifg=darkmagenta " eol char colors
 
 set foldmethod=indent " by default fold on indents
 set foldnestmax=10 " sets the maximum nest level of folds
@@ -167,6 +165,13 @@ if has('persistent_undo')
   " create undo dir if it doesn't exist
   silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
 endif
+
+" highlighting {{{
+highlight Normal ctermbg=NONE " transparent background
+highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
+highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
+highlight SpellBad cterm=underline " underline spelling mistakes
+" }}}
 " }}}
 
 " ### key mappings {{{
@@ -357,6 +362,14 @@ if has('autocmd')
     autocmd FileType ruby,javascript
           \ setlocal foldmethod=syntax |
           \ setlocal foldenable
+  augroup END
+  " }}}
+
+  " spelling {{{
+  augroup spelling
+    autocmd!
+    autocmd FileType markdown,html,text
+          \ setlocal spell
   augroup END
   " }}}
 endif

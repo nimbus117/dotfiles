@@ -1,6 +1,8 @@
 # start as login shell
 shell -${SHELL}
 
+defbce "on"
+
 # disable visual bell
 vbell off
 
