@@ -220,6 +220,9 @@ nnoremap <Leader>k <c-u>
 " show buffer list
 nnoremap <Leader>l :buffers<CR>
 
+" save current session as .vimsess
+nnoremap <Leader>ms :mksession! .vimsess<CR>
+
 " toggle relative numbering
 nnoremap <Leader>n :setlocal relativenumber!<CR>
 
@@ -228,6 +231,9 @@ nnoremap <Leader>p :setlocal paste!<CR>
 
 " find/replace all on word under cursor
 nnoremap <Leader>r :%s/<c-r><c-w>\C//g<left><left>
+
+" source the session saved in .vimsess
+nnoremap <Leader>ss :source .vimsess<CR>:nohlsearch<CR>
 
 " close tab
 nnoremap <Leader>tc :tabclose<CR>
