@@ -2,7 +2,7 @@
 
 let new=0
 let vundle_readme=expand("$HOME/.vim/bundle/Vundle.vim/README.md")
-if !filereadable(vundle_readme) 
+if !filereadable(vundle_readme)
   echo 'Installing Vundle...'
   echo ''
   silent !mkdir -p "$HOME/.vim/bundle"
@@ -88,9 +88,9 @@ let g:mucomplete#can_complete.sql = {
 
 " complete chains
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = [ 'path', 'omni', 'c-p' ]
-let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-p' ]
-let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-p' ]
+let g:mucomplete#chains.default = [ 'path', 'omni', 'c-n' ]
+let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-n' ]
+let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-n' ]
 " }}}
 
 " hardtime - stop repeating the basic movement keys
@@ -200,7 +200,7 @@ nnoremap <Leader>b :buffer
 nnoremap <Leader>d :DiffOpen<CR>
 
 " toggle file explorer
-nnoremap <expr> <Leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<CR>' : ':Rexplore<CR>'
+nnoremap <expr> <Leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<CR>' : ':Rexplore<CR>'
 
 " find and edit file
 nnoremap <Leader>f :edit **/*
@@ -208,8 +208,8 @@ nnoremap <Leader>f :edit **/*
 " open git diff tab, see DiffWithGit function below
 nnoremap <Leader>gd :GitDiffOpen<CR>
 
-" search help
-nnoremap <Leader>h :help 
+" search help and open in new tab
+nnoremap <Leader>h :tab help 
 
 " scroll window downwards half a screen
 nnoremap <Leader>j <c-d>
