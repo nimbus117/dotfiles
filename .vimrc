@@ -33,6 +33,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-scripts/dbext.vim'
+Plugin 'Yggdroot/LeaderF'
 " }}}
 call vundle#end()
 if new == 1
@@ -96,6 +97,9 @@ let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-n' ]
 " hardtime - stop repeating the basic movement keys
 let g:hardtime_default_on = 1 " on by default
 let g:hardtime_ignore_quickfix = 1 " allow in quickfix
+
+" leaderF - fuzzy finder
+let g:Lf_WindowHeight = 0.2
 " }}}
 
 " ### General Settings {{{
@@ -125,7 +129,7 @@ set scrolloff=2 " number of screen lines to keep above and below the cursor
 set spelllang=en_gb " set spelling language to English GB
 
 set wildmenu " enhanced autocomplete for command menu
-set wildmode=list:longest,full " tab completion options
+" set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,bundle.js " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 
@@ -176,88 +180,82 @@ highlight SpellBad cterm=underline " underline spelling mistakes
 " ### key mappings {{{
 
 " map jk to exit, doesn't move cursor back
-inoremap jk <Esc>`^
+inoremap jk <esc>`^
 
-" set <Leader> key to space bar
-nnoremap <SPACE> <Nop>
+" set <leader> key to space bar
+nnoremap <space> <nop>
 let mapleader = "\<Space>"
 
 " leader key bindings {{{
 
-" cycle between windows by pressing <Leader> key twice
-nnoremap <Leader><Leader> <c-w>w
+" cycle between windows by pressing <leader> key twice
+nnoremap <leader><leader> <c-w>w
 
 " stop current search highlighting
-nnoremap <Leader>/ :nohlsearch<CR>
+nnoremap <silent> <leader>/ :nohlsearch<cr>
 
 " go to alternate buffer
-nnoremap <Leader>a :buffer #<CR>
-
-" follow by buffer name and/or <TAB> and hit enter
-nnoremap <Leader>b :buffer 
+nnoremap <silent> <leader>a :buffer #<cr>
 
 " open diff tab, see DiffWithSaved function below
-nnoremap <Leader>d :DiffOpen<CR>
+nnoremap <leader>d :DiffOpen<cr>
 
 " toggle file explorer
-nnoremap <expr> <Leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<CR>' : ':Rexplore<CR>'
-
-" find and edit file
-nnoremap <Leader>f :edit **/*
+nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
 
 " open git diff tab, see DiffWithGit function below
-nnoremap <Leader>gd :GitDiffOpen<CR>
+nnoremap <leader>gd :GitDiffOpen<cr>
 
 " search help and open in new tab
-nnoremap <Leader>h :tab help 
+nnoremap <leader>h :tab help 
 
 " scroll window downwards half a screen
-nnoremap <Leader>j <c-d>
+nnoremap <leader>j <c-d>
 
 " scroll window upwards half a screen
-nnoremap <Leader>k <c-u>
+nnoremap <leader>k <c-u>
 
 " show buffer list
-nnoremap <Leader>l :buffers<CR>
+nnoremap <silent> <leader>l :buffers<cr>
 
 " save current session as .vimsess
-nnoremap <Leader>ms :mksession! .vimsess<CR>
+nnoremap <leader>ms :mksession! .vimsess<cr>
 
 " toggle relative numbering
-nnoremap <Leader>n :setlocal relativenumber!<CR>
+nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
 
 " toggle paste mode
-nnoremap <Leader>p :setlocal paste!<CR>
+nnoremap <silent> <leader>p :setlocal paste!<cr>
 
 " find/replace all on word under cursor
-nnoremap <Leader>r :%s/<c-r><c-w>\C//g<left><left>
+nnoremap <leader>r :%s/<c-r><c-w>\C//g<left><left>
 
 " source the session saved in .vimsess
-nnoremap <Leader>ss :source .vimsess<CR>:nohlsearch<CR>
+nnoremap <silent> <leader>ss :source .vimsess<cr>:nohlsearch<cr>
 
 " close tab
-nnoremap <Leader>tc :tabclose<CR>
+nnoremap <leader>tc :tabclose<cr>
 
 " open new tab
-nnoremap <Leader>tn :tabnew<CR>
+nnoremap <leader>tn :tabnew<cr>
 
 " close all other tabs
-nnoremap <Leader>to :tabonly<CR>
+nnoremap <silent> <leader>to :tabonly<cr>
 
 " toggle Undotree
-nnoremap <Leader>ut :UndotreeToggle<CR>
+nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 
 " insert uuid, see InsertUuid function below
-nnoremap <Leader>uu :InsertUuid<CR>
+nnoremap <silent> <leader>uu :InsertUuid<cr>
 
 " search files using vimgrep, see VGrep function below
-nnoremap <Leader>vg :VGrep 
+nnoremap <leader>vg :VGrep 
 
 " same as <c-w>
-nnoremap <Leader>w <c-w>
+nnoremap <leader>w <c-w>
 
 " open current window in a new tab
-nnoremap <Leader>wt <c-w>T
+nnoremap <leader>wt <c-w>T
 " }}}
 " }}}
 
@@ -325,7 +323,6 @@ function! s:VGrep(searchStr, ...)
   noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
   if !empty(getqflist())
     copen
-    setlocal norelativenumber
   endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
@@ -339,20 +336,24 @@ if has('autocmd')
   augroup misc
     " remove ALL autocommands for the current group
     autocmd!
-    " return to the last cursor position when opening files
-    autocmd BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line('$') |
-          \ exe "normal! g'\"" |
-          \ endif
+    " enable spell checking for certain filetypes
+    autocmd FileType markdown,html,text setlocal spell
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " clean up netrw hidden buffers
     autocmd FileType netrw setlocal bufhidden=wipe
+    " enable cursorline highlighting and disable relativenumber in quickfix window
+    autocmd FileType qf setlocal cursorline norelativenumber
     " highlight leading spaces with '·'
     autocmd FileType *
           \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
           \ setlocal conceallevel=2 concealcursor=nv |
           \ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
+    " return to the last cursor position when opening files
+    autocmd BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line('$') |
+          \ exe "normal! g'\"" |
+          \ endif
   augroup END
   " }}}
 
@@ -361,20 +362,10 @@ if has('autocmd')
     autocmd!
     " set foldmethod to marker
     autocmd FileType vim
-          \ setlocal foldmethod=marker |
-          \ setlocal foldenable
+          \ setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
     autocmd FileType ruby,javascript
-          \ setlocal foldmethod=syntax |
-          \ setlocal foldenable
-  augroup END
-  " }}}
-
-  " spelling {{{
-  augroup spelling
-    autocmd!
-    autocmd FileType markdown,html,text
-          \ setlocal spell
+          \ setlocal foldmethod=syntax foldenable
   augroup END
   " }}}
 endif
