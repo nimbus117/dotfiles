@@ -13,3 +13,6 @@ for i in "${arr[@]}"
 do
 	ln -fsv $(pwd)/$i $HOME/$i
 done
+
+# symlink for IntelliJ vimrc
+ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
