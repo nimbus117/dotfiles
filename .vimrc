@@ -170,6 +170,7 @@ endif
 
 " highlighting {{{
 " highlight Normal ctermbg=NONE " transparent background
+" highlight Search cterm=NONE ctermbg=blue ctermfg=white
 highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on fold lines
 highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
@@ -181,6 +182,10 @@ highlight SpellBad cterm=underline " underline spelling mistakes
 
 " map jk to exit, doesn't move cursor back
 inoremap jk <esc>`^
+
+" swap quote and backtick in normal mode
+nnoremap ' `
+nnoremap ` '
 
 " set <leader> key to space bar
 nnoremap <space> <nop>
