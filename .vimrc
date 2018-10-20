@@ -9,7 +9,6 @@ if !filereadable(vundle_readme)
   silent !git clone "https://github.com/VundleVim/Vundle.vim" "$HOME/.vim/bundle/Vundle.vim"
   let new=1
 endif
-set nocompatible " required
 filetype off     " required
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim/
 call vundle#begin()
@@ -102,7 +101,7 @@ let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 let g:Lf_WindowHeight = 0.2
 " }}}
 
-" ### General Settings {{{
+" ### general settings {{{
 
 set encoding=utf-8 " set character encoding
 
@@ -128,6 +127,8 @@ set scrolloff=2 " number of screen lines to keep above and below the cursor
 
 set spelllang=en_gb " set spelling language to English GB
 
+set autoindent " always set autoindenting on
+
 set wildmenu " enhanced autocomplete for command menu
 " set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,bundle.js " exclude from wildmenu and vimgrep
@@ -145,9 +146,6 @@ set expandtab " use spaces instead of TAB
 set tabstop=2 " number of visual spaces per TAB
 set softtabstop=2 " number of spaces in TAB when editing
 set shiftwidth=2 " number of spaces to use for each step of (auto)indent
-
-set autoindent " always set autoindenting on
-set smartindent " smart autoindenting when no indent file
 
 set incsearch " search as characters are typed
 set hlsearch " highlight all search matches
@@ -169,8 +167,6 @@ if has('persistent_undo')
 endif
 
 " highlighting {{{
-" highlight Normal ctermbg=NONE " transparent background
-" highlight Search cterm=NONE ctermbg=blue ctermfg=white
 highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on fold lines
 highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
@@ -230,10 +226,10 @@ nnoremap <leader>ms :mksession! .vimsess<cr>
 nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
 
 " toggle paste mode
-nnoremap <silent> <leader>p :setlocal paste!<cr>
+nnoremap <silent> <leader>p :set paste!<cr>
 
 " find/replace all on word under cursor
-nnoremap <leader>r :%s/<c-r><c-w>\C//g<left><left>
+nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
 
 " source the session saved in .vimsess
 nnoremap <silent> <leader>ss :source .vimsess<cr>:nohlsearch<cr>
@@ -255,6 +251,9 @@ nnoremap <silent> <leader>uu :InsertUuid<cr>
 
 " search files using vimgrep, see VGrep function below
 nnoremap <leader>vg :VGrep 
+
+" search for the word under the cursor using the VGrep function below
+nnoremap <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
 
 " same as <c-w>
 nnoremap <leader>w <c-w>
