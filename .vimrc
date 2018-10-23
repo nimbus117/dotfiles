@@ -97,8 +97,46 @@ let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-n' ]
 let g:hardtime_default_on = 1 " on by default
 let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 
-" leaderF - fuzzy finder
+" leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 0.2
+let g:Lf_DefaultMode = 'NameOnly'
+let g:Lf_HideHelp = 1
+let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+let g:Lf_StlPalette = {
+      \   'stlName': {
+      \       'ctermfg': 'black',
+      \       'ctermbg': 'darkblue'
+      \   },
+      \   'stlCategory': {
+      \       'ctermfg': 'black',
+      \       'ctermbg': 'green'
+      \   },
+      \   'stlNameOnlyMode': {
+      \       'ctermfg': 'black',
+      \       'ctermbg': 'blue'
+      \   },
+      \   'stlFullPathMode': {
+      \       'ctermfg': 'black',
+      \       'ctermbg': 'white'
+      \   },
+      \   'stlCwd': {
+      \       'ctermfg': '195',
+      \       'ctermbg': 'black'
+      \   },
+      \   'stlBlank': {
+      \       'ctermfg': 'NONE',
+      \       'ctermbg': 'black'
+      \   },
+      \   'stlLineInfo': {
+      \       'ctermfg': 'black',
+      \       'ctermbg': 'blue'
+      \   },
+      \   'stlTotal': {
+      \       'ctermfg': 'black',
+      \       'ctermbg': 'green'
+      \   }
+      \ }
+" }}}
 " }}}
 
 " ### general settings {{{
