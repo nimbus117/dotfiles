@@ -13,7 +13,7 @@ if [ "$(uname 2> /dev/null)" != "Linux"  ]; then
   ZSH_THEME="agnoster"
   DEFAULT_USER=`whoami`
 else
-  ZSH_THEME="simple"
+  ZSH_THEME="mySimple"
 fi
 
 # Set list of themes to load
