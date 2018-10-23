@@ -207,6 +207,9 @@ nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explor
 " open git diff tab, see DiffWithGit function below
 nnoremap <leader>gd :GitDiffOpen<cr>
 
+" search files using grep, see GGrep function below
+nnoremap <leader>gg :GGrep 
+
 " search help and open in new tab
 nnoremap <leader>h :tab help 
 
@@ -250,7 +253,7 @@ nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 nnoremap <silent> <leader>uu :InsertUuid<cr>
 
 " search files using vimgrep, see VGrep function below
-nnoremap <leader>vg :VGrep 
+nnoremap <leader>vg :VGrep \C<left><left>
 
 " search for the word under the cursor using the VGrep function below
 nnoremap <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
@@ -330,6 +333,22 @@ function! s:VGrep(searchStr, ...)
   endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
+" }}}
+
+" search files using grep {{{
+" similar to VGrep function above except using grep instead of vimgrep
+function! s:GGrep(searchStr, ...)
+  let path = a:0 >= 1 ? a:1 : '.'
+  let command = 'grep! -r'.
+        \ ' --exclude-dir=.git --exclude-dir=node_modules'.
+        \ ' --exclude=.\*.swp --exclude=bundle.js'
+  silent execute command a:searchStr path
+  redraw!
+  if !empty(getqflist())
+    copen
+  endif
+endfunction
+command! -nargs=* GGrep call s:GGrep(<f-args>)
 " }}}
 " }}}
 
