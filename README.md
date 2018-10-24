@@ -1,9 +1,17 @@
 # My dotfiles
 
-### Configuration files for Vim, GNU Screen, Git and Zsh
+Configuration files for Vim, GNU Screen, Git, Zsh and various other things.
 
-![new screen session](https://user-images.githubusercontent.com/37874299/41507125-098ab996-7224-11e8-93d8-c496bd426d21.png)
+## Setup Instructions
 
-![screen vertical split and vim](https://user-images.githubusercontent.com/37874299/41507126-101b43a2-7224-11e8-89ac-ebb01a3133da.png)
+1. Install the [solarized colorscheme](https://ethanschoonover.com/solarized/)
+2. Clone the repository
+3. Run install.sh
 
-![screen vertical and horizontal splits, vim :Lexplore](https://user-images.githubusercontent.com/37874299/41507127-132f982c-7224-11e8-9e98-20b813ce8ce3.png)
+## Screenshots
+
+![screenshot1](https://user-images.githubusercontent.com/37874299/47457546-4de73400-d7cf-11e8-876b-95262f51227a.png)
+
+![screenshot2](https://user-images.githubusercontent.com/37874299/47457583-5fc8d700-d7cf-11e8-9c4a-9eaae15de181.png)
+
+![screenshot3](https://user-images.githubusercontent.com/37874299/47457689-ae767100-d7cf-11e8-94d4-6bf8a4fa1920.png)
