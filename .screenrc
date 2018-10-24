@@ -21,7 +21,7 @@ backtick 1 0 60 echo $USER
 
 # status line and caption
 hardstatus alwayslastline
-hardstatus string '%{Bk} %1`@%H %{+b Gk} %D %d %{kG}%=%-Lw%{+b bk} %n*%f %t %{-}%+Lw%=%{+b Gk} %M %Y %{Bk} %0c '
+hardstatus string '%{Bk} %1`@%H %{+b Gk} %D %d %{-b kG}%=%-Lw%{+b bk} %n*%f %t %{-}%+Lw%=%{+b Gk} %M %Y %{-b Bk} %0c '
 caption string '%{G}%2n %t'
 rendition so = kG
 
