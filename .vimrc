@@ -136,6 +136,10 @@ let g:Lf_StlPalette = {
       \       'ctermbg': 'green'
       \   }
       \ }
+let g:Lf_WildIgnore = {
+      \ 'dir': ['.git', 'node_modules'],
+      \ 'file': ['*.swp', 'bundle.js']
+      \}
 " }}}
 " }}}
 
