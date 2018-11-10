@@ -1,27 +1,29 @@
 {
-    "workbench.colorTheme": "Better Solarized Dark",
-    "window.zoomLevel": 0,
-    "vim.visualstar": true,
-    "vim.useSystemClipboard": true,
-    "vim.leader": "<space>",
-    "vim.insertModeKeyBindings": [
-        {
-        "before": ["j", "k"],
-        "after": ["<Esc>"]
-        }
-    ],
-    "vim.normalModeKeyBindingsNonRecursive": [
-            {
-                "before": ["j"],
-                "after": ["g", "j"]
-            },
-            {
-                "before": ["k"],
-                "after": ["g", "k"]
-            }
-        ],
-    "editor.minimap.enabled": false,
-    "editor.lineNumbers": "relative",
-    "liveServer.settings.donotShowInfoMsg": true,
-    "workbench.startupEditor": "newUntitledFile"
+  "workbench.colorTheme": "Better Solarized Dark",
+  "window.zoomLevel": 0,
+  "vim.visualstar": true,
+  "vim.useSystemClipboard": true,
+  "vim.leader": "<space>",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["j"],
+      "after": ["g", "j"]
+    },
+    {
+      "before": ["k"],
+      "after": ["g", "k"]
+    }
+  ],
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.renderWhitespace": "boundary",
+  "editor.tabSize": 2
 }
