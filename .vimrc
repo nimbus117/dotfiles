@@ -277,7 +277,7 @@ nnoremap <silent> <leader>p :set paste!<cr>
 nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
 
 " source the session saved in .vimsess
-nnoremap <silent> <leader>ss :source .vimsess<cr>:nohlsearch<cr>
+nnoremap <silent> <leader>ss :source .vimsess<cr><bar>:source $MYVIMRC<cr><bar>:nohlsearch<cr>
 
 " close tab
 nnoremap <leader>tc :tabclose<cr>
