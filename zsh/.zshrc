@@ -113,3 +113,25 @@ then
   eval "$(rbenv init - --no-rehash)"
 fi
 
+
+### WSL stuff
+## install WSL - "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux"
+## install mintty terminal - https://github.com/mintty/wsltty/releases
+## solarized colours for mintty - https://github.com/hsab/WSL-config/blob/master/mintty/themes/solarized-dark.minttyrc
+## zsh - sudo apt-get install zsh
+## oh-my-zsh - sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+## put this in ".bashrc"
+##if [ -t 1  ]; then
+##  exec zsh
+##fi
+#
+## directory colours
+## clone - https://github.com/seebi/dircolors-solarized
+#eval `dircolors ~/dircolors-solarized/dircolors.256dark`
+#
+## screen - fix for folder permissions 
+## mkdir ~/.screen && chmod 700 ~/.screen
+#export SCREENDIR=$HOME/.screen
+#
+## add dns search suffix permenantly
+## https://grayson.sh/blogs/fixing-wsl-search-domains
