@@ -23,10 +23,10 @@ Plugin 'lifepillar/vim-mucomplete'
 Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree'
 Plugin 'nelstrom/vim-visual-star-search'
+Plugin 'rayburgemeestre/phpfolding.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'takac/vim-hardtime'
 Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-endwise'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
@@ -72,6 +72,7 @@ runtime macros/matchit.vim " enable matchit
 " MUcomplete - auto complete {{{
 set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
+set completeopt-=preview " don't show extra information in preview window
 set shortmess+=c " disable completion messages"
 let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
 let g:mucomplete#buffer_relative_paths = 1 " interpret paths relative to the directory of the current buffer
@@ -170,6 +171,8 @@ set scrolloff=2 " number of screen lines to keep above and below the cursor
 set spelllang=en_gb " set spelling language to English GB
 
 set autoindent " always set autoindenting on
+
+let php_folding=0 " enable folding for php classes and functions
 
 set wildmenu " enhanced autocomplete for command menu
 " set wildmode=list:longest,full " tab completion options
