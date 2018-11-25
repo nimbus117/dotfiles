@@ -31,6 +31,7 @@ Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
+Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'vim-scripts/dbext.vim'
 Plugin 'Yggdroot/LeaderF'
 " }}}
@@ -89,13 +90,15 @@ let g:mucomplete#can_complete.sql = {
 
 " complete chains
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = [ 'path', 'omni', 'c-n' ]
-let g:mucomplete#chains.sql = [ 'path', 'sqla', 'c-n' ]
+let g:mucomplete#chains.default = [ 'path', 'c-n', 'tags', 'omni' ]
+let g:mucomplete#chains.sql = [ 'path', 'c-n', 'sqla' ]
 let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-n' ]
 " }}}
 
 " hardtime - stop repeating the basic movement keys
 let g:hardtime_default_on = 1 " on by default
+let g:hardtime_maxcount = 2 "
+let g:hardtime_allow_different_key = 1 "
 let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 
 " leaderF - fuzzy finder {{{
@@ -243,6 +246,8 @@ nnoremap <silent> <leader>/ :nohlsearch<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
 
+nnoremap <leader>c :LeaderfTag<cr>
+
 " open diff tab, see DiffWithSaved function below
 nnoremap <leader>d :DiffOpen<cr>
 
@@ -254,6 +259,9 @@ nnoremap <leader>gd :GitDiffOpen<cr>
 
 " search files using grep, see GGrep function below
 nnoremap <leader>gg :GGrep 
+
+" search for the word under the cursor using GGrep
+nnoremap <leader>gw :GGrep <c-r><c-w> . -rw<cr>
 
 " search help and open in new tab
 nnoremap <leader>h :tab help 
@@ -300,7 +308,7 @@ nnoremap <silent> <leader>uu :InsertUuid<cr>
 " search files using vimgrep, see VGrep function below
 nnoremap <leader>vg :VGrep \C<left><left>
 
-" search for the word under the cursor using the VGrep function below
+" search for the word under the cursor using VGrep
 nnoremap <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
 
 " same as <c-w>
@@ -384,10 +392,11 @@ command! -nargs=* VGrep call s:VGrep(<f-args>)
 " similar to VGrep function above except using grep instead of vimgrep
 function! s:GGrep(searchStr, ...)
   let path = a:0 >= 1 ? a:1 : '.'
-  let command = 'grep! -r'.
+  let flags = a:0 >= 2 ? a:2 : '-rF'
+  let command = 'grep!'.
         \ ' --exclude-dir=.git --exclude-dir=node_modules'.
-        \ ' --exclude=.\*.swp --exclude=bundle.js'
-  silent execute command a:searchStr path
+        \ ' --exclude="*.swp" --exclude=bundle.js'
+  silent execute command flags a:searchStr path
   redraw!
   if !empty(getqflist())
     copen

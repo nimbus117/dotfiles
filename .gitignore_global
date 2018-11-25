@@ -5,6 +5,9 @@
 # git files
 *.orig
 
+# ctags
+tags
+
 # https://gist.github.com/octocat/9257657
 # Compiled source #
 ###################
