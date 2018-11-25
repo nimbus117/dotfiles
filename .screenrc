@@ -45,7 +45,6 @@ split
 resize -v 70%
 focus down
 select 2
-focus up
 layout new h2
 select 1
 split
@@ -55,7 +54,6 @@ select 2
 split -v
 focus right
 select 3
-focus up
 layout new v2
 select 2
 split -v
@@ -65,12 +63,15 @@ focus down
 select 3
 focus right
 select 1
+focus left
+focus down
 layout new v1
 select 2
 split -v
 resize -h 35%
 focus right
 select 1
+focus left
 layout select a
 
 # windows 1-2 will be in the directory screen was launched from, screen 3-4 are set to home
