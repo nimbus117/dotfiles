@@ -142,7 +142,7 @@ let g:Lf_StlPalette = {
       \ }
 let g:Lf_WildIgnore = {
       \ 'dir': ['.git', 'node_modules'],
-      \ 'file': ['*.swp', 'bundle.js']
+      \ 'file': ['*.swp', 'bundle.js', 'tags']
       \}
 " }}}
 " }}}
@@ -179,7 +179,7 @@ let php_folding=0 " enable folding for php classes and functions
 
 set wildmenu " enhanced autocomplete for command menu
 " set wildmode=list:longest,full " tab completion options
-set wildignore+=*.swp,*/node_modules/*,bundle.js " exclude from wildmenu and vimgrep
+set wildignore+=*.swp,*/node_modules/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 
 set number " show line numbers
@@ -395,7 +395,7 @@ function! s:GGrep(searchStr, ...)
   let flags = a:0 >= 2 ? a:2 : '-rF'
   let command = 'grep!'.
         \ ' --exclude-dir=.git --exclude-dir=node_modules'.
-        \ ' --exclude="*.swp" --exclude=bundle.js'
+        \ ' --exclude="*.swp" --exclude=bundle.js --exclude=tags'
   silent execute command flags a:searchStr path
   redraw!
   if !empty(getqflist())
