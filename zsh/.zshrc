@@ -2,12 +2,13 @@
   export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
-if [ "$(uname 2> /dev/null)" != "Linux"  ]; then
-  ZSH_THEME="agnoster"
-  DEFAULT_USER=`whoami`
-else
-  ZSH_THEME="mySimple"
-fi
+ZSH_THEME="mySimple"
+# if [ "$(uname 2> /dev/null)" != "Linux"  ]; then
+#   ZSH_THEME="agnoster"
+#   DEFAULT_USER=`whoami`
+# else
+#   ZSH_THEME="mySimple"
+# fi
 
 # DISABLE_AUTO_TITLE="true"
 
@@ -115,7 +116,8 @@ fi
 
 
 ### WSL stuff
-## install WSL - "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux"
+## enable WSL - "Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux"
+## install ubuntu from windows store
 ## install mintty terminal - https://github.com/mintty/wsltty/releases
 ## solarized colours for mintty - https://github.com/hsab/WSL-config/blob/master/mintty/themes/solarized-dark.minttyrc
 ## zsh - sudo apt-get install zsh
