@@ -123,6 +123,10 @@ let g:Lf_StlPalette = {
       \       'ctermfg': 'black',
       \       'ctermbg': 'white'
       \   },
+      \   'stlFuzzyMode': {
+      \       'ctermfg': 'black',
+      \       'ctermbg': 'blue'
+      \   },
       \   'stlCwd': {
       \       'ctermfg': '195',
       \       'ctermbg': 'black'
