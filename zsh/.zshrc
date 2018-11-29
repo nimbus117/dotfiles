@@ -3,12 +3,6 @@
 
 # Set name of the theme to load.
 ZSH_THEME="mySimple"
-# if [ "$(uname 2> /dev/null)" != "Linux"  ]; then
-#   ZSH_THEME="agnoster"
-#   DEFAULT_USER=`whoami`
-# else
-#   ZSH_THEME="mySimple"
-# fi
 
 # DISABLE_AUTO_TITLE="true"
 
@@ -16,7 +10,9 @@ ZSH_THEME="mySimple"
 plugins=(
   git
   colored-man-pages
-  rvm
+  history
+  cp
+  ufw
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -25,12 +21,6 @@ source $ZSH/oh-my-zsh.sh
 
 # 'cls' properly clears the terminal
 alias cls='tput reset'
-
-# 'h' shows history
-alias h='history'
-
-# 'hs' to search history
-alias hs='history | grep -i'
 
 # 'rb' = ruby
 alias rb='ruby'
