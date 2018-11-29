@@ -250,6 +250,7 @@ nnoremap <silent> <leader>/ :nohlsearch<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
 
+" launch LeaderF to navigate tags
 nnoremap <leader>c :LeaderfTag<cr>
 
 " open diff tab, see DiffWithSaved function below
