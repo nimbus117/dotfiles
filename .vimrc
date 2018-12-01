@@ -16,15 +16,18 @@ Plugin 'VundleVim/Vundle.vim'
 " add plugins here {{{
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'google/vim-searchindex'
+Plugin 'honza/vim-snippets'
 Plugin 'itchyny/lightline.vim'
 Plugin 'jiangmiao/auto-pairs'
 Plugin 'Konfekt/FastFold'
 Plugin 'lifepillar/vim-mucomplete'
+Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree'
 Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'rayburgemeestre/phpfolding.vim'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'SirVer/ultisnips'
 Plugin 'takac/vim-hardtime'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive.git'
@@ -90,15 +93,15 @@ let g:mucomplete#can_complete.sql = {
 
 " complete chains
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = [ 'path', 'c-n', 'tags', 'omni' ]
+let g:mucomplete#chains.default = [ 'path', 'ulti', 'c-n', 'tags', 'omni' ]
 let g:mucomplete#chains.sql = [ 'path', 'c-n', 'sqla' ]
 let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-n' ]
 " }}}
 
 " hardtime - stop repeating the basic movement keys
 let g:hardtime_default_on = 1 " on by default
-let g:hardtime_maxcount = 2 "
-let g:hardtime_allow_different_key = 1 "
+let g:hardtime_maxcount = 2 " number of times before hardtime starts ignoring subsequent keypresses
+let g:hardtime_allow_different_key = 1 " allow a key if it is different from the previous key
 let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 
 " leaderF - fuzzy finder {{{
@@ -149,6 +152,15 @@ let g:Lf_WildIgnore = {
       \ 'file': ['*.swp', 'bundle.js', 'tags']
       \}
 " }}}
+
+" Tagbar - browse tags from the current file
+let g:tagbar_show_linenumbers=2 " show relative line numbers
+
+" UltiSnips - snippets in Vim
+let g:UltiSnipsExpandTrigger = "<f5>" " snippet expansion
+let g:UltiSnipsListSnippets = "<f6>" " snippet list
+let g:UltiSnipsJumpForwardTrigger = "<c-f>" " jump forward in snippet
+let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
 " }}}
 
 " ### general settings {{{
@@ -231,6 +243,9 @@ highlight SpellBad cterm=underline " underline spelling mistakes
 " map jk to exit, doesn't move cursor back
 inoremap jk <esc>`^
 
+" UltiSnips snippets expanded automatically using mucomplete
+inoremap <silent> <expr> <cr> mucomplete#ultisnips#expand_snippet("\<cr>")
+
 " swap quote and backtick in normal mode
 nnoremap ' `
 nnoremap ` '
@@ -294,6 +309,9 @@ nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
 
 " source the session saved in .vimsess
 nnoremap <silent> <leader>ss :source .vimsess<cr><bar>:source $MYVIMRC<cr><bar>:nohlsearch<cr>
+
+" open Tagbar with autoclose set and disable vim HardTime
+nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>:HardTimeOff<cr>
 
 " close tab
 nnoremap <leader>tc :tabclose<cr>
