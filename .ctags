@@ -11,6 +11,7 @@
 --exclude=test
 --exclude=tests
 --exclude=bundle.js
+--exclude=public/js/app.js
 
 --langdef=js
 --langmap=js:.js
