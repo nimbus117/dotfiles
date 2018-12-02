@@ -167,6 +167,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
 " ranger - file explorer
 let g:ranger_map_keys = 0 " disable default key mapping
 
+" vim-rest-console - rest requests
 let s:vrc_auto_format_response_patterns = {
       \ 'json': 'python -m json.tool',
       \ 'xml': 'xmllint --format -',
