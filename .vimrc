@@ -15,6 +15,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " add plugins here {{{
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'francoiscabrol/ranger.vim'
 Plugin 'google/vim-searchindex'
 Plugin 'honza/vim-snippets'
 Plugin 'itchyny/lightline.vim'
@@ -153,14 +154,21 @@ let g:Lf_WildIgnore = {
       \}
 " }}}
 
-" Tagbar - browse tags from the current file
+" tagbar - browse tags from the current file
 let g:tagbar_show_linenumbers=2 " show relative line numbers
 
-" UltiSnips - snippets in Vim
+" ultisnips - snippets in Vim
 let g:UltiSnipsExpandTrigger = "<f5>" " snippet expansion
 let g:UltiSnipsListSnippets = "<f6>" " snippet list
 let g:UltiSnipsJumpForwardTrigger = "<c-f>" " jump forward in snippet
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
+
+" ranger - file explorer
+if (executable('ranger'))
+  let g:ranger_map_keys = 0 " disable default key mapping
+  " let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
+endif
+
 " }}}
 
 " ### general settings {{{
@@ -243,7 +251,7 @@ highlight SpellBad cterm=underline " underline spelling mistakes
 " map jk to exit, doesn't move cursor back
 inoremap jk <esc>`^
 
-" UltiSnips snippets expanded automatically using mucomplete
+" ultisnips snippets expanded automatically using mucomplete
 inoremap <silent> <expr> <cr> mucomplete#ultisnips#expand_snippet("\<cr>")
 
 " swap quote and backtick in normal mode
@@ -272,13 +280,20 @@ nnoremap <leader>c :LeaderfTag<cr>
 nnoremap <leader>d :DiffOpen<cr>
 
 " toggle file explorer
-nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
+if (executable('ranger'))
+  nnoremap <silent> <leader>e :Ranger<CR>
+else
+  nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
+endif
 
 " open git diff tab, see DiffWithGit function below
 nnoremap <leader>gd :GitDiffOpen<cr>
 
 " search files using grep, see GGrep function below
 nnoremap <leader>gg :GGrep 
+
+" open Gstatus
+nnoremap <leader>gs :Gstatus<cr>
 
 " search for the word under the cursor using GGrep
 nnoremap <leader>gw :GGrep <c-r><c-w> . -rw<cr>
@@ -295,9 +310,6 @@ nnoremap <leader>k <c-u>
 " show buffer list
 nnoremap <silent> <leader>l :buffers<cr>
 
-" save current session as .vimsess
-nnoremap <leader>ms :mksession! .vimsess<cr>
-
 " toggle relative numbering
 nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
 
@@ -306,9 +318,6 @@ nnoremap <silent> <leader>p :set paste!<cr>
 
 " find/replace all on word under cursor
 nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
-
-" source the session saved in .vimsess
-nnoremap <silent> <leader>ss :source .vimsess<cr><bar>:source $MYVIMRC<cr><bar>:nohlsearch<cr>
 
 " open Tagbar with autoclose set and disable vim HardTime
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>:HardTimeOff<cr>
