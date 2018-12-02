@@ -167,7 +167,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
 " ranger - file explorer
 let g:ranger_map_keys = 0 " disable default key mapping
 
-" vim-rest-console - rest requests
+" vim-rest-console - rest requests {{{
 let s:vrc_auto_format_response_patterns = {
       \ 'json': 'python -m json.tool',
       \ 'xml': 'xmllint --format -',
@@ -175,12 +175,14 @@ let s:vrc_auto_format_response_patterns = {
 
 let g:vrc_curl_opts = {
       \ '--connect-timeout' : 10,
-      \ '-L': '',
-      \ '-i': '',
+      \ '--location': '',
+      \ '--include': '',
       \ '--max-time': 60,
       \ '--ipv4': '',
-      \ '-k': '',
+      \ '--insecure': '',
+      \ '--silent': '',
     \}
+" }}}
 " }}}
 
 " ### general settings {{{
