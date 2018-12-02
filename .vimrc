@@ -164,10 +164,7 @@ let g:UltiSnipsJumpForwardTrigger = "<c-f>" " jump forward in snippet
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
 
 " ranger - file explorer
-if (executable('ranger'))
-  let g:ranger_map_keys = 0 " disable default key mapping
-  " let g:ranger_replace_netrw = 1 " open ranger when vim open a directory
-endif
+let g:ranger_map_keys = 0 " disable default key mapping
 
 " }}}
 
