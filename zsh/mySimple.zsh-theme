@@ -5,3 +5,5 @@ ZSH_THEME_GIT_PROMPT_PREFIX=" "
 ZSH_THEME_GIT_PROMPT_SUFFIX=""
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔"
+
+if [ -n "$RANGER_LEVEL"  ]; then export PS1="%{$fg[blue]%}[ranger] $PS1"; fi
