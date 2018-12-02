@@ -8,6 +8,9 @@
 # ctags
 tags
 
+# vim-rest-client
+.vrc.rest
+
 # https://gist.github.com/octocat/9257657
 # Compiled source #
 ###################

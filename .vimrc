@@ -15,6 +15,7 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 " add plugins here {{{
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'diepm/vim-rest-console'
 Plugin 'francoiscabrol/ranger.vim'
 Plugin 'google/vim-searchindex'
 Plugin 'honza/vim-snippets'
@@ -166,6 +167,19 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
 " ranger - file explorer
 let g:ranger_map_keys = 0 " disable default key mapping
 
+let s:vrc_auto_format_response_patterns = {
+      \ 'json': 'python -m json.tool',
+      \ 'xml': 'xmllint --format -',
+      \}
+
+let g:vrc_curl_opts = {
+      \ '--connect-timeout' : 10,
+      \ '-L': '',
+      \ '-i': '',
+      \ '--max-time': 60,
+      \ '--ipv4': '',
+      \ '-k': '',
+    \}
 " }}}
 
 " ### general settings {{{
@@ -327,6 +341,9 @@ nnoremap <leader>tn :tabnew<cr>
 
 " close all other tabs
 nnoremap <silent> <leader>to :tabonly<cr>
+
+" open vim-rest-console in new tab
+nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
 
 " toggle Undotree
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
