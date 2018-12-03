@@ -25,8 +25,17 @@ alias cls='tput reset'
 # keep current directory when exiting ranger file explorer
 alias r='source ranger'
 
+# screen
+alias s='screen'
+
+# screen -ls
+alias sl='screen -ls'
+
+# screen -R
+alias sr='screen -R'
+
 # screen/vim
-alias s='screen -c '$HOME'/.screenrcVim'
+alias sv='screen -c '$HOME'/.screenrcVim'
 
 ## functions
 
