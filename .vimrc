@@ -9,7 +9,7 @@ if !filereadable(vundle_readme)
   silent !git clone "https://github.com/VundleVim/Vundle.vim" "$HOME/.vim/bundle/Vundle.vim"
   let new=1
 endif
-filetype off     " required
+filetype off " required
 set runtimepath+=$HOME/.vim/bundle/Vundle.vim/
 call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
@@ -27,9 +27,9 @@ Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree'
 Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'rayburgemeestre/phpfolding.vim'
 Plugin 'sheerun/vim-polyglot'
 Plugin 'SirVer/ultisnips'
+Plugin 'swekaj/php-foldexpr.vim'
 Plugin 'takac/vim-hardtime'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive.git'
@@ -213,8 +213,6 @@ set spelllang=en_gb " set spelling language to English GB
 
 set autoindent " always set autoindenting on
 
-let php_folding=0 " enable folding for php classes and functions
-
 set wildmenu " enhanced autocomplete for command menu
 " set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,bundle.js,tags " exclude from wildmenu and vimgrep
@@ -239,7 +237,7 @@ set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
 
 set list " show invisibles
-set listchars=tab:│\ ,eol:∙ " set symbols for tabstops and EOLs
+set listchars=tab:∙\ ,eol:∙ " set symbols for tabstops and EOLs
 
 set foldmethod=indent " by default fold on indents
 set foldnestmax=10 " sets the maximum nest level of folds
@@ -519,9 +517,12 @@ if has('autocmd')
   " php {{{
   augroup php
     autocmd!
+    "
     autocmd BufWritePost * if &filetype == "php"
         \ | silent call RunPhplint()
         \ | endif
+    "
+    autocmd FileType php setlocal foldenable
   augroup END
   " }}}
 endif
