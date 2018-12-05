@@ -37,6 +37,7 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'ludovicchabant/vim-gutentags'
+Plugin 'vim-php/tagbar-phpctags.vim'
 Plugin 'vim-scripts/dbext.vim'
 Plugin 'Yggdroot/LeaderF'
 " }}}
@@ -156,6 +157,7 @@ let g:Lf_WildIgnore = {
 " }}}
 
 " tagbar - browse tags from the current file
+let g:tagbar_compact = 1 " hide help
 let g:tagbar_show_linenumbers=2 " show relative line numbers
 
 " ultisnips - snippets in Vim
@@ -183,6 +185,11 @@ let g:vrc_curl_opts = {
       \ '--silent': '',
     \}
 " }}}
+
+" fastfold - automatic folds
+let g:fastfold_force = 1 " prevent on every buffer change
+let g:fastfold_fold_movement_commands = [']z', '[z']
+let g:fastfold_fold_command_suffixes =  ['x','X','o','O','c','C','r','R','m','M']
 " }}}
 
 " ### general settings {{{
