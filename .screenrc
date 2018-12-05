@@ -16,6 +16,15 @@ autodetach on
 # scrollback buffer
 defscrollback 1000
 
+# timeout used for keymapping
+maptimeout 5
+
+# set term to 256color
+term screen-256color-bce
+
+# enable utf8
+defutf8 on
+
 # for hardstatus, set %1` to current user
 backtick 1 0 60 echo $USER
 
