@@ -159,6 +159,7 @@ let g:Lf_WildIgnore = {
 " tagbar - browse tags from the current file
 let g:tagbar_compact = 1 " hide help
 let g:tagbar_show_linenumbers=2 " show relative line numbers
+let g:tagbar_sort = 0 " sort based on order in source file
 
 " ultisnips - snippets in Vim
 let g:UltiSnipsExpandTrigger = "<f5>" " snippet expansion
@@ -270,7 +271,7 @@ highlight SpellBad cterm=underline " underline spelling mistakes
 " map jk to exit, doesn't move cursor back
 inoremap jk <esc>`^
 
-" ultisnips snippets expanded automatically using mucomplete
+" ultisnips snippets in mucomplete - select snippet and hit enter to expand
 inoremap <silent> <expr> <cr> mucomplete#ultisnips#expand_snippet("\<cr>")
 
 " swap quote and backtick in normal mode
@@ -437,7 +438,7 @@ function! s:VGrep(searchStr, ...)
   noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
   if !empty(getqflist())
     copen
-    exec "nnoremap <silent> <buffer> q :ccl<CR>"
+    exec "nnoremap <silent> <buffer> q :cclose<CR>"
   endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
@@ -455,7 +456,7 @@ function! s:GGrep(searchStr, ...)
   redraw!
   if !empty(getqflist())
     copen
-    exec "nnoremap <silent> <buffer> q :ccl<CR>"
+    exec "nnoremap <silent> <buffer> q :cclose<CR>"
   endif
 endfunction
 command! -nargs=* GGrep call s:GGrep(<f-args>)
@@ -463,20 +464,20 @@ command! -nargs=* GGrep call s:GGrep(<f-args>)
 
 " Phplint {{{
 " https://github.com/nrocco/vim-phplint
-function! RunPhplint()
+function! s:RunPhplint()
   let l:filename=@%
   let l:phplint_output=system('php -l '.l:filename)
   let l:phplint_list=split(l:phplint_output, "\n")
   if v:shell_error
     cexpr l:phplint_list[:-2]
     copen
-    exec "nnoremap <silent> <buffer> q :ccl<CR>"
+    exec "nnoremap <silent> <buffer> q :cclose<CR>"
   else
     cclose
     echomsg l:phplint_list[0]
   endif
 endfunction
-command! Phplint call RunPhplint()
+command! Phplint call s:RunPhplint()
 set errorformat+=%m\ in\ %f\ on\ line\ %l
 " }}}
 " }}}
@@ -524,11 +525,11 @@ if has('autocmd')
   " php {{{
   augroup php
     autocmd!
-    "
+    " run Phplint function after write
     autocmd BufWritePost * if &filetype == "php"
-        \ | silent call RunPhplint()
+        \ | silent call s:RunPhplint()
         \ | endif
-    "
+    " start with folds closed
     autocmd FileType php setlocal foldenable
   augroup END
   " }}}
