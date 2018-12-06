@@ -177,7 +177,7 @@ let s:vrc_auto_format_response_patterns = {
       \}
 
 let g:vrc_curl_opts = {
-      \ '--connect-timeout' : 10,
+      \ '--connect-timeout': 10,
       \ '--location': '',
       \ '--include': '',
       \ '--max-time': 60,
@@ -531,6 +531,8 @@ if has('autocmd')
         \ | endif
     " start with folds closed
     autocmd FileType php setlocal foldenable
+    " set comment string to // (replaces /*  */)
+    autocmd FileType php setlocal commentstring=//\ %s
   augroup END
   " }}}
 endif
