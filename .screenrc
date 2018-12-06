@@ -19,9 +19,6 @@ defscrollback 1000
 # timeout used for keymapping
 maptimeout 5
 
-# set term to 256color
-term screen-256color-bce
-
 # enable utf8
 defutf8 on
 
