@@ -244,7 +244,7 @@ set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
 
 set list " show invisibles
-set listchars=tab:∙\ ,eol:∙ " set symbols for tabstops and EOLs
+set listchars=tab:·\ ,eol:· " set symbols for tabstops and EOLs
 
 set foldmethod=indent " by default fold on indents
 set foldnestmax=10 " sets the maximum nest level of folds
