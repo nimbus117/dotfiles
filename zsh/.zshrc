@@ -37,6 +37,9 @@ alias sr='screen -R'
 # screen/vim
 alias sv='screen -c '$HOME'/.screenrcVim'
 
+# vim
+alias v='vim'
+
 ## functions
 
 # get the weather
