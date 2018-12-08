@@ -120,6 +120,15 @@ then
   export PATH="/usr/local/bin:$PATH"
 fi
 
+# add Android tools/emulator to PATH
+if [ -d  "$HOME/Android/Sdk" ]
+  export ANDROID_HOME=$HOME/Android/Sdk
+  export PATH=$PATH:$ANDROID_HOME/emulator
+  export PATH=$PATH:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+fi
+
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 if [ -d  $HOME/.rvm/bin ]
 then
@@ -133,3 +142,4 @@ if command -v rbenv >/dev/null
 then
   eval "$(rbenv init - --no-rehash)"
 fi
+
