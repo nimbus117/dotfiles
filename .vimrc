@@ -109,7 +109,7 @@ let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 
 " leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 0.2
-let g:Lf_DefaultMode = 'NameOnly'
+" let g:Lf_DefaultMode = 'NameOnly'
 let g:Lf_HideHelp = 1
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:Lf_StlPalette = {
@@ -123,11 +123,11 @@ let g:Lf_StlPalette = {
       \   },
       \   'stlNameOnlyMode': {
       \       'ctermfg': 'black',
-      \       'ctermbg': 'blue'
+      \       'ctermbg': 'white'
       \   },
       \   'stlFullPathMode': {
       \       'ctermfg': 'black',
-      \       'ctermbg': 'white'
+      \       'ctermbg': 'blue'
       \   },
       \   'stlFuzzyMode': {
       \       'ctermfg': 'black',
@@ -151,7 +151,7 @@ let g:Lf_StlPalette = {
       \   }
       \ }
 let g:Lf_WildIgnore = {
-      \ 'dir': ['.git', 'node_modules'],
+      \ 'dir': ['.git', 'node_modules', 'vendor'],
       \ 'file': ['*.swp', 'bundle.js', 'tags']
       \}
 " }}}
@@ -223,7 +223,7 @@ set autoindent " always set autoindenting on
 
 set wildmenu " enhanced autocomplete for command menu
 " set wildmode=list:longest,full " tab completion options
-set wildignore+=*.swp,*/node_modules/*,bundle.js,tags " exclude from wildmenu and vimgrep
+set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 
 set number " show line numbers
@@ -450,7 +450,7 @@ function! s:GGrep(searchStr, ...)
   let path = a:0 >= 1 ? a:1 : '.'
   let flags = a:0 >= 2 ? a:2 : '-rF'
   let command = 'grep!'.
-        \ ' --exclude-dir=.git --exclude-dir=node_modules'.
+        \ ' --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor'.
         \ ' --exclude="*.swp" --exclude=bundle.js --exclude=tags'
   silent execute command flags a:searchStr path
   redraw!
