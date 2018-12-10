@@ -154,6 +154,10 @@ let g:Lf_WildIgnore = {
       \ 'dir': ['.git', 'node_modules', 'vendor'],
       \ 'file': ['*.swp', 'bundle.js', 'tags']
       \}
+let g:Lf_PreviewResult = {
+      \ 'BufTag': 0,
+      \ 'Function': 0,
+      \}
 " }}}
 
 " tagbar - browse tags from the current file
