@@ -87,18 +87,17 @@ s() {
   count=`echo ${screenls} | wc -l`
   if [ $count -eq 2 ]; then; screen -c $HOME/.screenrcVim
   else
-    let counter=2
     screens=`echo $screenls | head '-'$(( $count-1 )) | sed 1d`
-    echo "1 New session"
+    echo "1. New session"
+    let counter=2
     echo $screens | while read line ; do
-      echo $counter $line
+      echo $counter'.' $line
       let counter=$counter+1
     done
-    echo -n "Enter session number: "; read num
+    echo -n "Enter number: "; read num
     if [ $num -eq 1 ]; then; screen -c $HOME/.screenrcVim
     else
       ((num-=1))
-      echo $num
       screen -R `echo $screens | sed -n ${num}'p' | cut -f2`
     fi
   fi
