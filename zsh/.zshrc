@@ -85,18 +85,22 @@ google() {
 s() {
   screenls="$(screen -ls 2>&1)"
   count=`echo ${screenls} | wc -l`
-  echo $count
   if [ $count -eq 2 ]; then; screen -c $HOME/.screenrcVim
-  elif [ $count -eq 3 ]; then; screen -R
   else
-    let counter=1
+    let counter=2
     screens=`echo $screenls | head '-'$(( $count-1 )) | sed 1d`
+    echo "1 New session"
     echo $screens | while read line ; do
       echo $counter $line
       let counter=$counter+1
     done
     echo -n "Enter session number: "; read num
-    screen -R `echo $screens | sed -n ${num}'p' | cut -f2`
+    if [ $num -eq 1 ]; then; screen -c $HOME/.screenrcVim
+    else
+      ((num-=1))
+      echo $num
+      screen -R `echo $screens | sed -n ${num}'p' | cut -f2`
+    fi
   fi
 }
 
