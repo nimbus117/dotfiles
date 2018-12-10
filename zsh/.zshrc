@@ -85,8 +85,9 @@ google() {
 s() {
   screenls="$(screen -ls 2>&1)"
   count=`echo ${screenls} | wc -l`
-  if [[ $count == 2 ]]; then; screen -c $HOME/.screenrcVim
-  elif [[ $count == 3 ]]; then; screen -R
+  echo $count
+  if [ $count -eq 2 ]; then; screen -c $HOME/.screenrcVim
+  elif [ $count -eq 3 ]; then; screen -R
   else
     let counter=1
     screens=`echo $screenls | head '-'$(( $count-1 )) | sed 1d`
