@@ -1,6 +1,5 @@
 --recurse=yes
 --exclude=min
---exclude=vendor
 --exclude=\*.min.\*
 --exclude=\*.map
 --exclude=\*.swp
