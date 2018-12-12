@@ -8,7 +8,7 @@ echo 'Read through the script before running it. Press [enter] to continue...'
 read
 
 # create symlinks in home directory
-declare -a arr=("git/.gitconfig" "git/.gitignore_global" "screen/.screenrc" "screen/.screenrcVim" "vim/.vimrc" "zsh/.zshrc" ".ctags" ".my.cnf")
+declare -a arr=("git/.gitconfig" "git/.gitignore_global" "screen/.screenrc" "screen/.screenrcVim" "vim/.vimrc" "zsh/.zshrc" "ctags/.ctags" ".my.cnf")
 for i in "${arr[@]}"
 do
   ln -fsv $(pwd)/$i $HOME/${i##*/}
