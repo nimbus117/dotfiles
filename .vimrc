@@ -523,6 +523,9 @@ if has('autocmd')
     " set foldmethod to syntax
     autocmd FileType ruby,javascript
           \ setlocal foldmethod=syntax foldenable
+    " start with folds closed
+    autocmd FileType php
+          \ setlocal foldenable
   augroup END
   " }}}
 
@@ -533,8 +536,6 @@ if has('autocmd')
     autocmd BufWritePost * if &filetype == "php"
         \ | silent call s:RunPhplint()
         \ | endif
-    " start with folds closed
-    autocmd FileType php setlocal foldenable
     " set comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
   augroup END
