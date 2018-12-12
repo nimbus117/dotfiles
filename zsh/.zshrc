@@ -37,6 +37,12 @@ alias sv='screen -c '$HOME'/.screenrcVim'
 # vim
 alias v='vim'
 
+# go to MAMP/htdocs
+if [ -d  "/Applications/MAMP/htdocs" ]
+then
+  alias mamp='cd /Applications/MAMP/htdocs'
+fi
+
 ## functions
 
 # get the weather
@@ -138,6 +144,12 @@ fi
 if [ -d  "$HOME/.config/composer/vendor/bin" ]
 then
   export PATH=$PATH:$HOME/.config/composer/vendor/bin
+fi
+
+# add /Applications/MAMP/Library/bin to PATH
+if [ -d  "/Applications/MAMP/Library/bin" ]
+then
+  export PATH=$PATH:/Applications/MAMP/Library/bin
 fi
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
