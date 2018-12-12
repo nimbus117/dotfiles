@@ -92,7 +92,7 @@ s() {
     let counter=2
     echo $screens | while read line ; do
       echo $counter'.' $line
-      let counter=$counter+1
+      ((counter+=1))
     done
     echo -n "Enter number: "; read num
     if [ $num -eq 1 ]; then; screen -c $HOME/.screenrcVim
