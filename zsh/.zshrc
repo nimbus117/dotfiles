@@ -28,11 +28,14 @@ alias r='source ranger'
 # screen
 alias sc='screen'
 
-# screen -ls
-alias sl='screen -ls'
+# list screens
+alias sl='sc -ls'
+
+# reattach screen
+alias sr='sc -d -RR'
 
 # screen/vim
-alias sv='screen -c '$HOME'/.screenrcVim'
+alias sv='sc -c '$HOME'/.screenrcVim'
 
 # vim
 alias v='vim'
@@ -89,22 +92,25 @@ google() {
 
 # pick screen session to reconnect to
 s() {
-  screenls="$(screen -ls 2>&1)"
+  screenls="$(sl)"
   count=`echo ${screenls} | wc -l`
-  if [ $count -eq 2 ]; then; screen -c $HOME/.screenrcVim
+  if [ $count -eq 2 ]; then; sv
   else
     screens=`echo $screenls | head '-'$(( $count-1 )) | sed 1d`
-    echo "1. New session"
-    let counter=2
+    echo "0. New session"
+    let counter=1
     echo $screens | while read line ; do
       echo $counter'.' $line
       ((counter+=1))
     done
     echo -n "Enter number: "; read num
-    if [ $num -eq 1 ]; then; screen -c $HOME/.screenrcVim
+    if [[ -n ${num//[0-$(( $count-2 ))]/} ]] || [[ -z "$num" ]]; then
+      echo "Invalid input"
     else
-      ((num-=1))
-      screen -R `echo $screens | sed -n ${num}'p' | cut -f2`
+      if [ $num -eq 0 ]; then; sv
+      else
+        sr `echo $screens | sed -n ${num}'p' | cut -f2`
+      fi
     fi
   fi
 }

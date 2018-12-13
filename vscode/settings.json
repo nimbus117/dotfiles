@@ -25,5 +25,6 @@
   "liveServer.settings.donotShowInfoMsg": true,
   "workbench.startupEditor": "newUntitledFile",
   "editor.renderWhitespace": "boundary",
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "window.titleBarStyle": "custom"
 }
