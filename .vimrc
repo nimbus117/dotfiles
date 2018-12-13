@@ -96,9 +96,9 @@ let g:mucomplete#can_complete.sql = {
 
 " complete chains
 let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = [ 'path', 'ulti', 'c-n', 'tags', 'omni' ]
+let g:mucomplete#chains.default = [ 'path', 'ulti', 'c-n', 'tags' ]
 let g:mucomplete#chains.sql = [ 'path', 'c-n', 'sqla' ]
-let g:mucomplete#chains.vim = [ 'path', 'cmd', 'omni', 'c-n' ]
+let g:mucomplete#chains.vim = [ 'path', 'cmd', 'c-n' ]
 " }}}
 
 " hardtime - stop repeating the basic movement keys
