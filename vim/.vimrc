@@ -81,6 +81,7 @@ set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt+=noselect " do not select a match in the menu
 set completeopt-=preview " don't show extra information in preview window
 set shortmess+=c " disable completion messages"
+set complete-=i
 let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
 let g:mucomplete#buffer_relative_paths = 1 " interpret paths relative to the directory of the current buffer
 
