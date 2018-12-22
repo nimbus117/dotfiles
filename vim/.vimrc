@@ -226,6 +226,8 @@ set spelllang=en_gb " set spelling language to English GB
 
 set autoindent " always set autoindenting on
 
+set sessionoptions-=options " when saving a session do not save all options and mappings
+
 set wildmenu " enhanced autocomplete for command menu
 " set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
@@ -335,6 +337,9 @@ nnoremap <leader>k <c-u>
 " show buffer list
 nnoremap <silent> <leader>l :buffers<cr>
 
+" save current session as .vimsess
+nnoremap <leader>ms :mksession! .vimsess<cr>
+
 " toggle relative numbering
 nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
 
@@ -343,6 +348,9 @@ nnoremap <silent> <leader>p :set paste!<cr>
 
 " find/replace all on word under cursor
 nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
+
+" source the session saved in .vimsess
+nnoremap <silent> <leader>ss :source .vimsess<cr>
 
 " open Tagbar with autoclose set and disable vim HardTime
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>:HardTimeOff<cr>
