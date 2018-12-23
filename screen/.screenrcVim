@@ -1,2 +1,2 @@
 source $HOME/.screenrc
-stuff " v^M"
+stuff " vim^M"

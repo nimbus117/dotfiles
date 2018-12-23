@@ -25,21 +25,6 @@ alias cls='tput reset'
 # keep current directory when exiting ranger file explorer
 alias r='source ranger'
 
-# screen
-alias sc='screen'
-
-# list screens
-alias sl='sc -ls'
-
-# reattach screen
-alias sr='sc -d -RR'
-
-# screen/vim
-alias sv='sc -c '$HOME'/.screenrcVim'
-
-# vim
-alias v='vim'
-
 # go to MAMP/htdocs
 if [ -d  "/Applications/MAMP/htdocs" ]
 then
@@ -92,25 +77,22 @@ google() {
 
 # pick screen session to reconnect to
 s() {
-  screenls="$(sl)"
-  count=`echo ${screenls} | wc -l`
-  if [ $count -eq 2 ]; then; sv
+  screens=`screen -ls | sed '1d;$d'`
+  count=$(echo -n "$screens" | grep -c '^')
+  if [ $count -eq 0 ]; then; screen -c '$HOME'/.screenrcVim
   else
-    screens=`echo $screenls | head '-'$(( $count-1 )) | sed 1d`
     echo "0. New session"
     let counter=1
     echo $screens | while read line ; do
       echo $counter'.' $line
-      ((counter+=1))
+      (( counter+=1 ))
     done
     echo -n "Enter number: "; read num
-    if [[ -n ${num//[0-$(( $count-2 ))]/} ]] || [[ -z "$num" ]]; then
-      echo "Invalid input"
+    if [ $num -eq 0 2> /dev/null ]; then; sv
+    elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
+      screen -d -r `echo $screens | sed -n ${num}'p' | cut -f2`
     else
-      if [ $num -eq 0 ]; then; sv
-      else
-        sr `echo $screens | sed -n ${num}'p' | cut -f2`
-      fi
+      echo "Invalid input - enter a number between 0 and $count"
     fi
   fi
 }
