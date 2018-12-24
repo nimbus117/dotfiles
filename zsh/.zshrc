@@ -79,7 +79,7 @@ google() {
 s() {
   screens=`screen -ls | sed '1d;$d'`
   count=$(echo -n "$screens" | grep -c '^')
-  if [ $count -eq 0 ]; then; screen -c '$HOME'/.screenrcVim
+  if [ $count -eq 0 ]; then; screen -c $HOME/.screenrcVim
   else
     echo "0. New session"
     let counter=1
@@ -88,7 +88,7 @@ s() {
       (( counter+=1 ))
     done
     echo -n "Enter number: "; read num
-    if [ $num -eq 0 2> /dev/null ]; then; sv
+    if [ $num -eq 0 2> /dev/null ]; then; screen -c $HOME/.screenrcVim
     elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
       screen -d -r `echo $screens | sed -n ${num}'p' | cut -f2`
     else
