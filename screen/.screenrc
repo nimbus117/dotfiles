@@ -80,12 +80,12 @@ select 1
 focus left
 layout select a
 
-# windows 1-2 will be in the directory screen was launched from, screen 3-4 are set to home
+# windows 1-3 will be in the directory screen was launched from, window 4 is set to home
 # the terminal in each window is also cleared
 select 4
 stuff " cd ~; clear^M"
 select 3
-stuff " cd ~; clear^M"
+stuff " clear^M"
 select 2
 stuff " clear^M"
 select 1
