@@ -92,7 +92,7 @@ s() {
     elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
       screen -d -r `echo $screens | sed -n ${num}'p' | cut -f2`
     else
-      echo "Invalid input - enter a number between 0 and $count"
+      echo "Invalid input - enter a number from 0 to $count"
     fi
   fi
 }
