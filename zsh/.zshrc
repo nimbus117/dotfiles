@@ -97,6 +97,11 @@ s() {
   fi
 }
 
+sshadd() {
+  eval "$(ssh-agent)"
+  ssh-add
+}
+
 ## environment variables
 
 # home page for w3m browser
@@ -154,7 +159,13 @@ then
   eval "$(rbenv init - --no-rehash)"
 fi
 
+# required for tilix
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   source /etc/profile.d/vte.sh
 fi
 
+# if dircolors, set colour for ls
+if [ -d "$HOME/.dircolors" ]
+then
+  eval `dircolors ~/.dircolors`
+fi
