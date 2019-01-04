@@ -11,8 +11,6 @@ plugins=(
   git
   colored-man-pages
   history
-  cp
-  ufw
 )
 
 source $ZSH/oh-my-zsh.sh
