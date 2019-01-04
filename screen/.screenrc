@@ -23,7 +23,7 @@ maptimeout 5
 defutf8 on
 
 # for hardstatus, set %1` to current user
-backtick 1 0 60 echo $USER
+backtick 1 60 60 echo $USER
 
 # status line and caption
 hardstatus alwayslastline

@@ -15,10 +15,10 @@ do
 done
 
 # symlink for IntelliJ vimrc
-ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
+#ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
 
 # symlink for mySimple zsh theme
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
 
 # symlink for vscode user settings.json
-ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
+#ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
