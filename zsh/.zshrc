@@ -165,7 +165,7 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
 fi
 
 # if dircolors, set colour for ls
-if [ -d "$HOME/.dircolors" ]
+if [ -f $HOME/.dircolors ]
 then
-  eval `dircolors ~/.dircolors`
+  eval `dircolors $HOME/.dircolors`
 fi
