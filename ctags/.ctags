@@ -11,7 +11,7 @@
 --exclude=tests
 --exclude=bundle.js
 --exclude=public/js/app.js
-
+--exclude=*.min.js
 --exclude=*.java
 
 --langdef=js
