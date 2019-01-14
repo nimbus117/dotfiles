@@ -334,9 +334,6 @@ nnoremap <leader>j <c-d>
 " scroll window upwards half a screen
 nnoremap <leader>k <c-u>
 
-" show buffer list
-nnoremap <silent> <leader>l :buffers<cr>
-
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
 
@@ -491,7 +488,6 @@ function! s:RunPhplint()
   endif
 endfunction
 command! Phplint call s:RunPhplint()
-set errorformat+=%m\ in\ %f\ on\ line\ %l
 " }}}
 " }}}
 
@@ -547,6 +543,8 @@ if has('autocmd')
         \ | endif
     " set comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
+    " set errorformat for Phplint function
+    autocmd FileType php set errorformat+=%m\ in\ %f\ on\ line\ %l
   augroup END
   " }}}
 endif
