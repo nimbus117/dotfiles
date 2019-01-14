@@ -1,6 +1,6 @@
 {
   "workbench.colorTheme": "Better Solarized Dark",
-  "window.zoomLevel": 0,
+  "window.zoomLevel": 2,
   "vim.visualstar": true,
   "vim.useSystemClipboard": true,
   "vim.leader": "<space>",

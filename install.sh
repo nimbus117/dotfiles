@@ -21,7 +21,7 @@ done
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
 
 # symlink for vscode user settings.json
-#ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
+ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
 
 # symlink for ranger conf
 ln -fsv "$(pwd)/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
