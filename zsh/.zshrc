@@ -11,6 +11,7 @@ plugins=(
   git
   colored-man-pages
   history
+  nvm
 )
 
 source $ZSH/oh-my-zsh.sh
