@@ -275,6 +275,9 @@ highlight SpellBad cterm=underline " underline spelling mistakes
 
 " ### key mappings {{{
 
+" write with sudo
+cnoreabbrev w!! w !sudo tee > /dev/null %
+
 " map jk to exit, doesn't move cursor back
 inoremap jk <esc>`^
 
