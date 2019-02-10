@@ -22,7 +22,10 @@ source $ZSH/oh-my-zsh.sh
 alias cls='tput reset'
 
 # keep current directory when exiting ranger file explorer
-alias r='source ranger'
+if command -v ranger >/dev/null
+then
+  alias r='source ranger'
+fi
 
 # go to MAMP/htdocs
 if [ -d  "/Applications/MAMP/htdocs" ]
