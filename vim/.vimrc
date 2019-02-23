@@ -39,6 +39,7 @@ Plugin 'tpope/vim-unimpaired'
 Plugin 'ludovicchabant/vim-gutentags'
 Plugin 'vim-php/tagbar-phpctags.vim'
 Plugin 'vim-scripts/dbext.vim'
+Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/LeaderF'
 " }}}
 call vundle#end()
@@ -527,6 +528,15 @@ if has('autocmd')
     autocmd FileType php setlocal commentstring=//\ %s
     " set errorformat for Phplint function
     autocmd FileType php set errorformat+=%m\ in\ %f\ on\ line\ %l
+  augroup END
+  " }}}
+
+  " python {{{
+  augroup python
+    autocmd!
+    " set indentation to 4 spaces
+    autocmd FileType python setlocal
+          \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
   augroup END
   " }}}
 endif
