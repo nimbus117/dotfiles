@@ -1,6 +1,7 @@
 // https://gist.github.com/j-bennet/84932a9da4f9a8e09fbba6bf10547fdb
 // Run in the JavaScript console of the hterm browser window
 
+// Clear all existing settings
 term_.prefs_.storage.clear()
 
 var colorPaletteOverides = [
@@ -88,3 +89,6 @@ htermProfiles.forEach(function(profile) {
 
 term_.setProfile('solarized-dark');
 // term_.setProfile('solarized-light');
+
+// disable the audible bell 
+term_.prefs_.set('audible-bell-sound', '')
