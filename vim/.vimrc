@@ -21,13 +21,13 @@ Plugin 'google/vim-searchindex'
 Plugin 'honza/vim-snippets'
 Plugin 'itchyny/lightline.vim'
 Plugin 'jiangmiao/auto-pairs'
+Plugin 'JulesWang/css.vim'
 Plugin 'Konfekt/FastFold'
-Plugin 'lifepillar/vim-mucomplete'
 Plugin 'majutsushi/tagbar'
 Plugin 'mattn/emmet-vim'
 Plugin 'mbbill/undotree'
 Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'sheerun/vim-polyglot'
+Plugin 'pangloss/vim-javascript'
 Plugin 'SirVer/ultisnips'
 Plugin 'swekaj/php-foldexpr.vim'
 Plugin 'takac/vim-hardtime'
@@ -75,32 +75,6 @@ let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides
 
 " matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
-
-" MUcomplete - auto complete {{{
-set completeopt+=menuone " use the popup menu even if there is only one match
-set completeopt+=noselect " do not select a match in the menu
-set completeopt-=preview " don't show extra information in preview window
-set shortmess+=c " disable completion messages"
-set complete-=i
-let g:mucomplete#enable_auto_at_startup = 1 " enable at startup
-let g:mucomplete#buffer_relative_paths = 1 " interpret paths relative to the directory of the current buffer
-
-" custom completion methods
-let g:mucomplete#user_mappings = {}
-let g:mucomplete#user_mappings.sqla = "\<c-c>a"
-
-" define conditions before a given method is tried
-let g:mucomplete#can_complete = {}
-let g:mucomplete#can_complete.sql = {
-      \ 'sqla': { t -> strlen(&l:omnifunc) > 0 && t =~# '\%(\k\k\)$' }
-      \ }
-
-" complete chains
-let g:mucomplete#chains = {}
-let g:mucomplete#chains.default = [ 'path', 'ulti', 'c-n' ]
-let g:mucomplete#chains.sql = [ 'path', 'c-n', 'sqla' ]
-let g:mucomplete#chains.vim = [ 'path', 'cmd', 'c-n' ]
-" }}}
 
 " hardtime - stop repeating the basic movement keys
 let g:hardtime_default_on = 1 " on by default
@@ -167,8 +141,7 @@ let g:tagbar_show_linenumbers=2 " show relative line numbers
 let g:tagbar_sort = 0 " sort based on order in source file
 
 " ultisnips - snippets in Vim
-let g:UltiSnipsExpandTrigger = "<f5>" " snippet expansion
-let g:UltiSnipsListSnippets = "<f6>" " snippet list
+let g:UltiSnipsListSnippets = "<f5>" " snippet list
 let g:UltiSnipsJumpForwardTrigger = "<c-f>" " jump forward in snippet
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
 
@@ -258,6 +231,9 @@ set foldmethod=indent " by default fold on indents
 set foldnestmax=10 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
 
+set completeopt-=preview " don't show extra information in preview window
+set complete-=i " do not scan current and included files when using c-p/c-n
+
 if has('persistent_undo')
   set undofile " use persistent undo
   set undodir=$HOME/.vim/undodir " set persistent undo directory
@@ -271,6 +247,12 @@ highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
 highlight SpellBad cterm=underline " underline spelling mistakes
 " }}}
+
+" php settings {{{
+let php_sql_query = 1 " highlight SQL syntax
+let php_baselib = 1 " highlight Baselib methods
+let php_htmlInStrings = 1 " highlight HTML syntax
+" }}}
 " }}}
 
 " ### key mappings {{{
@@ -280,9 +262,6 @@ cnoreabbrev w!! w !sudo tee > /dev/null %
 
 " map jk to exit, doesn't move cursor back
 inoremap jk <esc>`^
-
-" ultisnips snippets in mucomplete - select snippet and hit enter to expand
-inoremap <silent> <expr> <cr> mucomplete#ultisnips#expand_snippet("\<cr>")
 
 " swap quote and backtick in normal mode
 nnoremap ' `
