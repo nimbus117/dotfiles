@@ -144,11 +144,11 @@ let g:Lf_StlPalette = {
       \   },
       \   'stlLineInfo': {
       \       'ctermfg': 'black',
-      \       'ctermbg': 'blue'
+      \       'ctermbg': 'green'
       \   },
       \   'stlTotal': {
       \       'ctermfg': 'black',
-      \       'ctermbg': 'green'
+      \       'ctermbg': 'blue'
       \   }
       \ }
 let g:Lf_WildIgnore = {
