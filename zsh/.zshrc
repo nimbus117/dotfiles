@@ -39,7 +39,7 @@ fi
 weather() {
   if [ $# -eq 0  ]
   then
-    curl 'wttr.in/unitedkindom+edinburgh'
+    curl 'wttr.in'
   else
     curl 'wttr.in/'$1
   fi
