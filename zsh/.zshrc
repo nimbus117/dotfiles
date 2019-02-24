@@ -99,9 +99,24 @@ s() {
   fi
 }
 
+# load environment variables for ssh-agent and add ssh pass
 sshadd() {
   eval "$(ssh-agent)"
   ssh-add
+}
+
+# get dad joke
+joke() {
+  joke=`curl -s https://icanhazdadjoke.com/`
+  if command -v cowsay >/dev/null && command -v lolcat >/dev/null
+  then
+    clear
+    cowFile=`ls /usr/share/cowsay/cows/ | shuf -n1`
+    echo $joke | cowsay -w -f ${cowFile} | lolcat -a -s 320 -d 6
+    echo ""
+  else
+    echo $joke
+  fi
 }
 
 ## environment variables
