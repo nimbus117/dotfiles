@@ -111,13 +111,15 @@ joke() {
   if command -v cowsay >/dev/null && command -v lolcat >/dev/null
   then
     clear
-    cowFile=`ls /usr/share/cowsay/cows/ | shuf -n1`
+    cowFile=`cowsay -l | sed "1d" | tr " " "\n" | sort --random-sort | head -n1`
     echo $joke | cowsay -w -f ${cowFile} | lolcat -a -s 320 -d 6
     echo ""
   else
     echo $joke
   fi
 }
+# show all
+# for f in `cowsay -l | sed "1d"`; do; cowsay -f $f "Hello, I am $f"; done | lolcat
 
 ## environment variables
 
