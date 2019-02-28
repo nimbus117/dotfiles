@@ -92,7 +92,7 @@ s() {
     echo -n "Enter number: "; read num
     if [ $num -eq 0 2> /dev/null ]; then; screen -c $HOME/.screenrcVim
     elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
-      screen -d -r `echo $screens | sed -n ${num}'p' | cut -f2`
+      screen -d -r `echo $screens | sed -n ${num}'p' | awk '{print $1}'`
     else
       echo "Invalid input - enter a number from 0 to $count"
     fi
@@ -110,8 +110,7 @@ joke() {
   joke=`curl -s https://icanhazdadjoke.com/`
   if command -v cowsay >/dev/null && command -v lolcat >/dev/null
   then
-    clear
-    cowFile=`cowsay -l | sed "1d" | tr " " "\n" | sort --random-sort | head -n1`
+    cowFile=`cowsay -l | sed "1d" | tr " " "\n" | sort --random-sort | sed 1q`
     echo $joke | cowsay -w -f ${cowFile} | lolcat -a -s 320 -d 6
     echo ""
   else
