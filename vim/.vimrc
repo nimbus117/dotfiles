@@ -291,7 +291,7 @@ nnoremap <leader>d :DiffOpen<cr>
 
 " toggle file explorer
 if (executable('ranger'))
-  nnoremap <silent> <leader>e :Ranger<CR>
+  nnoremap <silent> <leader>e :Ranger<cr>
 else
   nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
 endif
@@ -431,7 +431,7 @@ function! s:VGrep(searchStr, ...)
   noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
   if !empty(getqflist())
     copen
-    exec "nnoremap <silent> <buffer> q :cclose<CR>"
+    exec "nnoremap <silent> <buffer> q :cclose<cr>"
   endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
@@ -449,7 +449,7 @@ function! s:GGrep(searchStr, ...)
   redraw!
   if !empty(getqflist())
     copen
-    exec "nnoremap <silent> <buffer> q :cclose<CR>"
+    exec "nnoremap <silent> <buffer> q :cclose<cr>"
   endif
 endfunction
 command! -nargs=* GGrep call s:GGrep(<f-args>)
@@ -464,7 +464,7 @@ function! s:RunPhplint()
   if v:shell_error
     cexpr l:phplint_list[:-2]
     copen
-    exec "nnoremap <silent> <buffer> q :cclose<CR>"
+    exec "nnoremap <silent> <buffer> q :cclose<cr>"
   else
     cclose
     echomsg l:phplint_list[0]
