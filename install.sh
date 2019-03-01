@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 # run
 # chmod 744 install.sh
 # ./install.sh
@@ -7,8 +7,8 @@ echo 'WARNING! - this script will replace configuration files on your system.'
 echo 'Read through the script before running it. Press [enter] to continue...'
 read
 
-# create symlinks in home directory
-declare -a arr=(
+# create links in home directory
+declare -a dotfiles=(
   "ctags/.ctags"
   "git/.gitconfig"
   "git/.gitignore_global"
@@ -19,19 +19,19 @@ declare -a arr=(
   "zsh/.zshrc"
 )
 
-for i in "${arr[@]}"
+for i in "${dotfiles[@]}"
 do
   ln -fsv $(pwd)/$i $HOME/${i##*/}
 done
 
-# symlink for IntelliJ vimrc
+# link for IntelliJ vimrc
 #ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
 
-# symlink for mySimple zsh theme
+# link for mySimple zsh theme
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
 
-# symlink for vscode user settings.json
+# link for vscode user settings.json
 ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
 
-# symlink for ranger conf
+# link for ranger conf
 ln -fsv "$(pwd)/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
