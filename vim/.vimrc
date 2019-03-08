@@ -39,6 +39,7 @@ Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-php/tagbar-phpctags.vim'
 Plugin 'vim-scripts/dbext.vim'
+Plugin 'vim-vdebug/vdebug'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/LeaderF'
 " }}}
