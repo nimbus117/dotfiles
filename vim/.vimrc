@@ -204,7 +204,6 @@ set autoindent " always set autoindenting on
 set sessionoptions-=options " when saving a session do not save all options and mappings
 
 set wildmenu " enhanced autocomplete for command menu
-" set wildmode=list:longest,full " tab completion options
 set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 
@@ -304,7 +303,7 @@ nnoremap <leader>gd :GitDiffOpen<cr>
 nnoremap <leader>gg :GGrep 
 
 " open Gstatus
-nnoremap <leader>gs :Gstatus<cr>
+nnoremap <leader>gs :Gstatus<cr>:resize 10<cr>
 
 " search for the word under the cursor using GGrep
 nnoremap <leader>gw :GGrep <c-r><c-w> . -rw<cr>
