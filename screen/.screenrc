@@ -97,8 +97,8 @@ bind l focus right
 bind h focus left
 
 # F3 and F4 to move one layout forward or back
-bindkey -k k3 layout prev
-bindkey -k k4 layout next
+#bindkey -k k3 layout prev
+#bindkey -k k4 layout next
 
 # disable keys
 bind s
