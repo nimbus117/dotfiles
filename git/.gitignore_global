@@ -1,7 +1,7 @@
 # vim files
 *.swp
 .vimsess
-.vrc.rest # vim-rest-client
+.vrc.rest
 
 # git files
 *.orig
