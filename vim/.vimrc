@@ -171,6 +171,13 @@ let g:vrc_curl_opts = {
 let g:fastfold_force = 1 " prevent on every buffer change
 let g:fastfold_fold_movement_commands = [']z', '[z']
 let g:fastfold_fold_command_suffixes =  ['x','X','o','O','c','C','r','R','m','M']
+
+" vdebug - vim debugger
+if !exists('g:vdebug_options')
+  let g:vdebug_options = {}
+endif
+let g:vdebug_options.break_on_open = 0
+
 " }}}
 
 " ### general settings {{{
