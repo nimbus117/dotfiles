@@ -15,7 +15,7 @@
 * Top 10 processes by memory usage
   * `ps aux | awk '{print $6/1024 " MB\t" $11}' | sort -nr | head -n10`
 
-### MySQL*
+### MySQL
 
 * Query by value in JSON
   * `SELECT * FROM tableName WHERE JSON_EXTRACT(columnName, "$.jsonKey") = "keyValue";`

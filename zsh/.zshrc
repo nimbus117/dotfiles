@@ -33,6 +33,7 @@ then
   alias mamp='cd /Applications/MAMP/htdocs'
 fi
 
+alias snip='vim $HOME/code/dotfiles/snippets/snippets.md'
 ## functions
 
 # get the weather
