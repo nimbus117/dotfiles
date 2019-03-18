@@ -12,6 +12,7 @@ plugins=(
   colored-man-pages
   history
   nvm
+  docker
 )
 
 source $ZSH/oh-my-zsh.sh
