@@ -31,7 +31,6 @@ Plugin 'nelstrom/vim-visual-star-search'
 Plugin 'pangloss/vim-javascript'
 Plugin 'SirVer/ultisnips'
 Plugin 'swekaj/php-foldexpr.vim'
-Plugin 'takac/vim-hardtime'
 Plugin 'tpope/vim-commentary'
 Plugin 'tpope/vim-fugitive.git'
 Plugin 'tpope/vim-repeat'
@@ -77,12 +76,6 @@ let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides
 
 " matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
-
-" hardtime - stop repeating the basic movement keys
-let g:hardtime_default_on = 1 " on by default
-let g:hardtime_maxcount = 2 " number of times before hardtime starts ignoring subsequent keypresses
-let g:hardtime_allow_different_key = 1 " allow a key if it is different from the previous key
-let g:hardtime_ignore_quickfix = 1 " allow in quickfix
 
 " leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 0.2
@@ -339,8 +332,8 @@ nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
 " source the session saved in .vimsess
 nnoremap <silent> <leader>ss :source .vimsess<cr>
 
-" open Tagbar with autoclose set and disable vim HardTime
-nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>:HardTimeOff<cr>
+" open Tagbar with autoclose set
+nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 
 " close tab
 nnoremap <leader>tc :tabclose<cr>
