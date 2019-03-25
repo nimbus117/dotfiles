@@ -79,7 +79,6 @@ runtime macros/matchit.vim " enable matchit
 
 " leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 0.2
-" let g:Lf_DefaultMode = 'NameOnly'
 let g:Lf_HideHelp = 1
 let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:Lf_StlPalette = {
@@ -140,7 +139,7 @@ let g:UltiSnipsListSnippets = "<f5>" " snippet list
 let g:UltiSnipsJumpForwardTrigger = "<c-f>" " jump forward in snippet
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
 
-" ranger - file explorer
+" ranger - file explorer (mapped to <leader>e bellow)
 let g:ranger_map_keys = 0 " disable default key mapping
 
 " vim-rest-console - rest requests {{{
@@ -229,7 +228,7 @@ set list " show invisibles
 set listchars=tab:·\ ,eol:· " set symbols for tabstops and EOLs
 
 set foldmethod=indent " by default fold on indents
-set foldnestmax=10 " sets the maximum nest level of folds
+set foldnestmax=5 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
 
 set completeopt-=preview " don't show extra information in preview window
@@ -283,7 +282,7 @@ nnoremap <silent> <leader>/ :nohlsearch<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
 
-" launch LeaderF to navigate tags
+" launch LeaderF to navigate ctags
 nnoremap <leader>c :LeaderfTag<cr>
 
 " open diff tab, see DiffWithSaved function below
@@ -462,8 +461,9 @@ function! s:RunPhplint()
   let l:phplint_output=system('php -l '.l:filename)
   let l:phplint_list=split(l:phplint_output, "\n")
   if v:shell_error
-    cexpr l:phplint_list[:-2]
+    cexpr l:phplint_list[:-4]
     copen
+    :resize 5
     exec "nnoremap <silent> <buffer> q :cclose<cr>"
   else
     cclose
