@@ -316,6 +316,9 @@ nnoremap <leader>j <c-d>
 " scroll window upwards half a screen
 nnoremap <leader>k <c-u>
 
+" toggel line wrapping
+nnoremap <leader>l :set wrap!<cr>
+
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
 
