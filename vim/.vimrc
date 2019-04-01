@@ -37,7 +37,6 @@ Plugin 'tpope/vim-repeat'
 Plugin 'tpope/vim-surround'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'vim-php/tagbar-phpctags.vim'
-Plugin 'vim-scripts/dbext.vim'
 Plugin 'vim-vdebug/vdebug'
 Plugin 'Vimjas/vim-python-pep8-indent'
 Plugin 'Yggdroot/LeaderF'
@@ -194,7 +193,7 @@ set showcmd " Show (partial) command in the last line of the screen
 
 set backspace=2 " allow backspace over indent, eol, start
 
-set scrolloff=2 " number of screen lines to keep above and below the cursor
+set scrolloff=5 " number of screen lines to keep above and below the cursor
 
 set spelllang=en_gb " set spelling language to English GB
 
@@ -317,7 +316,7 @@ nnoremap <leader>j <c-d>
 nnoremap <leader>k <c-u>
 
 " toggel line wrapping
-nnoremap <leader>l :set wrap!<cr>
+nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
 
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
@@ -500,7 +499,7 @@ if has('autocmd')
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
-          \ exe "normal! g'\"" |
+          \ exe "normal! g`\"" |
           \ endif
   augroup END
   " }}}
