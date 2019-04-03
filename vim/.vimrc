@@ -16,7 +16,6 @@ Plugin 'VundleVim/Vundle.vim'
 " add plugins here {{{
 Plugin 'altercation/vim-colors-solarized'
 Plugin 'diepm/vim-rest-console'
-Plugin 'francoiscabrol/ranger.vim'
 Plugin 'google/vim-searchindex'
 Plugin 'honza/vim-snippets'
 Plugin 'itchyny/lightline.vim'
@@ -57,10 +56,11 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \           [ 'tagUpdate', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head',
+      \   'tagUpdate': 'gutentags#statusline'
       \ }
       \ }
 if !has('gui_running')
@@ -137,9 +137,6 @@ let g:tagbar_sort = 0 " sort based on order in source file
 let g:UltiSnipsListSnippets = "<f5>" " snippet list
 let g:UltiSnipsJumpForwardTrigger = "<c-f>" " jump forward in snippet
 let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
-
-" ranger - file explorer (mapped to <leader>e bellow)
-let g:ranger_map_keys = 0 " disable default key mapping
 
 " vim-rest-console - rest requests {{{
 let s:vrc_auto_format_response_patterns = {
@@ -224,7 +221,7 @@ set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
 
 set list " show invisibles
-set listchars=tab:·\ ,eol:· " set symbols for tabstops and EOLs
+set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
 
 set foldmethod=indent " by default fold on indents
 set foldnestmax=5 " sets the maximum nest level of folds
@@ -288,11 +285,7 @@ nnoremap <leader>c :LeaderfTag<cr>
 nnoremap <leader>d :DiffOpen<cr>
 
 " toggle file explorer
-if (executable('ranger'))
-  nnoremap <silent> <leader>e :Ranger<cr>
-else
-  nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
-endif
+nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
 
 " open git diff tab, see DiffWithGit function below
 nnoremap <leader>gd :GitDiffOpen<cr>
