@@ -15,6 +15,9 @@
 * Top 10 processes by memory usage
   * `ps aux | awk '{print $6/1024 " MB\t" $11}' | sort -nr | head -n10`
 
+* Find the  10 largest php files in a directory recursively
+  * `find ./ -iname "*.php" -printf "%s\t%p\n" | sort -nr | sed 10q`
+
 ### MySQL
 
 * Query by value in JSON
