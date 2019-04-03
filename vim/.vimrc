@@ -344,9 +344,6 @@ nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
 " toggle Undotree
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 
-" insert uuid, see InsertUuid function below
-nnoremap <silent> <leader>uu :InsertUuid<cr>
-
 " search files using vimgrep, see VGrep function below
 nnoremap <leader>vg :VGrep \C<left><left>
 
@@ -400,21 +397,6 @@ function! s:DiffWithGit()
   endif
 endfunction
 command! GitDiffOpen call s:DiffWithGit()
-" }}}
-
-" generate and insert a uuid {{{
-" uses uuidgen to generate a uuid
-" the uuid is saved to the 'u' register so it can be used again
-" the content of the 'u' register is then put after the cursor
-function! s:InsertUuid()
-  if executable('uuidgen')
-    call setreg('u', system('uuidgen | tr -d "\n"'), 'c')
-    execute "normal! \"up"
-  else
-    echo 'uuidgen command not found'
-  endif
-endfunction
-command! InsertUuid call s:InsertUuid()
 " }}}
 
 " search files using vimgrep {{{
