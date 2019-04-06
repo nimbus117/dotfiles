@@ -6,9 +6,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   let new=1
 endif
-
+" plugins {{{
 call plug#begin('~/.vim/plugged')
-" add plugins here {{{
 Plug 'altercation/vim-colors-solarized'
 Plug 'diepm/vim-rest-console'
 Plug 'google/vim-searchindex'
@@ -34,8 +33,8 @@ Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make'  }
 Plug 'vim-vdebug/vdebug', { 'for': 'php'  }
 Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh'  }
-" }}}
 call plug#end()
+" }}}
 if new == 1
   PlugInstall --sync
 endif
@@ -483,8 +482,7 @@ if has('autocmd')
     autocmd FileType ruby,javascript
           \ setlocal foldmethod=syntax foldenable
     " start with folds closed
-    autocmd FileType php
-          \ setlocal foldenable
+    autocmd FileType php setlocal foldenable
   augroup END
   " }}}
 
@@ -495,10 +493,10 @@ if has('autocmd')
     autocmd BufWritePost * if &filetype == "php"
           \ | silent call s:RunPhplint()
           \ | endif
-    " set comment string to // (replaces /*  */)
-    autocmd FileType php setlocal commentstring=//\ %s
     " set errorformat for Phplint function
     autocmd FileType php set errorformat+=%m\ in\ %f\ on\ line\ %l
+    " set comment string to // (replaces /*  */)
+    autocmd FileType php setlocal commentstring=//\ %s
   augroup END
   " }}}
 
