@@ -1,49 +1,43 @@
-" ### vundle plugin manager {{{
+" ### plugin manager {{{
 
 let new=0
-let vundle_readme=expand("$HOME/.vim/bundle/Vundle.vim/README.md")
-if !filereadable(vundle_readme)
-  echo 'Installing Vundle...'
-  echo ''
-  silent !mkdir -p "$HOME/.vim/bundle"
-  silent !git clone "https://github.com/VundleVim/Vundle.vim" "$HOME/.vim/bundle/Vundle.vim"
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   let new=1
 endif
-filetype off " required
-set runtimepath+=$HOME/.vim/bundle/Vundle.vim/
-call vundle#begin()
-Plugin 'VundleVim/Vundle.vim'
+
+call plug#begin('~/.vim/plugged')
 " add plugins here {{{
-Plugin 'altercation/vim-colors-solarized'
-Plugin 'diepm/vim-rest-console'
-Plugin 'google/vim-searchindex'
-Plugin 'honza/vim-snippets'
-Plugin 'itchyny/lightline.vim'
-Plugin 'jiangmiao/auto-pairs'
-Plugin 'JulesWang/css.vim'
-Plugin 'Konfekt/FastFold'
-Plugin 'ludovicchabant/vim-gutentags'
-Plugin 'majutsushi/tagbar'
-Plugin 'mattn/emmet-vim'
-Plugin 'mbbill/undotree'
-Plugin 'nelstrom/vim-visual-star-search'
-Plugin 'pangloss/vim-javascript'
-Plugin 'SirVer/ultisnips'
-Plugin 'swekaj/php-foldexpr.vim'
-Plugin 'tpope/vim-commentary'
-Plugin 'tpope/vim-fugitive.git'
-Plugin 'tpope/vim-repeat'
-Plugin 'tpope/vim-surround'
-Plugin 'tpope/vim-unimpaired'
-Plugin 'vim-php/tagbar-phpctags.vim'
-Plugin 'vim-vdebug/vdebug'
-Plugin 'Vimjas/vim-python-pep8-indent'
-Plugin 'Yggdroot/LeaderF'
+Plug 'altercation/vim-colors-solarized'
+Plug 'diepm/vim-rest-console'
+Plug 'google/vim-searchindex'
+Plug 'honza/vim-snippets'
+Plug 'itchyny/lightline.vim'
+Plug 'jiangmiao/auto-pairs'
+Plug 'JulesWang/css.vim'
+Plug 'Konfekt/FastFold'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'majutsushi/tagbar'
+Plug 'mattn/emmet-vim'
+Plug 'mbbill/undotree'
+Plug 'nelstrom/vim-visual-star-search'
+Plug 'pangloss/vim-javascript'
+Plug 'SirVer/ultisnips'
+Plug 'swekaj/php-foldexpr.vim'
+Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
+Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make'  }
+Plug 'vim-vdebug/vdebug', { 'for': 'php'  }
+Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh'  }
 " }}}
-call vundle#end()
+call plug#end()
 if new == 1
-  :PluginInstall
-  echo 'you may need to close and re-open vim'
+  PlugInstall --sync
 endif
 " }}}
 
@@ -152,7 +146,7 @@ let g:vrc_curl_opts = {
       \ '--ipv4': '',
       \ '--insecure': '',
       \ '--silent': '',
-    \}
+      \}
 " }}}
 
 " fastfold - automatic folds
@@ -308,7 +302,7 @@ nnoremap <leader>j <c-d>
 " scroll window upwards half a screen
 nnoremap <leader>k <c-u>
 
-" toggel line wrapping
+" toggle line wrapping
 nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
 
 " save current session as .vimsess
@@ -418,7 +412,7 @@ command! -nargs=* VGrep call s:VGrep(<f-args>)
 function! s:GGrep(searchStr, ...)
   let path = a:0 >= 1 ? a:1 : '.'
   let flags = a:0 >= 2 ? a:2 : '-rF'
-  let command = 'grep!'.
+  let command = 'grep! -I'.
         \ ' --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor'.
         \ ' --exclude="*.swp" --exclude=bundle.js --exclude=tags'
   silent execute command flags a:searchStr path
@@ -499,8 +493,8 @@ if has('autocmd')
     autocmd!
     " run Phplint function after write
     autocmd BufWritePost * if &filetype == "php"
-        \ | silent call s:RunPhplint()
-        \ | endif
+          \ | silent call s:RunPhplint()
+          \ | endif
     " set comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " set errorformat for Phplint function
