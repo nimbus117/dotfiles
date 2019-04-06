@@ -31,7 +31,10 @@ done
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
 
 # link for vscode user settings.json
-ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
+#ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
 
 # link for ranger conf
 ln -fsv "$(pwd)/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+
+# link for neovim init.vim
+ln -fsv "$(pwd)/nvim/init.vim" "$HOME/.config/nvim/init.vim"
