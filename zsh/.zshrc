@@ -35,6 +35,7 @@ then
 fi
 
 alias snip='vim $HOME/code/dotfiles/snippets/snippets.md'
+
 ## functions
 
 # get the weather
@@ -189,3 +190,4 @@ if [ -f $HOME/.dircolors ]
 then
   eval `dircolors $HOME/.dircolors`
 fi
+
