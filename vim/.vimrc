@@ -158,10 +158,10 @@ let g:fastfold_fold_command_suffixes =  ['x','X','o','O','c','C','r','R','m','M'
 if !exists('g:vdebug_options')
   let g:vdebug_options = {}
 endif
-let g:vdebug_options.break_on_open = 0
+let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
 " ale - asynchronous lint engine
-let g:ale_lint_on_text_changed = 'never'
+let g:ale_lint_on_text_changed = 'never' " disable ale when typing
 
 " }}}
 
@@ -241,6 +241,7 @@ highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on f
 highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
 highlight SpellBad cterm=underline " underline spelling mistakes
+highlight SignColumn ctermbg=NONE " no background color for gutter/column
 " }}}
 
 " php settings {{{
