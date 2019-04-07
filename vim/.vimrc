@@ -32,6 +32,7 @@ Plug 'tpope/vim-unimpaired'
 Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make'  }
 Plug 'vim-vdebug/vdebug', { 'for': 'php'  }
 Plug 'Vimjas/vim-python-pep8-indent'
+Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh'  }
 call plug#end()
 " }}}
@@ -49,11 +50,10 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
-      \           [ 'tagUpdate', 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head',
-      \   'tagUpdate': 'gutentags#statusline'
+      \   'gitbranch': 'fugitive#head'
       \ }
       \ }
 if !has('gui_running')
@@ -64,7 +64,7 @@ endif
 " netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
-let g:netrw_list_hide = netrw_gitignore#Hide() " hide files (automatically hides all git-ignored files)
+let g:netrw_list_hide = netrw_gitignore#Hide() " hides all git-ignored files
 
 " matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
@@ -76,7 +76,8 @@ let g:Lf_StlSeparator = { 'left': '', 'right': '' }
 let g:Lf_StlPalette = {
       \   'stlName': {
       \       'ctermfg': 'black',
-      \       'ctermbg': 'darkblue'
+      \       'ctermbg': 'darkblue',
+      \       'cterm': 'NONE'
       \   },
       \   'stlCategory': {
       \       'ctermfg': 'black',
@@ -128,8 +129,8 @@ let g:tagbar_sort = 0 " sort based on order in source file
 
 " ultisnips - snippets in Vim
 let g:UltiSnipsListSnippets = "<f5>" " snippet list
-let g:UltiSnipsJumpForwardTrigger = "<c-f>" " jump forward in snippet
-let g:UltiSnipsJumpBackwardTrigger = "<c-b>" " jump back in snippet
+let g:UltiSnipsJumpForwardTrigger = "<tab>" " jump forward in snippet
+let g:UltiSnipsJumpBackwardTrigger = "<s-tab>" " jump back in snippet
 
 " vim-rest-console - rest requests {{{
 let s:vrc_auto_format_response_patterns = {
@@ -158,6 +159,9 @@ if !exists('g:vdebug_options')
   let g:vdebug_options = {}
 endif
 let g:vdebug_options.break_on_open = 0
+
+" ale - asynchronous lint engine
+let g:ale_lint_on_text_changed = 'never'
 
 " }}}
 
@@ -191,6 +195,11 @@ set autoindent " always set autoindenting on
 
 set sessionoptions-=options " when saving a session do not save all options and mappings
 
+set complete-=i " do not scan included files when using c-p/c-n
+
+set completeopt+=menuone " use the popup menu even if there is only one match
+set completeopt-=preview " don't show extra information in preview window
+
 set wildmenu " enhanced autocomplete for command menu
 set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
@@ -219,9 +228,6 @@ set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
 set foldmethod=indent " by default fold on indents
 set foldnestmax=5 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
-
-set completeopt-=preview " don't show extra information in preview window
-set complete-=i " do not scan current and included files when using c-p/c-n
 
 if has('persistent_undo')
   set undofile " use persistent undo
@@ -423,25 +429,6 @@ function! s:GGrep(searchStr, ...)
 endfunction
 command! -nargs=* GGrep call s:GGrep(<f-args>)
 " }}}
-
-" Phplint {{{
-" https://github.com/nrocco/vim-phplint
-function! s:RunPhplint()
-  let l:filename=@%
-  let l:phplint_output=system('php -l '.l:filename)
-  let l:phplint_list=split(l:phplint_output, "\n")
-  if v:shell_error
-    cexpr l:phplint_list[:-4]
-    copen
-    :resize 5
-    exec "nnoremap <silent> <buffer> q :cclose<cr>"
-  else
-    cclose
-    echomsg l:phplint_list[0]
-  endif
-endfunction
-command! Phplint call s:RunPhplint()
-" }}}
 " }}}
 
 " ### autocmds {{{
@@ -489,12 +476,6 @@ if has('autocmd')
   " php {{{
   augroup php
     autocmd!
-    " run Phplint function after write
-    autocmd BufWritePost * if &filetype == "php"
-          \ | silent call s:RunPhplint()
-          \ | endif
-    " set errorformat for Phplint function
-    autocmd FileType php set errorformat+=%m\ in\ %f\ on\ line\ %l
     " set comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
   augroup END
