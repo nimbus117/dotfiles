@@ -162,7 +162,6 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
 " ale - asynchronous lint engine
 let g:ale_lint_on_text_changed = 'never' " disable ale when typing
-
 " }}}
 
 " ### general settings {{{
@@ -330,10 +329,10 @@ nnoremap <silent> <leader>ss :source .vimsess<cr>
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 
 " close tab
-nnoremap <leader>tc :tabclose<cr>
+nnoremap <silent> <leader>tc :tabclose<cr>
 
 " open new tab
-nnoremap <leader>tn :tabnew<cr>
+nnoremap <silent> <leader>tn :tabnew<cr>
 
 " close all other tabs
 nnoremap <silent> <leader>to :tabonly<cr>
