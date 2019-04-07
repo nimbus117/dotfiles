@@ -31,7 +31,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make'  }
 Plug 'vim-vdebug/vdebug', { 'for': 'php'  }
-Plug 'Vimjas/vim-python-pep8-indent'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh'  }
 call plug#end()
@@ -56,9 +55,6 @@ let g:lightline = {
       \   'gitbranch': 'fugitive#head'
       \ }
       \ }
-if !has('gui_running')
-  set t_Co=256
-endif
 " }}}
 
 " netrw - file explorer
@@ -226,7 +222,7 @@ set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
 
 set foldmethod=indent " by default fold on indents
 set foldnestmax=5 " sets the maximum nest level of folds
-set nofoldenable " start with all folds open
+set foldenable " start with all folds closed
 
 if has('persistent_undo')
   set undofile " use persistent undo
@@ -280,14 +276,11 @@ nnoremap <silent> <leader>a :buffer #<cr>
 " launch LeaderF to navigate ctags
 nnoremap <leader>c :LeaderfTag<cr>
 
-" open diff tab, see DiffWithSaved function below
-nnoremap <leader>d :DiffOpen<cr>
-
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
 
 " open git diff tab, see DiffWithGit function below
-nnoremap <leader>gd :GitDiffOpen<cr>
+nnoremap <leader>gd :GitDiff<cr>
 
 " search files using grep, see GGrep function below
 nnoremap <leader>gg :GGrep 
@@ -359,35 +352,11 @@ nnoremap <leader>wt <c-w>T
 
 " ### functions {{{
 
-" diff the current buffer and original file {{{
-" opens a new tab with a vertical split
-" the left window shows the original saved file
-" the right window shows the current buffer
-function! s:DiffWithSaved()
-  if &modified
-    if filereadable(expand('%:p'))
-      let filetype=&ft
-      tabedit %
-      diffthis
-      vnew | r # | normal! 1Gdd
-      diffthis
-      execute 'setlocal bt=nofile bh=wipe nobl noswf ro ft=' . filetype
-      setlocal foldmethod=diff
-    else
-      echo 'no file to diff'
-    endif
-  else
-    echo 'no changes to diff'
-  endif
-endfunction
-command! DiffOpen call s:DiffWithSaved()
-" }}}
-
 " run git diff against the current buffer {{{
 " opens a new tab with a vertical split
 " the left window shows the version in the index
 " the right window shows the current buffer
-function! s:DiffWithGit()
+function! s:GitDiff()
   if exists(':Gdiff')
     tabedit %
     Gvdiff
@@ -395,7 +364,7 @@ function! s:DiffWithGit()
     echo 'Gdiff not available'
   endif
 endfunction
-command! GitDiffOpen call s:DiffWithGit()
+command! GitDiff call s:GitDiff()
 " }}}
 
 " search files using vimgrep {{{
@@ -434,60 +403,35 @@ command! -nargs=* GGrep call s:GGrep(<f-args>)
 " ### autocmds {{{
 
 if has('autocmd')
-  " misc {{{
   augroup misc
     " remove ALL autocommands for the current group
     autocmd!
     " enable spell checking for certain filetypes
     autocmd FileType markdown,html,text setlocal spell
-    " disable automatic comment leader insertion, remove comment leader when joining lines
-    autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " clean up netrw hidden buffers
     autocmd FileType netrw setlocal bufhidden=wipe
     " enable cursorline highlighting and disable relativenumber in quickfix window
     autocmd FileType qf setlocal cursorline norelativenumber
-    " highlight leading spaces with '·'
-    autocmd FileType *
-          \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
-          \ setlocal conceallevel=2 concealcursor=nv |
-          \ highlight Conceal ctermbg=NONE ctermfg=green guibg=NONE guifg=green
+    " set php comment string to // (replaces /*  */)
+    autocmd FileType php setlocal commentstring=//\ %s
+    " set foldmethod to marker
+    autocmd FileType vim
+          \ setlocal foldmethod=marker
+    " set foldmethod to syntax
+    autocmd FileType ruby,javascript
+          \ setlocal foldmethod=syntax
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
           \ exe "normal! g`\"" |
           \ endif
+    " disable automatic comment leader insertion, remove comment leader when joining lines
+    autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
+    " highlight leading spaces with '·'
+    autocmd FileType *
+          \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
+          \ setlocal conceallevel=2 concealcursor=nv |
+          \ highlight Conceal ctermbg=NONE ctermfg=green
   augroup END
-  " }}}
-
-  " folds {{{
-  augroup folding
-    autocmd!
-    " set foldmethod to marker
-    autocmd FileType vim
-          \ setlocal foldmethod=marker foldenable
-    " set foldmethod to syntax
-    autocmd FileType ruby,javascript
-          \ setlocal foldmethod=syntax foldenable
-    " start with folds closed
-    autocmd FileType php setlocal foldenable
-  augroup END
-  " }}}
-
-  " php {{{
-  augroup php
-    autocmd!
-    " set comment string to // (replaces /*  */)
-    autocmd FileType php setlocal commentstring=//\ %s
-  augroup END
-  " }}}
-
-  " python {{{
-  augroup python
-    autocmd!
-    " set indentation to 4 spaces
-    autocmd FileType python setlocal
-          \ tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-  augroup END
-  " }}}
 endif
 " }}}
