@@ -248,7 +248,7 @@ set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
 
 set foldmethod=indent " by default fold on indents
 set foldnestmax=5 " sets the maximum nest level of folds
-set foldenable " start with all folds closed
+set nofoldenable " start with all folds closed
 
 if has('persistent_undo')
   set undofile " use persistent undo
@@ -435,14 +435,14 @@ if has('autocmd')
     autocmd FileType netrw setlocal bufhidden=wipe
     " enable cursorline highlighting and disable relativenumber in quickfix window
     autocmd FileType qf setlocal cursorline norelativenumber
+    " set foldmethod to marker
+    autocmd FileType vim setlocal foldmethod=marker foldenable
+    " set foldmethod to syntax
+    autocmd FileType ruby,javascript setlocal foldmethod=syntax foldenable
+    " start with folds closed
+    autocmd FileType php setlocal foldenable
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
-    " set foldmethod to marker
-    autocmd FileType vim
-          \ setlocal foldmethod=marker
-    " set foldmethod to syntax
-    autocmd FileType ruby,javascript
-          \ setlocal foldmethod=syntax
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
