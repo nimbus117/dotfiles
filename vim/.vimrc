@@ -158,6 +158,32 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
 " ale - asynchronous lint engine
 let g:ale_lint_on_text_changed = 'never' " disable ale when typing
+
+" tagbar - display tags ordered by scope
+let g:tagbar_type_javascript = {
+      \ 'kinds' : [
+      \ 'C:Classes',
+      \ 'M:Methods',
+      \ 'F:Functions',
+      \ 'P:Properties',
+      \ 'V:Variables',
+      \ 'A:Arrays',
+      \ 'O:Objects',
+      \ 'T:Tags',
+      \ 'S:StyledComponents',
+      \ 'G:Generators',
+      \ 'E:Exports',
+      \ 'I:Imports',
+      \ ],
+      \ 'sro'        : '.',
+      \ 'kind2scope' : {
+      \ 'C' : 'Class',
+      \ 'F' : 'Function',
+      \ 'M' : 'Method',
+      \ 'P' : 'Property',
+      \ }
+      \ }
+
 " }}}
 
 " ### general settings {{{
