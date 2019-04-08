@@ -22,3 +22,7 @@
 
 * Query by value in JSON
   * `SELECT * FROM tableName WHERE JSON_EXTRACT(columnName, "$.jsonKey") = "keyValue";`
+
+### Misc
+
+* [vim tagbar / ctags settings](https://github.com/majutsushi/tagbar/wiki)

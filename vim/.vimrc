@@ -25,6 +25,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -118,10 +119,32 @@ let g:Lf_PreviewResult = {
       \}
 " }}}
 
-" tagbar - browse tags from the current file
+" tagbar - browse tags from the current file {{{
 let g:tagbar_compact = 1 " hide help
 let g:tagbar_show_linenumbers=2 " show relative line numbers
 let g:tagbar_sort = 0 " sort based on order in source file
+let g:tagbar_type_javascript = {
+      \ 'kinds' : [
+      \ 'C:Classes:1:0',
+      \ 'M:Methods:1:0',
+      \ 'F:Functions:1:0',
+      \ 'P:Properties:1:0',
+      \ 'V:Variables:1:0',
+      \ 'A:Arrays:1:0',
+      \ 'O:Objects:1:0',
+      \ 'T:Tags:1:0',
+      \ 'S:StyledComponents:1:0',
+      \ 'G:Generators:1:0',
+      \ 'E:Exports:1:0',
+      \ 'I:Imports:1:0',
+      \ ],
+      \ 'sro'        : '.',
+      \ 'kind2scope' : {
+      \ 'C' : 'Class',
+      \ 'M' : 'Method',
+      \ }
+      \ }
+" }}}
 
 " ultisnips - snippets in Vim
 let g:UltiSnipsListSnippets = "<f5>" " snippet list
@@ -158,31 +181,6 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
 " ale - asynchronous lint engine
 let g:ale_lint_on_text_changed = 'never' " disable ale when typing
-
-" tagbar - display tags ordered by scope
-let g:tagbar_type_javascript = {
-      \ 'kinds' : [
-      \ 'C:Classes',
-      \ 'M:Methods',
-      \ 'F:Functions',
-      \ 'P:Properties',
-      \ 'V:Variables',
-      \ 'A:Arrays',
-      \ 'O:Objects',
-      \ 'T:Tags',
-      \ 'S:StyledComponents',
-      \ 'G:Generators',
-      \ 'E:Exports',
-      \ 'I:Imports',
-      \ ],
-      \ 'sro'        : '.',
-      \ 'kind2scope' : {
-      \ 'C' : 'Class',
-      \ 'F' : 'Function',
-      \ 'M' : 'Method',
-      \ 'P' : 'Property',
-      \ }
-      \ }
 
 " }}}
 
@@ -275,9 +273,6 @@ let php_htmlInStrings = 1 " highlight HTML syntax
 " }}}
 
 " ### key mappings {{{
-
-" write with sudo
-cnoreabbrev w!! w !sudo tee > /dev/null %
 
 " map jk to exit, doesn't move cursor back
 inoremap jk <esc>`^
