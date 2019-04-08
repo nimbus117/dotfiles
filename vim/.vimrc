@@ -192,6 +192,8 @@ set sessionoptions-=options " when saving a session do not save all options and 
 
 set complete-=i " do not scan included files when using c-p/c-n
 
+set t_Co=256 " set number of colors
+
 set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt-=preview " don't show extra information in preview window
 
