@@ -18,6 +18,9 @@
 * Find the  10 largest php files in a directory recursively
   * `find ./ -iname "*.php" -printf "%s\t%p\n" | sort -nr | sed 10q`
 
+* AWK comparison/filter - print field 2 and 4 for lines where field 4 is greater than 0
+  * `awk '$4 > 0 {print $2,$4}' file | sort -n -k2 -r | column -t`
+
 ### MySQL
 
 * Query by value in JSON
