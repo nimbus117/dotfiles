@@ -181,7 +181,6 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
 " ale - asynchronous lint engine
 let g:ale_lint_on_text_changed = 'never' " disable ale when typing
-
 " }}}
 
 " ### general settings {{{
@@ -329,6 +328,9 @@ nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
 
+" launch LeaderF to navigate MRU
+nnoremap <leader>mr :LeaderfMru<cr>
+
 " toggle relative numbering
 nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
 
@@ -443,11 +445,6 @@ if has('autocmd')
     autocmd FileType php setlocal foldenable
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
-    " return to the last cursor position when opening files
-    autocmd BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line('$') |
-          \ exe "normal! g`\"" |
-          \ endif
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " highlight leading spaces with '·'
@@ -455,6 +452,11 @@ if has('autocmd')
           \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
           \ setlocal conceallevel=2 concealcursor=nv |
           \ highlight Conceal ctermbg=NONE ctermfg=green
+    " return to the last cursor position when opening files
+    autocmd BufReadPost *
+          \ if line("'\"") > 1 && line("'\"") <= line('$') |
+          \ exe "normal! g`\"" |
+          \ endif
   augroup END
 endif
 " }}}
