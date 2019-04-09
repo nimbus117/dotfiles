@@ -296,7 +296,7 @@ nnoremap <silent> <leader>/ :nohlsearch<cr>
 nnoremap <silent> <leader>a :buffer #<cr>
 
 " launch LeaderF to navigate ctags
-nnoremap <leader>c :LeaderfTag<cr>
+nnoremap <silent> <leader>c :LeaderfTag<cr>
 
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
@@ -308,10 +308,10 @@ nnoremap <leader>gd :GitDiff<cr>
 nnoremap <leader>gg :GGrep 
 
 " open Gstatus
-nnoremap <leader>gs :Gstatus<cr>:resize 10<cr>
+nnoremap <silent> <leader>gs :Gstatus<cr>:resize 10<cr>
 
 " search for the word under the cursor using GGrep
-nnoremap <leader>gw :GGrep <c-r><c-w> . -rw<cr>
+nnoremap <silent> <leader>gw :GGrep <c-r><c-w> . -rw<cr>
 
 " search help and open in new tab
 nnoremap <leader>h :tab help 
@@ -329,7 +329,7 @@ nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
 nnoremap <leader>ms :mksession! .vimsess<cr>
 
 " launch LeaderF to navigate MRU
-nnoremap <leader>mr :LeaderfMru<cr>
+nnoremap <silent> <leader>mr :LeaderfMru<cr>
 
 " toggle relative numbering
 nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
@@ -365,7 +365,7 @@ nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 nnoremap <leader>vg :VGrep \C<left><left>
 
 " search for the word under the cursor using VGrep
-nnoremap <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
+nnoremap <silent> <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
 
 " same as <c-w>
 nnoremap <leader>w <c-w>
