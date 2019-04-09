@@ -13,6 +13,7 @@ plugins=(
   history
   nvm
   docker
+  vi-mode
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -191,3 +192,5 @@ then
   eval `dircolors $HOME/.dircolors`
 fi
 
+# enter normal mode in zsh vi-mode
+bindkey 'jk' vi-cmd-mode
