@@ -32,10 +32,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make'  }
-Plug 'vim-vdebug/vdebug', { 'for': 'php'  }
+Plug 'vim-php/tagbar-phpctags.vim', {'do': 'make'}
+Plug 'vim-vdebug/vdebug', {'for': 'php'}
 Plug 'w0rp/ale'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh'  }
+Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 call plug#end()
 " }}}
 if new == 1
@@ -71,45 +71,17 @@ runtime macros/matchit.vim " enable matchit
 " leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 0.2
 let g:Lf_HideHelp = 1
-let g:Lf_StlSeparator = { 'left': '', 'right': '' }
+let g:Lf_StlSeparator = {'left': '', 'right': ''}
 let g:Lf_StlPalette = {
-      \   'stlName': {
-      \       'ctermfg': 'black',
-      \       'ctermbg': 'darkblue',
-      \       'cterm': 'NONE'
-      \   },
-      \   'stlCategory': {
-      \       'ctermfg': 'black',
-      \       'ctermbg': 'green'
-      \   },
-      \   'stlNameOnlyMode': {
-      \       'ctermfg': 'black',
-      \       'ctermbg': 'white'
-      \   },
-      \   'stlFullPathMode': {
-      \       'ctermfg': 'black',
-      \       'ctermbg': 'blue'
-      \   },
-      \   'stlFuzzyMode': {
-      \       'ctermfg': 'black',
-      \       'ctermbg': 'blue'
-      \   },
-      \   'stlCwd': {
-      \       'ctermfg': '195',
-      \       'ctermbg': 'black'
-      \   },
-      \   'stlBlank': {
-      \       'ctermfg': 'NONE',
-      \       'ctermbg': 'black'
-      \   },
-      \   'stlLineInfo': {
-      \       'ctermfg': 'black',
-      \       'ctermbg': 'green'
-      \   },
-      \   'stlTotal': {
-      \       'ctermfg': 'black',
-      \       'ctermbg': 'blue'
-      \   }
+      \   'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
+      \   'stlCategory': {'ctermfg': 'black','ctermbg': 'green'},
+      \   'stlNameOnlyMode': {'ctermfg': 'black','ctermbg': 'white'},
+      \   'stlFullPathMode': {'ctermfg': 'black','ctermbg': 'blue'},
+      \   'stlFuzzyMode': {'ctermfg': 'black','ctermbg': 'blue'},
+      \   'stlCwd': {'ctermfg': '195','ctermbg': 'black'},
+      \   'stlBlank': {'ctermfg': 'NONE','ctermbg': 'black'},
+      \   'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
+      \   'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
       \ }
 let g:Lf_WildIgnore = {
       \ 'dir': ['.git', 'node_modules', 'vendor'],
@@ -123,28 +95,17 @@ let g:Lf_PreviewResult = {
 
 " tagbar - browse tags from the current file {{{
 let g:tagbar_compact = 1 " hide help
-let g:tagbar_show_linenumbers=2 " show relative line numbers
+let g:tagbar_show_linenumbers = 2 " show relative line numbers
 let g:tagbar_sort = 0 " sort based on order in source file
 let g:tagbar_type_javascript = {
-      \ 'kinds' : [
-      \ 'C:Classes:1:0',
-      \ 'M:Methods:1:0',
-      \ 'F:Functions:1:0',
-      \ 'P:Properties:1:0',
-      \ 'V:Variables:1:0',
-      \ 'A:Arrays:1:0',
-      \ 'O:Objects:1:0',
-      \ 'T:Tags:1:0',
-      \ 'S:StyledComponents:1:0',
-      \ 'G:Generators:1:0',
-      \ 'E:Exports:1:0',
-      \ 'I:Imports:1:0',
+      \ 'kinds': [
+      \ 'C:Classes:1:0', 'M:Methods:1:0', 'F:Functions:1:0',
+      \ 'P:Properties:1:0', 'V:Variables:1:0', 'A:Arrays:1:0',
+      \ 'O:Objects:1:0', 'T:Tags:1:0', 'S:StyledComponents:1:0',
+      \ 'G:Generators:1:0', 'E:Exports:1:0', 'I:Imports:1:0'
       \ ],
-      \ 'sro'        : '.',
-      \ 'kind2scope' : {
-      \ 'C' : 'Class',
-      \ 'M' : 'Method',
-      \ }
+      \ 'sro': '.',
+      \ 'kind2scope': {'C' : 'Class', 'M' : 'Method'}
       \ }
 " }}}
 
@@ -267,96 +228,67 @@ inoremap jk <esc>`^
 nnoremap ' `
 nnoremap ` '
 
+" leader key bindings {{{
+
 " set <leader> key to space bar
 nnoremap <space> <nop>
 let mapleader = "\<Space>"
-
-" leader key bindings {{{
-
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
-
 " stop current search highlighting
 nnoremap <silent> <leader>/ :nohlsearch<cr>
-
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
-
 " launch LeaderF to navigate ctags
 nnoremap <silent> <leader>c :LeaderfTag<cr>
-
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
-
 " open git diff tab, see DiffWithGit function below
 nnoremap <leader>gd :GitDiff<cr>
-
 " search files using grep, see GGrep function below
 nnoremap <leader>gg :GGrep 
-
 " open Gstatus
 nnoremap <silent> <leader>gs :Gstatus<cr>:resize 10<cr>
-
 " search for the word under the cursor using GGrep
 nnoremap <silent> <leader>gw :GGrep <c-r><c-w> . -rw<cr>
-
 " search help and open in new tab
 nnoremap <leader>h :tab help 
-
 " scroll window downwards half a screen
 nnoremap <leader>j <c-d>
-
 " scroll window upwards half a screen
 nnoremap <leader>k <c-u>
-
 " toggle line wrapping
 nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
-
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
-
 " launch LeaderF to navigate MRU
 nnoremap <silent> <leader>mr :LeaderfMru<cr>
-
 " toggle relative numbering
 nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
-
 " toggle paste mode
 nnoremap <silent> <leader>p :set paste!<cr>
-
 " find/replace all on word under cursor
 nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
-
 " source the session saved in .vimsess
 nnoremap <silent> <leader>ss :source .vimsess<cr>
-
 " open Tagbar with autoclose set
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
-
 " close tab
 nnoremap <silent> <leader>tc :tabclose<cr>
-
 " open new tab
 nnoremap <silent> <leader>tn :tabnew<cr>
-
 " close all other tabs
 nnoremap <silent> <leader>to :tabonly<cr>
-
 " open vim-rest-console in new tab
 nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
-
 " toggle Undotree
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
-
 " search files using vimgrep, see VGrep function below
 nnoremap <leader>vg :VGrep \C<left><left>
-
 " search for the word under the cursor using VGrep
 nnoremap <silent> <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
-
 " same as <c-w>
 nnoremap <leader>w <c-w>
-
 " open current window in a new tab
 nnoremap <leader>wt <c-w>T
 " }}}
