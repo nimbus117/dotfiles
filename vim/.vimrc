@@ -1,3 +1,5 @@
+set nocompatible " make vim behave in a more useful way
+
 " ### plugin manager {{{
 
 let new=0
@@ -185,38 +187,26 @@ let g:ale_lint_on_text_changed = 'never' " disable ale when typing
 
 " ### general settings {{{
 
-set encoding=utf-8 " set character encoding
-
-syntax enable " enable syntax highlighting
-
 filetype plugin indent on " enable filetype detection, plugins and indent settings
-
+syntax enable " enable syntax highlighting
 colorscheme solarized " load color scheme
-
 set background=dark " light/dark
-
+set t_Co=256 " set number of colors
+set encoding=utf-8 " set character encoding
 set lazyredraw " stops the screen being redrawn during some operations, better performance
-
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
-
-set history=500 " command line mode history
-
-set showcmd " Show (partial) command in the last line of the screen
-
 set backspace=2 " allow backspace over indent, eol, start
-
 set scrolloff=5 " number of screen lines to keep above and below the cursor
-
+set history=500 " command line mode history
+set showcmd " Show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
-
 set autoindent " always set autoindenting on
-
 set sessionoptions-=options " when saving a session do not save all options and mappings
 
+set list " show invisibles
+set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
+
 set complete-=i " do not scan included files when using c-p/c-n
-
-set t_Co=256 " set number of colors
-
 set completeopt+=menuone " use the popup menu even if there is only one match
 set completeopt-=preview " don't show extra information in preview window
 
@@ -232,6 +222,10 @@ set nowrap " don't wrap text
 set linebreak " don't split words when wrapping text
 set display+=lastline " show as much as possible of the last line
 
+set foldmethod=indent " by default fold on indents
+set foldnestmax=5 " sets the maximum nest level of folds
+set nofoldenable " start with all folds closed
+
 set expandtab " use spaces instead of TAB
 set tabstop=2 " number of visual spaces per TAB
 set softtabstop=2 " number of spaces in TAB when editing
@@ -241,13 +235,6 @@ set incsearch " search as characters are typed
 set hlsearch " highlight all search matches
 set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
-
-set list " show invisibles
-set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
-
-set foldmethod=indent " by default fold on indents
-set foldnestmax=5 " sets the maximum nest level of folds
-set nofoldenable " start with all folds closed
 
 if has('persistent_undo')
   set undofile " use persistent undo
