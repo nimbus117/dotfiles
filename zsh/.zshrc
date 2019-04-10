@@ -41,12 +41,7 @@ alias snip='vim $HOME/code/dotfiles/snippets/snippets.md'
 
 # get the weather
 weather() {
-  if [ $# -eq 0  ]
-  then
-    curl 'wttr.in'
-  else
     curl 'wttr.in/'$1
-  fi
 }
 
 # dictionary lookup

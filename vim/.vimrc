@@ -233,6 +233,7 @@ nnoremap ` '
 " set <leader> key to space bar
 nnoremap <space> <nop>
 let mapleader = "\<Space>"
+
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
 " stop current search highlighting
