@@ -295,7 +295,7 @@ nnoremap <leader>wt <c-w>T
 " }}}
 " }}}
 
-" ### functions {{{
+" ### functions/commands {{{
 
 " run git diff against the current buffer {{{
 " opens a new tab with a vertical split
@@ -343,6 +343,9 @@ function! s:GGrep(searchStr, ...)
 endfunction
 command! -nargs=* GGrep call s:GGrep(<f-args>)
 " }}}
+
+" format json using python
+command! FormatJSON %!python -m json.tool
 " }}}
 
 " ### autocmds {{{
