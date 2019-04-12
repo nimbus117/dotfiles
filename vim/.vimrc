@@ -254,6 +254,8 @@ nnoremap <silent> <leader>gs :Gstatus<cr>:resize 10<cr>
 nnoremap <silent> <leader>gw :GGrep <c-r><c-w> . -rw<cr>
 " search help and open in new tab
 nnoremap <leader>h :tab help 
+" show/hide invisibles
+nnoremap <silent> <leader>i :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>:set list!<cr>
 " scroll window downwards half a screen
 nnoremap <leader>j <c-d>
 " scroll window upwards half a screen
