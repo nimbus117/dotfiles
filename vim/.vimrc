@@ -163,8 +163,6 @@ set showcmd " Show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
 set autoindent " always set autoindenting on
 set sessionoptions-=options " when saving a session do not save all options and mappings
-
-set list " show invisibles
 set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
 
 set complete-=i " do not scan included files when using c-p/c-n
@@ -255,7 +253,7 @@ nnoremap <silent> <leader>gw :GGrep <c-r><c-w> . -rw<cr>
 " search help and open in new tab
 nnoremap <leader>h :tab help 
 " show/hide invisibles
-nnoremap <silent> <leader>i :setlocal conceallevel=<c-r>=&conceallevel == 0 ? '2' : '0'<cr><cr>:set list!<cr>
+nnoremap <silent> <leader>i :set list!<cr>
 " scroll window downwards half a screen
 nnoremap <leader>j <c-d>
 " scroll window upwards half a screen
@@ -372,11 +370,6 @@ if has('autocmd')
     autocmd FileType php setlocal commentstring=//\ %s
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
-    " highlight leading spaces with '·'
-    autocmd FileType *
-          \ syntax match LeadingSpace /\(^ *\)\@<= / containedin=ALL conceal cchar=· |
-          \ setlocal conceallevel=2 concealcursor=nv |
-          \ highlight Conceal ctermbg=NONE ctermfg=green
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
