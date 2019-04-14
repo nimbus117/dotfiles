@@ -238,7 +238,7 @@ nnoremap <leader><leader> <c-w>w
 nnoremap <silent> <leader>/ :nohlsearch<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
-" launch LeaderF to navigate ctags
+" launch LeaderF to search tags (ctags)
 nnoremap <silent> <leader>c :LeaderfTag<cr>
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
@@ -262,8 +262,8 @@ nnoremap <leader>k <c-u>
 nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
-" launch LeaderF to navigate MRU
-nnoremap <silent> <leader>mr :LeaderfMru<cr>
+" launch LeaderF to search recently used files in the current directory
+nnoremap <silent> <leader>mr :LeaderfMruCwd<cr>
 " toggle relative numbering
 nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
 " toggle paste mode
