@@ -145,6 +145,11 @@ if [ -d  "$HOME/.bin" ]; then
   export PATH="$HOME/.bin:$PATH"
 fi
 
+# if "$HOME/.local/bin" exists add to PATH variable
+if [ -d  "$HOME/.local/bin/" ]; then
+  export PATH="$HOME/.local/bin:$PATH"
+fi
+
 # recommended by brew doctor
 if command -v brew >/dev/null; then
   export PATH="/usr/local/bin:$PATH"
@@ -193,3 +198,8 @@ fi
 
 # enter normal mode in zsh vi-mode
 bindkey 'jk' vi-cmd-mode
+
+# awscli auto completion
+if [ -f  "$HOME/.local/bin/aws_zsh_completer.sh" ]; then
+  source  $HOME/.local/bin/aws_zsh_completer.sh
+fi
