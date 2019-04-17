@@ -164,9 +164,13 @@ set spelllang=en_gb " set spelling language to English GB
 set autoindent " always set autoindenting on
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
+set pumheight=10 " popup menu max height
+
+set splitbelow " splitting a window will put the new window below the current one
+set splitright " splitting a window will put the new window to the right of the current one
 
 set complete-=i " do not scan included files when using c-p/c-n
-set completeopt+=menuone " use the popup menu even if there is only one match
+set completeopt+=longest " only insert the longest common text of the matches
 set completeopt-=preview " don't show extra information in preview window
 
 set wildmenu " enhanced autocomplete for command menu
@@ -208,6 +212,9 @@ highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
 highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
 highlight SpellBad cterm=underline " underline spelling mistakes
 highlight SignColumn ctermbg=NONE " no background color for gutter/column
+highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
+highlight PmenuSel ctermfg=darkblue " popup menu selected item
+highlight PmenuSbar ctermfg=black " scrollbar
 " }}}
 
 " php settings {{{
