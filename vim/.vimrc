@@ -63,7 +63,6 @@ let g:lightline = {
 " netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
-let g:netrw_list_hide = netrw_gitignore#Hide() " hides all git-ignored files
 
 " matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit
@@ -163,8 +162,10 @@ set showcmd " Show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
 set autoindent " always set autoindenting on
 set sessionoptions-=options " when saving a session do not save all options and mappings
-set listchars=tab:·\ ,eol:·,extends:> " set symbols for tabstops and EOLs
+set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
 set pumheight=10 " popup menu max height
+set nrformats-=octal " don't treat numbers as octal when using ctrl-a
+set shortmess+=I
 
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window will put the new window to the right of the current one
@@ -208,8 +209,8 @@ endif
 
 " highlighting {{{
 highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on fold lines
-highlight SpecialKey ctermbg=NONE ctermfg=green " tab char colors
-highlight NonText ctermbg=NONE ctermfg=darkmagenta " eol char colors
+highlight SpecialKey ctermbg=NONE " tab/space char colors
+highlight NonText ctermbg=NONE " eol char colors
 highlight SpellBad cterm=underline " underline spelling mistakes
 highlight SignColumn ctermbg=NONE " no background color for gutter/column
 highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
@@ -260,7 +261,7 @@ nnoremap <silent> <leader>gw :GGrep <c-r><c-w> . -rw<cr>
 " search help and open in new tab
 nnoremap <leader>h :tab help 
 " show/hide invisibles
-nnoremap <silent> <leader>i :set list!<cr>
+nnoremap <silent> <leader>i :setlocal list!<cr>
 " scroll window downwards half a screen
 nnoremap <leader>j <c-d>
 " scroll window upwards half a screen
