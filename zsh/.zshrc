@@ -9,7 +9,6 @@ ZSH_THEME="mySimple"
 # plugins
 plugins=(
   git
-  colored-man-pages
   history
   nvm
   docker
