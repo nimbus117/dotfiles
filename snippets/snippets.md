@@ -5,8 +5,10 @@
 
 * Find and delete all files that start with ti_session that havn't been modified for more than 30 days
   * `find -type f -iname "ti_session*" -mtime +30 -exec rm {} \;`
+
 * Find the  10 largest php files in a directory recursively
   * `find ./ -iname "*.php" -printf "%s\t%p\n" | sort -nr | sed 10q`
+
 * Show file count (inodes) used per folder
   * `sudo find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr`
 
