@@ -6,6 +6,10 @@
 * Show inodes used per folder
   * `sudo find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr`
 
+* Find and delete files
+  * `find . -iname "*.swp*" -exec rm {} \;`
+  * `find -type f -name "ti_session*" -mtime +30 -exec rm {} \;`
+
 * List latest file (filter by .sql.gz.enc extension) from each s3 Bucket / DigitalOcean Space (needs s3cmd)
   * `for i in $(s3cmd ls | awk '{print $3}'); do; s3cmd ls $i --recursive | grep ".sql.gz.enc" | sort --reverse --unique | head -n1 ; done | sort`
 
