@@ -63,6 +63,7 @@ let g:lightline = {
 " netrw - file explorer
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
+let g:netrw_list_hide = '\.swp$' " hide *.swp files
 
 " matchit - extended matching with %
 runtime macros/matchit.vim " enable matchit

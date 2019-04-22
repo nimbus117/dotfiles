@@ -127,8 +127,6 @@ joke() {
     echo $joke
   fi
 }
-# show all
-# for f in `cowsay -l | sed "1d"`; do; cowsay -f $f "Hello, I am $f"; done | lolcat
 
 ## environment variables
 
@@ -201,4 +199,11 @@ bindkey 'jk' vi-cmd-mode
 # awscli auto completion
 if [ -f  "$HOME/.local/bin/aws_zsh_completer.sh" ]; then
   source  $HOME/.local/bin/aws_zsh_completer.sh
+fi
+
+# set less options
+# I - case insensitive search, R - enable coloured output, S - don't wrap lines
+# F - quit if output fits in one screen, X - don't clear the screen on exit
+if command -v less >/dev/null; then
+  export LESS="IRSFX"
 fi

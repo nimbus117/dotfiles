@@ -4,7 +4,10 @@
 ### Bash
 
 * Find and delete all files that start with ti_session that havn't been modified for more than 30 days
-  * `find -type f -iname "ti_session*" -mtime +30 -exec rm {} \;`
+  * `find -type f -iname "ti_session*" -mtime +30 -exec rm {} +`
+
+* Find and delete all files ending in .swp
+  * `find . -iname "*.swp*" -exec rm {} \;`
 
 * Find the  10 largest php files in a directory recursively
   * `find ./ -iname "*.php" -printf "%s\t%p\n" | sort -nr | sed 10q`
@@ -20,6 +23,9 @@
 
 * AWK comparison/filter - print field 2 and 4 for lines where field 4 is greater than 0
   * `awk '$4 > 0 {print $2,$4}' file | sort -n -k2 -r | column -t`
+
+* Show all cowfile pictures
+  * `for f in `cowsay -l | sed "1d"`; do cowsay -f $f "I am $f"; done | less`
 
 ### MySQL
 
