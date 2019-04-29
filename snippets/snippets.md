@@ -27,6 +27,10 @@
 * Show all cowfile pictures
   * `for f in `cowsay -l | sed "1d"`; do cowsay -f $f "I am $f"; done | less`
 
+* create and extract tar archive with gzip
+  * `tar -zcvf archiveName.tar.gz folderName`
+  * `tar -zxvf archiveName.tar.gz`
+
 ### MySQL
 
 * Query by value in JSON
