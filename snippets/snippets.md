@@ -35,6 +35,8 @@
 
 * Query by value in JSON
   * `SELECT * FROM tableName WHERE JSON_EXTRACT(columnName, "$.jsonKey") = "keyValue";`
+* Select JSON value
+  * `select JSON_EXTRACT(columnName, "$.jsonKey") from tableName;`
 
 ### s3cmd
 
