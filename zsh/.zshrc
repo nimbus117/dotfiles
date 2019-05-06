@@ -130,6 +130,9 @@ joke() {
 
 ## environment variables
 
+#set TERM to 256 colors
+export TERM="xterm-256color"
+
 # home page for w3m browser
 export WWW_HOME='www.google.com'
 
