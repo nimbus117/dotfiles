@@ -3,10 +3,10 @@
 
 ### Bash
 
-* Find and delete all files that start with ti_session that havn't been modified for more than 30 days
+* Find and delete all files that start with ti_session that havn't been modified for more than 30 days ('+' = as many filenames as possible are passed as arguments to a single command)
   * `find -type f -iname "ti_session*" -mtime +30 -exec rm {} +`
 
-* Find and delete all files ending in .swp
+* Find and delete all files ending in .swp (';' = command is run once for each file)
   * `find . -iname "*.swp*" -exec rm {} \;`
 
 * Find the  10 largest php files in a directory recursively
