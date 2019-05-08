@@ -27,6 +27,7 @@ Plug 'pangloss/vim-javascript'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -135,6 +136,7 @@ let g:vrc_curl_opts = {
 let g:fastfold_force = 1 " prevent on every buffer change
 let g:fastfold_fold_movement_commands = [']z', '[z']
 let g:fastfold_fold_command_suffixes =  ['x','X','o','O','c','C','r','R','m','M']
+let g:fastfold_minlines= 0
 
 " vdebug - vim debugger
 if !exists('g:vdebug_options')
@@ -161,12 +163,12 @@ set scrolloff=5 " number of screen lines to keep above and below the cursor
 set history=500 " command line mode history
 set showcmd " Show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
-set autoindent " always set autoindenting on
+set autoindent " copy indent from current line when starting a new line
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
 set pumheight=10 " popup menu max height
 set nrformats-=octal " don't treat numbers as octal when using ctrl-a
-set shortmess+=I
+set shortmess+=I " disable intro message when starting vim
 
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window will put the new window to the right of the current one

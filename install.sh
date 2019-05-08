@@ -10,6 +10,7 @@ read
 # create links in home directory
 declare -a dotfiles=(
   "ctags/.ctags"
+  "gem/.gemrc"
   "git/.gitconfig"
   "git/.gitignore_global"
   "screen/.screenrc"

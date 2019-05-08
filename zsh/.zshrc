@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation
-  export ZSH=~/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set theme
 ZSH_THEME="mySimple"
@@ -13,6 +13,7 @@ plugins=(
   nvm
   docker
   vi-mode
+  heroku
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -171,9 +172,9 @@ if [ -d  '/Applications/MAMP/Library/bin' ]; then
   export PATH=$PATH:/Applications/MAMP/Library/bin
 fi
 
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-if [ -d  $HOME/.rvm/bin ]; then
-  export PATH="$PATH:$HOME/.rvm/bin"
+# add rbenv to PATH
+if [ -d  "$HOME/.rbenv/bin" ]; then
+  export PATH="$HOME/.rbenv/bin:$PATH"
 fi
 
 ## misc
