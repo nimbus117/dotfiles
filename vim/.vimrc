@@ -379,6 +379,9 @@ if has('autocmd')
     autocmd FileType php setlocal foldenable
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
+    " each VRC buffer uses a different display buffer
+    autocmd FileType rest let b:vrc_output_buffer_name =
+          \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " return to the last cursor position when opening files
