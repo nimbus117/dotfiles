@@ -231,7 +231,7 @@ let php_htmlInStrings = 1 " highlight HTML syntax
 " ### key mappings {{{
 
 " map jk to exit, doesn't move cursor back
-inoremap jk <esc>`^
+inoremap <expr> jk pumvisible() ? '<c-e>' : '<esc>`^'
 
 " swap quote and backtick in normal mode
 nnoremap ' `
