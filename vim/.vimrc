@@ -187,7 +187,6 @@ set splitbelow " splitting a window will put the new window below the current on
 set splitright " splitting a window will put the new window to the right of the current one
 
 set complete-=i " do not scan included files when using c-p/c-n
-set completeopt+=longest " only insert the longest common text of the matches
 set completeopt-=preview " don't show extra information in preview window
 
 set wildmenu " enhanced autocomplete for command menu
