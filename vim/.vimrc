@@ -343,7 +343,6 @@ function! s:VGrep(searchStr, ...)
   noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
   if !empty(getqflist())
     copen
-    exec "nnoremap <silent> <buffer> q :cclose<cr>"
   endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
@@ -361,7 +360,6 @@ function! s:GGrep(searchStr, ...)
   redraw!
   if !empty(getqflist())
     copen
-    exec "nnoremap <silent> <buffer> q :cclose<cr>"
   endif
 endfunction
 command! -nargs=* GGrep call s:GGrep(<f-args>)
@@ -382,7 +380,8 @@ if has('autocmd')
     " clean up netrw hidden buffers
     autocmd FileType netrw setlocal bufhidden=wipe
     " enable cursorline highlighting and disable relativenumber in quickfix window
-    autocmd FileType qf setlocal cursorline norelativenumber
+    autocmd FileType qf setlocal cursorline norelativenumber |
+          \ exec "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
     autocmd FileType vim setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
