@@ -1,7 +1,7 @@
 # start as login shell
 shell -${SHELL}
 
-# change background-color-erase setting 
+# change background-color-erase setting
 defbce "on"
 
 # disable visual bell
@@ -97,8 +97,8 @@ bind l focus right
 bind h focus left
 
 # Ctrl+up/down arrow to move one layout forward or back
-bindkey "[1;5A" layout prev
-bindkey "[1;5B" layout next
+bindkey "[1;5A" layout next
+bindkey "[1;5B" layout prev
 
 # disable keys
 bind s
