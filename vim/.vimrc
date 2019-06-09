@@ -158,7 +158,8 @@ endif
 let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
 " ale - asynchronous lint engine
-let g:ale_lint_on_text_changed = 'never' " disable ale when typing
+let g:ale_lint_on_text_changed = 'never' " don't run linters when making changes
+let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 " }}}
 
 " ### general settings {{{
