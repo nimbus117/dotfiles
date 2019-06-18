@@ -183,6 +183,7 @@ set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
 set pumheight=10 " popup menu max height
 set nrformats-=octal " don't treat numbers as octal when using ctrl-a
 set shortmess+=I " disable intro message when starting vim
+set cursorline " highlight the screen line of the cursor
 
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window will put the new window to the right of the current one
