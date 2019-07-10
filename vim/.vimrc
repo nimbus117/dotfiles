@@ -22,6 +22,7 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
+Plug 'mxw/vim-jsx'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'SirVer/ultisnips'
@@ -166,7 +167,7 @@ let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 
 filetype plugin indent on " enable filetype detection, plugins and indent settings
 syntax enable " enable syntax highlighting
-colorscheme solarized " load color scheme
+set synmaxcol=200 " only highlight the first 200 columns
 set background=dark " light/dark
 set t_Co=256 " set number of colors
 set encoding=utf-8 " set character encoding
@@ -177,13 +178,11 @@ set scrolloff=5 " number of screen lines to keep above and below the cursor
 set history=500 " command line mode history
 set showcmd " Show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
-set autoindent " copy indent from current line when starting a new line
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
 set pumheight=10 " popup menu max height
 set nrformats-=octal " don't treat numbers as octal when using ctrl-a
 set shortmess+=I " disable intro message when starting vim
-set cursorline " highlight the screen line of the cursor
 
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window will put the new window to the right of the current one
@@ -207,15 +206,17 @@ set foldmethod=indent " by default fold on indents
 set foldnestmax=5 " sets the maximum nest level of folds
 set nofoldenable " start with all folds closed
 
-set expandtab " use spaces instead of TAB
-set tabstop=2 " number of visual spaces per TAB
-set softtabstop=2 " number of spaces in TAB when editing
-set shiftwidth=2 " number of spaces to use for each step of (auto)indent
-
 set incsearch " search as characters are typed
 set hlsearch " highlight all search matches
 set ignorecase " case insensitive search
 set smartcase " enable case sensitive search when capitals are used
+
+set autoindent " copy indent from current line when starting a new line
+set expandtab " use spaces instead of TAB
+set tabstop=2 " number of visual spaces per TAB
+set softtabstop=2 " number of spaces in TAB when editing
+set shiftwidth=2 " number of spaces to use for each step of (auto)indent
+set shiftround " round indent to multiple of 'shiftwidth'
 
 if has('persistent_undo')
   set undofile " use persistent undo
@@ -223,17 +224,6 @@ if has('persistent_undo')
   " create undo dir if it doesn't exist
   silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
 endif
-
-" highlighting {{{
-highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on fold lines
-highlight SpecialKey ctermbg=NONE " tab/space char colors
-highlight NonText ctermbg=NONE " eol char colors
-highlight SpellBad cterm=underline " underline spelling mistakes
-highlight SignColumn ctermbg=NONE " no background color for gutter/column
-highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
-highlight PmenuSel ctermfg=darkblue " popup menu selected item
-highlight PmenuSbar ctermfg=black " scrollbar
-" }}}
 
 " php settings {{{
 let php_sql_query = 1 " highlight SQL syntax
@@ -245,7 +235,7 @@ let php_htmlInStrings = 1 " highlight HTML syntax
 " ### key mappings {{{
 
 " map jk to exit, doesn't move cursor back
-inoremap jk <esc>`^
+inoremap jk <esc>
 
 " swap quote and backtick in normal mode
 nnoremap ' `
@@ -340,11 +330,16 @@ command! GitDiff call s:GitDiff()
 " search files using vimgrep {{{
 " searches in pwd recursively by default
 " if any matches are found the quickfix window is opened
-function! s:VGrep(searchStr, ...)
+function! s:VGrep(searchStr, ...) abort
   let path = a:0 >= 1 ? a:1 : '**'
-  noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
+  try
+    noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
+  catch
+  endtry
   if !empty(getqflist())
     copen
+  else
+    echo "No results for '".a:searchStr."' "
   endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
@@ -362,9 +357,24 @@ function! s:GGrep(searchStr, ...)
   redraw!
   if !empty(getqflist())
     copen
+  else
+    echo "No results for '".a:searchStr."' "
   endif
 endfunction
 command! -nargs=* GGrep call s:GGrep(<f-args>)
+" }}}
+
+" highlighting {{{
+function! Highlights() abort
+  highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on fold lines
+  highlight SpecialKey ctermbg=NONE " tab/space char colors
+  highlight NonText ctermbg=NONE " eol char colors
+  highlight SpellBad cterm=underline " underline spelling mistakes
+  highlight SignColumn ctermbg=NONE " no background color for gutter/column
+  highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
+  highlight PmenuSel ctermfg=darkblue " popup menu selected item
+  highlight PmenuSbar ctermfg=black " scrollbar
+endfunction
 " }}}
 
 " format json using python
@@ -381,7 +391,8 @@ if has('autocmd')
     autocmd FileType markdown,html,text setlocal spell
     " clean up netrw hidden buffers
     autocmd FileType netrw setlocal bufhidden=wipe
-    " enable cursorline highlighting and disable relativenumber in quickfix window
+    " enable cursorline highlighting, disable
+    " relativenumber and map q to :q in quickfix window
     autocmd FileType qf setlocal cursorline norelativenumber |
           \ exec "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
@@ -402,6 +413,13 @@ if has('autocmd')
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
           \ exe "normal! g`\"" |
           \ endif
+    " cursorline in current window and normal mode only
+    autocmd InsertLeave,WinEnter * set cursorline
+    autocmd InsertEnter,WinLeave * set nocursorline
+    " call custom Highlights function when changing colorscheme
+    autocmd ColorScheme * call Highlights()
   augroup END
 endif
 " }}}
+
+colorscheme solarized " set color scheme
