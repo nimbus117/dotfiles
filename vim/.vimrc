@@ -21,8 +21,8 @@ Plug 'Konfekt/FastFold'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
+Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mbbill/undotree'
-Plug 'mxw/vim-jsx'
 Plug 'nelstrom/vim-visual-star-search'
 Plug 'pangloss/vim-javascript'
 Plug 'SirVer/ultisnips'
@@ -269,10 +269,6 @@ nnoremap <silent> <leader>gw :GGrep <c-r><c-w> . -rw<cr>
 nnoremap <leader>h :tab help 
 " show/hide invisibles
 nnoremap <silent> <leader>i :setlocal list!<cr>
-" scroll window downwards half a screen
-nnoremap <leader>j <c-d>
-" scroll window upwards half a screen
-nnoremap <leader>k <c-u>
 " toggle line wrapping
 nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
 " save current session as .vimsess
