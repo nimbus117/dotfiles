@@ -26,7 +26,7 @@ do
 done
 
 # link for IntelliJ vimrc
-#ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
+ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
 
 # link for mySimple zsh theme
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
