@@ -115,4 +115,4 @@
 --exclude=bundle.js
 --exclude=public/js/app.js
 --exclude=*.min.js
---exclude=*.java
+--exclude=gradlew.bat
