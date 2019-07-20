@@ -16,15 +16,13 @@ Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
-Plug 'JulesWang/css.vim'
 Plug 'Konfekt/FastFold'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
-Plug 'MaxMEllon/vim-jsx-pretty'
 Plug 'mbbill/undotree'
 Plug 'nelstrom/vim-visual-star-search'
-Plug 'pangloss/vim-javascript'
+Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tpope/vim-commentary'
@@ -47,6 +45,9 @@ endif
 
 " ### plugin settings {{{
 
+" matchit - extended matching with %
+packadd! matchit
+
 " lightline - status line {{{
 set laststatus=2 " always show status line"
 set noshowmode " hide insert, replace or visual on last line
@@ -66,9 +67,6 @@ let g:lightline = {
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = '\.swp$' " hide *.swp files
-
-" matchit - extended matching with %
-runtime macros/matchit.vim " enable matchit
 
 " leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 0.2
@@ -224,11 +222,20 @@ if has('persistent_undo')
   " create undo dir if it doesn't exist
   silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
 endif
+" }}}
+
+" ### language specific settings {{{
 
 " php settings {{{
 let php_sql_query = 1 " highlight SQL syntax
 let php_baselib = 1 " highlight Baselib methods
 let php_htmlInStrings = 1 " highlight HTML syntax
+" }}}
+
+" java settings {{{
+let java_highlight_functions="style"
+let java_highlight_debug=1
+let java_highlight_java_lang_ids=1
 " }}}
 " }}}
 
@@ -306,6 +313,10 @@ nnoremap <leader>wt <c-w>T
 " }}}
 " }}}
 
+" ### abbreviations {{{
+
+" }}}
+
 " ### functions/commands {{{
 
 " run git diff against the current buffer {{{
@@ -362,14 +373,14 @@ command! -nargs=* GGrep call s:GGrep(<f-args>)
 
 " highlighting {{{
 function! Highlights() abort
-  highlight Folded ctermbg=NONE cterm=NONE " no background color or underline on fold lines
+  highlight Folded ctermbg=NONE cterm=NONE " fold lines
   highlight SpecialKey ctermbg=NONE " tab/space char colors
   highlight NonText ctermbg=NONE " eol char colors
-  highlight SpellBad cterm=underline " underline spelling mistakes
-  highlight SignColumn ctermbg=NONE " no background color for gutter/column
+  highlight SpellBad cterm=underline " spelling mistakes
+  highlight SignColumn ctermbg=NONE " sign column/gutter
   highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
   highlight PmenuSel ctermfg=darkblue " popup menu selected item
-  highlight PmenuSbar ctermfg=black " scrollbar
+  highlight PmenuSbar ctermfg=black " popup scrollbar
 endfunction
 " }}}
 
@@ -394,16 +405,20 @@ if has('autocmd')
     " set foldmethod to marker
     autocmd FileType vim setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
-    autocmd FileType ruby,javascript setlocal foldmethod=syntax foldenable
+    autocmd FileType ruby,javascript,c setlocal foldmethod=syntax foldenable
     " start with folds closed
     autocmd FileType php setlocal foldenable
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
+    " set tabs to 4 spaces
+    autocmd FileType java,groovy,c setlocal tabstop=4 softtabstop=4 shiftwidth=4
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
+    " enable line numbers in netrw
+    autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
