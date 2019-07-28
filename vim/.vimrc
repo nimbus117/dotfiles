@@ -159,6 +159,11 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 " ale - asynchronous lint engine
 let g:ale_lint_on_text_changed = 'never' " don't run linters when making changes
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
+let g:ale_fixers = {
+      \ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
+      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ]
+      \ }
+let g:ale_fix_on_save = 1
 " }}}
 
 " ### general settings {{{
@@ -411,7 +416,7 @@ if has('autocmd')
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " set tabs to 4 spaces
-    autocmd FileType java,groovy,c setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd FileType php,java,groovy,c setlocal tabstop=4 softtabstop=4 shiftwidth=4
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
@@ -419,6 +424,8 @@ if has('autocmd')
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " enable line numbers in netrw
     autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
+    " set javascript omnicomplete function
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
