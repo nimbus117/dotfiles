@@ -42,6 +42,9 @@ fi
 # or pick an active screen session to reconnect to
 alias s='screenPicker'
 
+# http server in current directory (default port 8000)
+alias serve="python3 -m http.server"
+
 ## functions
 
 # get the weather
