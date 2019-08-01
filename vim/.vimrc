@@ -153,13 +153,17 @@ endif
 let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
 " ale - asynchronous lint engine
-let g:ale_lint_on_text_changed = 'never' " don't run linters when making changes
+let g:ale_lint_on_text_changed = 'normal' " don't run linters when making changes
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
+      \ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
       \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ]
       \ }
 let g:ale_fix_on_save = 1
+
+" undotree - visualizes undo history
+let g:undotree_WindowLayout = 2
 " }}}
 
 " ### general settings {{{
@@ -201,9 +205,10 @@ set nowrap " don't wrap text
 set linebreak " don't split words when wrapping text
 set display+=lastline " show as much as possible of the last line
 
+" defaults, overridden by autocmds for specific languages
 set foldmethod=indent " by default fold on indents
+set nofoldenable " start with all folds open
 set foldnestmax=5 " sets the maximum nest level of folds
-set nofoldenable " start with all folds closed
 
 set incsearch " search as characters are typed
 set hlsearch " highlight all search matches
@@ -248,6 +253,9 @@ inoremap jk <esc>
 " swap quote and backtick in normal mode
 nnoremap ' `
 nnoremap ` '
+
+" make ctrl-p behave like up arrow in command line mode
+cnoremap <c-p> <up>
 
 " leader key bindings {{{
 
@@ -325,9 +333,9 @@ nnoremap <leader>wt <c-w>T
 " the left window shows the version in the index
 " the right window shows the current buffer
 function! s:GitDiff()
-  if exists(':Gdiff')
+  if exists(':Gvdiffsplit')
     tabedit %
-    Gvdiff
+    Gvdiffsplit
   else
     echo 'Gdiff not available'
   endif
@@ -422,6 +430,8 @@ if has('autocmd')
     autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
     " set javascript omnicomplete function
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    " disbale folds in fugitive buffers
+    autocmd FileType git setlocal nofoldenable
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
