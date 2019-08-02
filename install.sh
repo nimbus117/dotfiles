@@ -26,7 +26,7 @@ do
 done
 
 # link for IntelliJ vimrc
-ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
+#ln -fsv "$HOME/.vimrc" "$HOME/.ideavimrc"
 
 # link for mySimple zsh theme
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
@@ -35,7 +35,7 @@ ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-th
 #ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
 
 # link for ranger conf
-ln -fsv "$(pwd)/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
+#ln -fsv "$(pwd)/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
 
 # link for neovim init.vim
-ln -fsv "$(pwd)/nvim/init.vim" "$HOME/.config/nvim/init.vim"
+#ln -fsv "$(pwd)/nvim/init.vim" "$HOME/.config/nvim/init.vim"
