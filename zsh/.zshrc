@@ -11,9 +11,7 @@ plugins=(
   git
   history
   nvm
-  docker
   vi-mode
-  heroku
 )
 
 source $ZSH/oh-my-zsh.sh
@@ -22,16 +20,6 @@ source $ZSH/oh-my-zsh.sh
 
 # properly clears the terminal
 alias cls='tput reset'
-
-# keep current directory when exiting ranger file explorer
-if command -v ranger >/dev/null; then
-  alias r='source ranger'
-fi
-
-# go to MAMP/htdocs
-if [ -d  "/Applications/MAMP/htdocs" ]; then
-  alias mamp='cd /Applications/MAMP/htdocs'
-fi
 
 # open snippets file in vim
 if [ -f "$HOME/code/dotfiles/snippets/snippets.md" ]; then
@@ -49,15 +37,6 @@ alias serve="python3 -m http.server"
 
 # get the weather
 weather() { curl 'wttr.in/'$1 }
-
-# dictionary lookup
-dict() {
-  if [ $# -eq 0  ]; then
-    echo 'no word given'
-  else
-    curl -s "dict://dict.org/d:"$1 | tail -n+3 | less
-  fi
-}
 
 # cheat.sh
 cheat() {
@@ -134,12 +113,18 @@ joke() {
 
 ## environment variables
 
-# home page for w3m browser
-export WWW_HOME='www.google.com'
-
 # set default editor
 export VISUAL=vim
 export EDITOR="$VISUAL"
+
+# set less options
+# I - case insensitive search, R - enable coloured output, S - don't wrap lines
+# F - quit if output fits in one screen, X - don't clear the screen on exit
+if command -v less >/dev/null; then
+  export LESS="IRSFX"
+fi
+
+## path
 
 # if "$HOME/.bin" exists add to PATH variable
 if [ -d  "$HOME/.bin" ]; then
@@ -154,15 +139,6 @@ fi
 # recommended by brew doctor
 if command -v brew >/dev/null; then
   export PATH="/usr/local/bin:$PATH"
-fi
-
-# add Android tools/emulator to PATH
-if [ -d  "$HOME/Android/Sdk" ]; then
-  export ANDROID_HOME=$HOME/Android/Sdk
-  export PATH=$PATH:$ANDROID_HOME/emulator
-  export PATH=$PATH:$ANDROID_HOME/tools
-  export PATH=$PATH:$ANDROID_HOME/tools/bin
-  export PATH=$PATH:$ANDROID_HOME/platform-tools
 fi
 
 # add composer/vendor/bin to PATH
@@ -205,9 +181,3 @@ if [ -f  "$HOME/.local/bin/aws_zsh_completer.sh" ]; then
   source  $HOME/.local/bin/aws_zsh_completer.sh
 fi
 
-# set less options
-# I - case insensitive search, R - enable coloured output, S - don't wrap lines
-# F - quit if output fits in one screen, X - don't clear the screen on exit
-if command -v less >/dev/null; then
-  export LESS="IRSFX"
-fi
