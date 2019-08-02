@@ -21,7 +21,6 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'mbbill/undotree'
-Plug 'nelstrom/vim-visual-star-search'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
@@ -118,7 +117,7 @@ if executable('ripper-tags')
 endif
 " }}}
 
-" ultisnips - snippets in Vim
+" ultisnips - snippets in vim
 let g:UltiSnipsListSnippets = "<f5>" " snippet list
 let g:UltiSnipsJumpForwardTrigger = "<tab>" " jump forward in snippet
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>" " jump back in snippet
@@ -179,7 +178,7 @@ set hidden " causes buffers to be hidden instead of abandoned, allows changing b
 set backspace=2 " allow backspace over indent, eol, start
 set scrolloff=5 " number of screen lines to keep above and below the cursor
 set history=500 " command line mode history
-set showcmd " Show (partial) command in the last line of the screen
+set showcmd " show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
@@ -234,7 +233,7 @@ endif
 
 " php settings {{{
 let php_sql_query = 1 " highlight SQL syntax
-let php_baselib = 1 " highlight Baselib methods
+let php_baselib = 1 " highlight baselib methods
 let php_htmlInStrings = 1 " highlight HTML syntax
 " }}}
 
@@ -299,7 +298,7 @@ nnoremap <silent> <leader>p :set paste!<cr>
 nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
 " source the session saved in .vimsess
 nnoremap <silent> <leader>ss :source .vimsess<cr>
-" open Tagbar with autoclose set
+" open tagbar with autoclose set
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
 nnoremap <silent> <leader>tc :tabclose<cr>
@@ -309,7 +308,7 @@ nnoremap <silent> <leader>tn :tabnew<cr>
 nnoremap <silent> <leader>to :tabonly<cr>
 " open vim-rest-console in new tab
 nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
-" toggle Undotree
+" toggle undotree
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 " search files using vimgrep, see VGrep function below
 nnoremap <leader>vg :VGrep \C<left><left>
@@ -401,7 +400,7 @@ command! FormatJSON %!python -m json.tool
 
 if has('autocmd')
   augroup misc
-    " remove ALL autocommands for the current group
+    " remove all autocommands for the current group
     autocmd!
     " enable spell checking for certain filetypes
     autocmd FileType markdown,html,text setlocal spell
