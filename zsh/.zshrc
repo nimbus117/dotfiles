@@ -176,6 +176,10 @@ fi
 # enter normal mode in zsh vi-mode
 bindkey 'jk' vi-cmd-mode
 
+# make ctrl-p.n behave like up/down arrows
+bindkey "^P" up-line-or-search
+bindkey "^N" down-line-or-search
+
 # awscli auto completion
 if [ -f  "$HOME/.local/bin/aws_zsh_completer.sh" ]; then
   source  $HOME/.local/bin/aws_zsh_completer.sh

@@ -10,16 +10,6 @@
       "after": ["<Esc>"]
     }
   ],
-  "vim.normalModeKeyBindingsNonRecursive": [
-    {
-      "before": ["j"],
-      "after": ["g", "j"]
-    },
-    {
-      "before": ["k"],
-      "after": ["g", "k"]
-    }
-  ],
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
   "liveServer.settings.donotShowInfoMsg": true,

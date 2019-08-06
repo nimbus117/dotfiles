@@ -1,5 +1,3 @@
-set nocompatible " make vim behave in a more useful way
-
 " ### plugin manager {{{
 
 let new=0
@@ -48,8 +46,8 @@ endif
 packadd! matchit
 
 " lightline - status line {{{
-set laststatus=2 " always show status line"
-set noshowmode " hide insert, replace or visual on last line
+set laststatus=2 " always show status line
+set noshowmode " hide insert/replace/visual on last line
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
@@ -102,19 +100,6 @@ let g:tagbar_type_javascript = {
       \ 'sro': '.',
       \ 'kind2scope': {'c' : 'class', 'm' : 'method'}
       \ }
-" ruby tags - gem install ripper-tags
-if executable('ripper-tags')
-  let g:tagbar_type_ruby = {
-        \ 'kinds'      : [
-        \ 'm:modules', 'c:classes', 'C:constants',
-        \ 'F:singleton methods', 'f:methods', 'a:aliases'
-        \ ],
-        \ 'kind2scope' : {'c' : 'class', 'm' : 'class'},
-        \ 'scope2kind' : {'class' : 'c'},
-        \ 'ctagsbin'   : 'ripper-tags',
-        \ 'ctagsargs'  : ['-f', '-']
-        \ }
-endif
 " }}}
 
 " ultisnips - snippets in vim
@@ -165,70 +150,6 @@ let g:ale_fix_on_save = 1
 let g:undotree_WindowLayout = 2
 " }}}
 
-" ### general settings {{{
-
-filetype plugin indent on " enable filetype detection, plugins and indent settings
-syntax enable " enable syntax highlighting
-set synmaxcol=200 " only highlight the first 200 columns
-set background=dark " light/dark
-set t_Co=256 " set number of colors
-set encoding=utf-8 " set character encoding
-set lazyredraw " stops the screen being redrawn during some operations, better performance
-set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
-set backspace=2 " allow backspace over indent, eol, start
-set scrolloff=5 " number of screen lines to keep above and below the cursor
-set history=500 " command line mode history
-set showcmd " show (partial) command in the last line of the screen
-set spelllang=en_gb " set spelling language to English GB
-set sessionoptions-=options " when saving a session do not save all options and mappings
-set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
-set pumheight=10 " popup menu max height
-set nrformats-=octal " don't treat numbers as octal when using ctrl-a
-set shortmess+=I " disable intro message when starting vim
-
-set splitbelow " splitting a window will put the new window below the current one
-set splitright " splitting a window will put the new window to the right of the current one
-
-set complete-=i " do not scan included files when using c-p/c-n
-set completeopt-=preview " don't show extra information in preview window
-
-set wildmenu " enhanced autocomplete for command menu
-set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
-set wildignorecase " case is ignored when completing file names
-
-set number " show line numbers
-set relativenumber " show relative line numbers
-set numberwidth=3 " set number column to start at 3
-
-set nowrap " don't wrap text
-set linebreak " don't split words when wrapping text
-set display+=lastline " show as much as possible of the last line
-
-" defaults, overridden by autocmds for specific languages
-set foldmethod=indent " by default fold on indents
-set nofoldenable " start with all folds open
-set foldnestmax=5 " sets the maximum nest level of folds
-
-set incsearch " search as characters are typed
-set hlsearch " highlight all search matches
-set ignorecase " case insensitive search
-set smartcase " enable case sensitive search when capitals are used
-
-set autoindent " copy indent from current line when starting a new line
-set expandtab " use spaces instead of TAB
-set tabstop=2 " number of visual spaces per TAB
-set softtabstop=2 " number of spaces in TAB when editing
-set shiftwidth=2 " number of spaces to use for each step of (auto)indent
-set shiftround " round indent to multiple of 'shiftwidth'
-
-if has('persistent_undo')
-  set undofile " use persistent undo
-  set undodir=$HOME/.vim/undodir " set persistent undo directory
-  " create undo dir if it doesn't exist
-  silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
-endif
-" }}}
-
 " ### language specific settings {{{
 
 " php settings {{{
@@ -253,8 +174,9 @@ inoremap jk <esc>
 nnoremap ' `
 nnoremap ` '
 
-" make ctrl-p behave like up arrow in command line mode
+" make ctrl-p/n behave like up and down arrows in command line mode
 cnoremap <c-p> <up>
+cnoremap <c-n> <down>
 
 " leader key bindings {{{
 
@@ -319,10 +241,6 @@ nnoremap <leader>w <c-w>
 " open current window in a new tab
 nnoremap <leader>wt <c-w>T
 " }}}
-" }}}
-
-" ### abbreviations {{{
-
 " }}}
 
 " ### functions/commands {{{
@@ -402,20 +320,21 @@ if has('autocmd')
   augroup misc
     " remove all autocommands for the current group
     autocmd!
+    " disable automatic comment leader insertion, remove comment leader when joining lines
+    autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " enable spell checking for certain filetypes
     autocmd FileType markdown,html,text setlocal spell
     " clean up netrw hidden buffers
     autocmd FileType netrw setlocal bufhidden=wipe
-    " enable cursorline highlighting, disable
-    " relativenumber and map q to :q in quickfix window
-    autocmd FileType qf setlocal cursorline norelativenumber |
+    " enable line numbers in netrw
+    autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
+    " disable relativenumber and map q to :q in quickfix window
+    autocmd FileType qf setlocal norelativenumber |
           \ exec "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
     autocmd FileType vim setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
-    autocmd FileType ruby,javascript,c setlocal foldmethod=syntax foldenable
-    " start with folds closed
-    autocmd FileType php setlocal foldenable
+    autocmd FileType ruby,javascript,json,c setlocal foldmethod=syntax
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " set tabs to 4 spaces
@@ -423,10 +342,6 @@ if has('autocmd')
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
-    " disable automatic comment leader insertion, remove comment leader when joining lines
-    autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
-    " enable line numbers in netrw
-    autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
     " set javascript omnicomplete function
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " disbale folds in fugitive buffers
@@ -445,4 +360,65 @@ if has('autocmd')
 endif
 " }}}
 
+" ### general settings {{{
+
+filetype plugin indent on " enable filetype detection, plugins and indent settings
+syntax enable " enable syntax highlighting
 colorscheme solarized " set color scheme
+
+set background=dark " light/dark
+set backspace=2 " allow backspace over indent, eol, start
+set encoding=utf-8 " set character encoding
+set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
+set history=500 " command line mode history
+set lazyredraw " stops the screen being redrawn during some operations, better performance
+set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
+set nrformats-=octal " don't treat numbers as octal when using ctrl-a
+set pumheight=10 " popup menu max height
+set scrolloff=5 " number of screen lines to keep above and below the cursor
+set sessionoptions-=options " when saving a session do not save all options and mappings
+set shortmess+=I " disable intro message when starting vim
+set showcmd " show (partial) command in the last line of the screen
+set spelllang=en_gb " set spelling language to English GB
+set synmaxcol=200 " only highlight the first 200 columns
+
+set splitbelow " splitting a window will put the new window below the current one
+set splitright " splitting a window will put the new window to the right of the current one
+
+set complete-=i " do not scan included files when using c-p/c-n
+set completeopt-=preview " don't show extra information in preview window
+
+set foldnestmax=5 " sets the maximum nest level of folds
+set nofoldenable " start with all folds open
+
+set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
+set wildignorecase " case is ignored when completing file names
+set wildmenu " enhanced autocomplete for command menu
+
+set number " show line numbers
+set numberwidth=3 " set number column to start at 3
+set relativenumber " show relative line numbers
+
+set display+=lastline " show as much as possible of the last line
+set linebreak " don't split words when wrapping text
+set nowrap " don't wrap text
+
+set hlsearch " highlight all search matches
+set ignorecase " case insensitive search
+set incsearch " search as characters are typed
+set smartcase " enable case sensitive search when capitals are used
+
+set autoindent " copy indent from current line when starting a new line
+set expandtab " use spaces instead of TAB
+set shiftround " round indent to multiple of 'shiftwidth'
+set shiftwidth=2 " number of spaces to use for each step of (auto)indent
+set softtabstop=2 " number of spaces in TAB when editing
+set tabstop=2 " number of visual spaces per TAB
+
+if has('persistent_undo')
+  set undofile " use persistent undo
+  set undodir=$HOME/.vim/undodir " set persistent undo directory
+  " create undo dir if it doesn't exist
+  silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
+endif
+" }}}
