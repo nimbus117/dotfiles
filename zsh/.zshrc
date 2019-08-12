@@ -22,7 +22,7 @@ source $ZSH/oh-my-zsh.sh
 alias cls='tput reset'
 
 # open snippets file in vim
-if [ -f "$HOME/code/dotfiles/snippets/snippets.md" ]; then
+if [ -f $HOME/code/dotfiles/snippets/snippets.md ]; then
   alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 fi
 
@@ -60,8 +60,8 @@ google() {
 # launch screen with .screenVim config file
 # ( source .screenrc then open vim )
 screenVim() {
-  if [ -f "$HOME/.screenrcVim" ]; then
-    screen -c $HOME/.screenrcVim
+  if [ -f $HOME/code/dotfiles/screen/.screenrcVim ]; then
+    screen -c $HOME/code/dotfiles/screen/.screenrcVim
   else
     screen
   fi
@@ -95,7 +95,7 @@ screenPicker() {
 
 # load environment variables for ssh-agent and add ssh pass
 sshadd() {
-  eval "$(ssh-agent)"
+  eval `ssh-agent`
   ssh-add
 }
 
@@ -115,52 +115,52 @@ joke() {
 
 # set default editor
 export VISUAL=vim
-export EDITOR="$VISUAL"
+export EDITOR=$VISUAL
 
 # set less options
 # I - case insensitive search, R - enable coloured output, S - don't wrap lines
 # F - quit if output fits in one screen, X - don't clear the screen on exit
 if command -v less >/dev/null; then
-  export LESS="IRSFX"
+  export LESS=IRSFX
 fi
 
 ## path
 
 # if "$HOME/.bin" exists add to PATH variable
-if [ -d  "$HOME/.bin" ]; then
-  export PATH="$HOME/.bin:$PATH"
+if [ -d  $HOME/.bin ]; then
+  export PATH=$HOME/.bin:$PATH
 fi
 
 # if "$HOME/.local/bin" exists add to PATH variable
-if [ -d  "$HOME/.local/bin/" ]; then
-  export PATH="$HOME/.local/bin:$PATH"
+if [ -d  $HOME/.local/bin/ ]; then
+  export PATH=$HOME/.local/bin:$PATH
 fi
 
 # recommended by brew doctor
 if command -v brew >/dev/null; then
-  export PATH="/usr/local/bin:$PATH"
+  export PATH=/usr/local/bin:$PATH
 fi
 
 # add composer/vendor/bin to PATH
-if [ -d  "$HOME/.config/composer/vendor/bin" ]; then
+if [ -d  $HOME/.config/composer/vendor/bin ]; then
   export PATH=$PATH:$HOME/.config/composer/vendor/bin
 fi
 
 # add /Applications/MAMP/Library/bin to PATH
-if [ -d  '/Applications/MAMP/Library/bin' ]; then
+if [ -d  /Applications/MAMP/Library/bin ]; then
   export PATH=$PATH:/Applications/MAMP/Library/bin
 fi
 
 # add rbenv to PATH
-if [ -d  "$HOME/.rbenv/bin" ]; then
-  export PATH="$HOME/.rbenv/bin:$PATH"
+if [ -d  $HOME/.rbenv/bin ]; then
+  export PATH=$HOME/.rbenv/bin:$PATH
 fi
 
 ## misc
 
 # load rbenv
 if command -v rbenv >/dev/null; then
-  eval "$(rbenv init - --no-rehash)"
+  eval `rbenv init - --no-rehash`
 fi
 
 # required for tilix
@@ -174,14 +174,13 @@ if [ -f $HOME/.dircolors ]; then
 fi
 
 # enter normal mode in zsh vi-mode
-bindkey 'jk' vi-cmd-mode
+bindkey "jk" vi-cmd-mode
 
 # make ctrl-p.n behave like up/down arrows
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
 # awscli auto completion
-if [ -f  "$HOME/.local/bin/aws_zsh_completer.sh" ]; then
+if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
   source  $HOME/.local/bin/aws_zsh_completer.sh
 fi
-
