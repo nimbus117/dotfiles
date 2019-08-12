@@ -9,6 +9,7 @@ endif
 " plugins {{{
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
+Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
 Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
@@ -94,12 +95,6 @@ let g:Lf_PreviewResult = {
 let g:tagbar_compact = 1 " hide help
 let g:tagbar_show_linenumbers = 2 " show relative line numbers
 let g:tagbar_sort = 0 " sort based on order in source file
-let g:tagbar_type_javascript = {
-      \ 'kinds': ['c:classes:1:0', 'm:methods:1:0', 'f:functions:1:0'],
-      \ 'replace': 1,
-      \ 'sro': '.',
-      \ 'kind2scope': {'c' : 'class', 'm' : 'method'}
-      \ }
 " }}}
 
 " ultisnips - snippets in vim
@@ -142,105 +137,13 @@ let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
       \ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ]
+      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
+      \ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ]
       \ }
 let g:ale_fix_on_save = 1
 
 " undotree - visualizes undo history
 let g:undotree_WindowLayout = 2
-" }}}
-
-" ### language specific settings {{{
-
-" php settings {{{
-let php_sql_query = 1 " highlight SQL syntax
-let php_baselib = 1 " highlight baselib methods
-let php_htmlInStrings = 1 " highlight HTML syntax
-" }}}
-
-" java settings {{{
-let java_highlight_functions="style"
-let java_highlight_debug=1
-let java_highlight_java_lang_ids=1
-" }}}
-" }}}
-
-" ### key mappings {{{
-
-" map jk to exit, doesn't move cursor back
-inoremap jk <esc>
-
-" swap quote and backtick in normal mode
-nnoremap ' `
-nnoremap ` '
-
-" make ctrl-p/n behave like up and down arrows in command line mode
-cnoremap <c-p> <up>
-cnoremap <c-n> <down>
-
-" leader key bindings {{{
-
-" set <leader> key to space bar
-nnoremap <space> <nop>
-let mapleader = "\<Space>"
-
-" cycle between windows by pressing <leader> key twice
-nnoremap <leader><leader> <c-w>w
-" stop current search highlighting
-nnoremap <silent> <leader>/ :nohlsearch<cr>
-" go to alternate buffer
-nnoremap <silent> <leader>a :buffer #<cr>
-" launch LeaderF to search tags (ctags)
-nnoremap <silent> <leader>c :LeaderfTag<cr>
-" toggle file explorer
-nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
-" open git diff tab, see DiffWithGit function below
-nnoremap <leader>gd :GitDiff<cr>
-" search files using grep, see GGrep function below
-nnoremap <leader>gg :GGrep 
-" open Gstatus
-nnoremap <silent> <leader>gs :Gstatus<cr>:resize 10<cr>
-" search for the word under the cursor using GGrep
-nnoremap <silent> <leader>gw :GGrep <c-r><c-w> . -rw<cr>
-" search help and open in new tab
-nnoremap <leader>h :tab help 
-" show/hide invisibles
-nnoremap <silent> <leader>i :setlocal list!<cr>
-" toggle line wrapping
-nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
-" save current session as .vimsess
-nnoremap <leader>ms :mksession! .vimsess<cr>
-" launch LeaderF to search recently used files in the current directory
-nnoremap <silent> <leader>mr :LeaderfMruCwd<cr>
-" toggle relative numbering
-nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
-" toggle paste mode
-nnoremap <silent> <leader>p :set paste!<cr>
-" find/replace all on word under cursor
-nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
-" source the session saved in .vimsess
-nnoremap <silent> <leader>ss :source .vimsess<cr>
-" open tagbar with autoclose set
-nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
-" close tab
-nnoremap <silent> <leader>tc :tabclose<cr>
-" open new tab
-nnoremap <silent> <leader>tn :tabnew<cr>
-" close all other tabs
-nnoremap <silent> <leader>to :tabonly<cr>
-" open vim-rest-console in new tab
-nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
-" toggle undotree
-nnoremap <silent> <leader>ut :UndotreeToggle<cr>
-" search files using vimgrep, see VGrep function below
-nnoremap <leader>vg :VGrep \C<left><left>
-" search for the word under the cursor using VGrep
-nnoremap <silent> <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
-" same as <c-w>
-nnoremap <leader>w <c-w>
-" open current window in a new tab
-nnoremap <leader>wt <c-w>T
-" }}}
 " }}}
 
 " ### functions/commands {{{
@@ -280,7 +183,7 @@ command! -nargs=* VGrep call s:VGrep(<f-args>)
 
 " search files using grep {{{
 " similar to VGrep function above except using grep instead of vimgrep
-function! s:GGrep(searchStr, ...)
+function! s:Grep(searchStr, ...)
   let path = a:0 >= 1 ? a:1 : '.'
   let flags = a:0 >= 2 ? a:2 : '-rF'
   let command = 'grep! -I'.
@@ -294,19 +197,21 @@ function! s:GGrep(searchStr, ...)
     echo "No results for '".a:searchStr."' "
   endif
 endfunction
-command! -nargs=* GGrep call s:GGrep(<f-args>)
+command! -nargs=* Grep call s:Grep(<f-args>)
 " }}}
 
 " highlighting {{{
 function! Highlights() abort
   highlight Folded ctermbg=NONE cterm=NONE " fold lines
-  highlight SpecialKey ctermbg=NONE " tab/space char colors
   highlight NonText ctermbg=NONE " eol char colors
-  highlight SpellBad cterm=underline " spelling mistakes
-  highlight SignColumn ctermbg=NONE " sign column/gutter
   highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
-  highlight PmenuSel ctermfg=darkblue " popup menu selected item
   highlight PmenuSbar ctermfg=black " popup scrollbar
+  highlight PmenuSel ctermfg=darkblue " popup menu selected item
+  highlight SignColumn ctermbg=NONE " sign column/gutter
+  highlight SpecialKey ctermbg=NONE " tab/space char colors
+  highlight SpellBad cterm=underline " spelling mistakes
+  highlight TagbarHighlight ctermbg=black " tagbar current tag
+  highlight htmlArg ctermfg=lightblue " html attributes
 endfunction
 " }}}
 
@@ -323,7 +228,7 @@ if has('autocmd')
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " enable spell checking for certain filetypes
-    autocmd FileType markdown,html,text setlocal spell
+    autocmd FileType markdown,text setlocal spell
     " clean up netrw hidden buffers
     autocmd FileType netrw setlocal bufhidden=wipe
     " enable line numbers in netrw
@@ -338,7 +243,7 @@ if has('autocmd')
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " set tabs to 4 spaces
-    autocmd FileType php,java,groovy,c setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd FileType php,c setlocal tabstop=4 softtabstop=4 shiftwidth=4
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
@@ -391,6 +296,9 @@ set completeopt-=preview " don't show extra information in preview window
 set foldnestmax=5 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
 
+set hlsearch " highlight all search matches
+set incsearch " search as characters are typed
+
 set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
@@ -402,11 +310,6 @@ set relativenumber " show relative line numbers
 set display+=lastline " show as much as possible of the last line
 set linebreak " don't split words when wrapping text
 set nowrap " don't wrap text
-
-set hlsearch " highlight all search matches
-set ignorecase " case insensitive search
-set incsearch " search as characters are typed
-set smartcase " enable case sensitive search when capitals are used
 
 set autoindent " copy indent from current line when starting a new line
 set expandtab " use spaces instead of TAB
@@ -421,4 +324,93 @@ if has('persistent_undo')
   " create undo dir if it doesn't exist
   silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
 endif
+" }}}
+
+" ### language specific settings {{{
+
+" php settings {{{
+let php_sql_query = 1 " highlight SQL syntax
+let php_baselib = 1 " highlight baselib methods
+let php_htmlInStrings = 1 " highlight HTML syntax
+" }}}
+" }}}
+
+" ### key mappings {{{
+
+" map jk to exit, doesn't move cursor back
+inoremap jk <esc>
+
+" swap quote and backtick in normal mode
+nnoremap ' `
+nnoremap ` '
+
+" make ctrl-p/n behave like up and down arrows in command line mode
+cnoremap <c-p> <up>
+cnoremap <c-n> <down>
+
+" leader key bindings {{{
+
+" set <leader> key to space bar
+nnoremap <space> <nop>
+let mapleader = "\<Space>"
+
+" cycle between windows by pressing <leader> key twice
+nnoremap <leader><leader> <c-w>w
+" stop current search highlighting
+nnoremap <silent> <leader>/ :nohlsearch<cr>
+" go to alternate buffer
+nnoremap <silent> <leader>a :buffer #<cr>
+" launch LeaderF to search tags (ctags)
+nnoremap <silent> <leader>c :LeaderfTag<cr>
+" toggle file explorer
+nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
+" open git diff tab, see DiffWithGit function below
+nnoremap <leader>gd :GitDiff<cr>
+" search files using grep, see Grep function below
+nnoremap <leader>gg :Grep 
+" use git log to load the commit history into the quickfix list
+nnoremap <silent> <leader>gl :Glog<cr>
+" open Gstatus
+nnoremap <silent> <leader>gs :Gstatus<cr>:resize 10<cr>
+" search for the word under the cursor using Grep
+nnoremap <silent> <leader>gw :Grep <c-r><c-w> . -rw<cr>
+" search help and open in new tab
+nnoremap <leader>h :tab help 
+" show/hide invisibles
+nnoremap <silent> <leader>i :setlocal list!<cr>
+" toggle line wrapping
+nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
+" save current session as .vimsess
+nnoremap <leader>ms :mksession! .vimsess<cr>
+" launch LeaderF to search recently used files in the current directory
+nnoremap <silent> <leader>mr :LeaderfMruCwd<cr>
+" toggle relative numbering
+nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
+" toggle paste mode
+nnoremap <silent> <leader>p :set paste!<cr>
+" find/replace all on word under cursor
+nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
+" source the session saved in .vimsess
+nnoremap <silent> <leader>ss :source .vimsess<cr>
+" open tagbar with autoclose set
+nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
+" close tab
+nnoremap <silent> <leader>tc :tabclose<cr>
+" open new tab
+nnoremap <silent> <leader>tn :tabnew<cr>
+" close all other tabs
+nnoremap <silent> <leader>to :tabonly<cr>
+" open vim-rest-console in new tab
+nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
+" toggle undotree
+nnoremap <silent> <leader>ut :UndotreeToggle<cr>
+" search files using vimgrep, see VGrep function below
+nnoremap <leader>vg :VGrep \C<left><left>
+" search for the word under the cursor using VGrep
+nnoremap <silent> <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
+" same as <c-w>
+nnoremap <leader>w <c-w>
+" open current window in a new tab
+nnoremap <leader>wt <c-w>T
+" }}}
 " }}}
