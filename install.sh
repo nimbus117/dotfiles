@@ -13,7 +13,6 @@ declare -a dotfiles=(
   "git/.gitconfig"
   "git/.gitignore_global"
   "screen/.screenrc"
-  "screen/.screenrcVim"
   "vim/.vimrc"
   "zsh/.zshrc"
 )
@@ -23,8 +22,12 @@ do
   ln -fsv $(pwd)/$i $HOME/${i##*/}
 done
 
-# link for mySimple zsh theme
+# mySimple zsh theme
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
 
-# link for vscode user settings.json
+# vscode user settings.json
 #ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
+
+# universal ctags config
+mkdir "$HOME/.ctags.d"
+ln -fsv "$(pwd)/ctags/universal.ctags" "$HOME/.ctags.d/universal.ctags"
