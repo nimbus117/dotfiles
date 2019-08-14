@@ -151,9 +151,24 @@ if [ -d  /Applications/MAMP/Library/bin ]; then
   export PATH=$PATH:/Applications/MAMP/Library/bin
 fi
 
+# add /Applications/MAMP/bin/php/php7.0.33/bin
+if [ -d  '/Applications/MAMP/bin/php/php7.0.33/bin' ]; then
+  export PATH=$PATH:/Applications/MAMP/bin/php/php7.0.33/bin
+fi
+
+if [ -d  "$HOME/.nvm" ]; then
+  export NVM_DIR="$HOME/.nvm"
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+fi
+
 # add rbenv to PATH
 if [ -d  $HOME/.rbenv/bin ]; then
   export PATH=$HOME/.rbenv/bin:$PATH
+fi
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+  export TERM="screen-256color"
 fi
 
 ## misc
