@@ -11,6 +11,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -144,6 +145,9 @@ let g:ale_fix_on_save = 1
 
 " undotree - visualizes undo history
 let g:undotree_WindowLayout = 2
+
+" editorconfig - maintain consistent coding styles
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " }}}
 
 " ### functions/commands {{{
@@ -243,7 +247,9 @@ if has('autocmd')
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " set tabs to 4 spaces
-    autocmd FileType php,c setlocal tabstop=4 softtabstop=4 shiftwidth=4
+    autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+    " use tabs instead of spaces
+    autocmd FileType php setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
