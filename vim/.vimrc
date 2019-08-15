@@ -138,8 +138,7 @@ let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
       \ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ]
+      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ]
       \ }
 let g:ale_fix_on_save = 1
 
@@ -243,13 +242,11 @@ if has('autocmd')
     " set foldmethod to marker
     autocmd FileType vim setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
-    autocmd FileType ruby,javascript,json,c setlocal foldmethod=syntax
+    autocmd FileType javascript,json setlocal foldmethod=syntax
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
-    " set tabs to 4 spaces
-    autocmd FileType c setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
-    " use tabs instead of spaces
-    autocmd FileType php setlocal tabstop=4 softtabstop=4 shiftwidth=4 noexpandtab
+    " set tab to 2 spaces
+    autocmd FileType yaml,yml setlocal softtabstop=2 shiftwidth=2 expandtab
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
@@ -318,11 +315,8 @@ set linebreak " don't split words when wrapping text
 set nowrap " don't wrap text
 
 set autoindent " copy indent from current line when starting a new line
-set expandtab " use spaces instead of TAB
-set shiftround " round indent to multiple of 'shiftwidth'
-set shiftwidth=2 " number of spaces to use for each step of (auto)indent
-set softtabstop=2 " number of spaces in TAB when editing
-set tabstop=2 " number of visual spaces per TAB
+set tabstop=4 " number of visual spaces per TAB
+set shiftwidth=4 " number of spaces to use for each step of (auto)indent
 
 if has('persistent_undo')
   set undofile " use persistent undo
