@@ -83,7 +83,7 @@ let g:Lf_StlPalette = {
       \   'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
       \ }
 let g:Lf_WildIgnore = {
-      \ 'dir': ['.git', 'node_modules', 'vendor'],
+      \ 'dir': ['.git', 'node_modules', 'vendor', 'bower_components'],
       \ 'file': ['*.swp', 'bundle.js', 'tags']
       \}
 let g:Lf_PreviewResult = {
@@ -190,7 +190,8 @@ function! s:Grep(searchStr, ...)
   let path = a:0 >= 1 ? a:1 : '.'
   let flags = a:0 >= 2 ? a:2 : '-rF'
   let command = 'grep! -I'.
-        \ ' --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor'.
+        \ ' --exclude-dir=.git --exclude-dir=node_modules'.
+		\ ' --exclude-dir=vendor --exclude-dir=bower_components'.
         \ ' --exclude="*.swp" --exclude=bundle.js --exclude=tags'
   silent execute command flags a:searchStr path
   redraw!
@@ -302,7 +303,7 @@ set nofoldenable " start with all folds open
 set hlsearch " highlight all search matches
 set incsearch " search as characters are typed
 
-set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
+set wildignore+=*.swp,*/node_modules/*,*/vendor/*,*/bower_components/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
 
