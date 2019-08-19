@@ -2,15 +2,16 @@
 
 let new=0
 if empty(glob('~/.vim/autoload/plug.vim'))
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  let new=1
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	let new=1
 endif
 " plugins {{{
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
 Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
+Plug 'editorconfig/editorconfig-vim'
 Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -37,7 +38,7 @@ Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
 call plug#end()
 " }}}
 if new == 1
-  PlugInstall --sync
+	PlugInstall --sync
 endif
 " }}}
 
@@ -50,15 +51,15 @@ packadd! matchit
 set laststatus=2 " always show status line
 set noshowmode " hide insert/replace/visual on last line
 let g:lightline = {
-      \ 'colorscheme': 'solarized',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
-      \ }
-      \ }
+			\ 'colorscheme': 'solarized',
+			\ 'active': {
+			\   'left': [ [ 'mode', 'paste' ],
+			\           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+			\ },
+			\ 'component_function': {
+			\   'gitbranch': 'fugitive#head'
+			\ }
+			\ }
 " }}}
 
 " netrw - file explorer
@@ -71,24 +72,24 @@ let g:Lf_WindowHeight = 0.2
 let g:Lf_HideHelp = 1
 let g:Lf_StlSeparator = {'left': '', 'right': ''}
 let g:Lf_StlPalette = {
-      \   'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
-      \   'stlCategory': {'ctermfg': 'black','ctermbg': 'green'},
-      \   'stlNameOnlyMode': {'ctermfg': 'black','ctermbg': 'white'},
-      \   'stlFullPathMode': {'ctermfg': 'black','ctermbg': 'blue'},
-      \   'stlFuzzyMode': {'ctermfg': 'black','ctermbg': 'blue'},
-      \   'stlCwd': {'ctermfg': '195','ctermbg': 'black'},
-      \   'stlBlank': {'ctermfg': 'NONE','ctermbg': 'black'},
-      \   'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
-      \   'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
-      \ }
+			\   'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
+			\   'stlCategory': {'ctermfg': 'black','ctermbg': 'green'},
+			\   'stlNameOnlyMode': {'ctermfg': 'black','ctermbg': 'white'},
+			\   'stlFullPathMode': {'ctermfg': 'black','ctermbg': 'blue'},
+			\   'stlFuzzyMode': {'ctermfg': 'black','ctermbg': 'blue'},
+			\   'stlCwd': {'ctermfg': '195','ctermbg': 'black'},
+			\   'stlBlank': {'ctermfg': 'NONE','ctermbg': 'black'},
+			\   'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
+			\   'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
+			\ }
 let g:Lf_WildIgnore = {
-      \ 'dir': ['.git', 'node_modules', 'vendor'],
-      \ 'file': ['*.swp', 'bundle.js', 'tags']
-      \}
+			\ 'dir': ['.git', 'node_modules', 'vendor', 'bower_components'],
+			\ 'file': ['*.swp', 'bundle.js', 'tags']
+			\}
 let g:Lf_PreviewResult = {
-      \ 'BufTag': 0,
-      \ 'Function': 0,
-      \}
+			\ 'BufTag': 0,
+			\ 'Function': 0,
+			\}
 " }}}
 
 " tagbar - browse tags from the current file {{{
@@ -104,19 +105,19 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>" " jump back in snippet
 
 " vim-rest-console - rest requests {{{
 let s:vrc_auto_format_response_patterns = {
-      \ 'json': 'python -m json.tool',
-      \ 'xml': 'xmllint --format -',
-      \}
+			\ 'json': 'python -m json.tool',
+			\ 'xml': 'xmllint --format -',
+			\}
 
 let g:vrc_curl_opts = {
-      \ '--connect-timeout': 10,
-      \ '--location': '',
-      \ '--include': '',
-      \ '--max-time': 60,
-      \ '--ipv4': '',
-      \ '--insecure': '',
-      \ '--silent': '',
-      \}
+			\ '--connect-timeout': 10,
+			\ '--location': '',
+			\ '--include': '',
+			\ '--max-time': 60,
+			\ '--ipv4': '',
+			\ '--insecure': '',
+			\ '--silent': '',
+			\}
 " }}}
 
 " fastfold - automatic folds
@@ -127,7 +128,7 @@ let g:fastfold_minlines= 0
 
 " vdebug - vim debugger
 if !exists('g:vdebug_options')
-  let g:vdebug_options = {}
+	let g:vdebug_options = {}
 endif
 let g:vdebug_options.break_on_open = 0 " don't break on the first line
 
@@ -135,15 +136,18 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 let g:ale_lint_on_text_changed = 'normal' " don't run linters when making changes
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
-      \ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ]
-      \ }
+			\ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ]
+			\ }
 let g:ale_fix_on_save = 1
 
 " undotree - visualizes undo history
 let g:undotree_WindowLayout = 2
+
+" editorconfig - maintain consistent coding styles
+let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " }}}
 
 " ### functions/commands {{{
@@ -153,12 +157,12 @@ let g:undotree_WindowLayout = 2
 " the left window shows the version in the index
 " the right window shows the current buffer
 function! s:GitDiff()
-  if exists(':Gvdiffsplit')
-    tabedit %
-    Gvdiffsplit
-  else
-    echo 'Gdiff not available'
-  endif
+	if exists(':Gvdiffsplit')
+		tabedit %
+		Gvdiffsplit
+	else
+		echo 'Gdiff not available'
+	endif
 endfunction
 command! GitDiff call s:GitDiff()
 " }}}
@@ -167,16 +171,16 @@ command! GitDiff call s:GitDiff()
 " searches in pwd recursively by default
 " if any matches are found the quickfix window is opened
 function! s:VGrep(searchStr, ...) abort
-  let path = a:0 >= 1 ? a:1 : '**'
-  try
-    noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
-  catch
-  endtry
-  if !empty(getqflist())
-    copen
-  else
-    echo "No results for '".a:searchStr."' "
-  endif
+	let path = a:0 >= 1 ? a:1 : '**'
+	try
+		noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
+	catch
+	endtry
+	if !empty(getqflist())
+		copen
+	else
+		echo "No results for '".a:searchStr."' "
+	endif
 endfunction
 command! -nargs=* VGrep call s:VGrep(<f-args>)
 " }}}
@@ -184,34 +188,36 @@ command! -nargs=* VGrep call s:VGrep(<f-args>)
 " search files using grep {{{
 " similar to VGrep function above except using grep instead of vimgrep
 function! s:Grep(searchStr, ...)
-  let path = a:0 >= 1 ? a:1 : '.'
-  let flags = a:0 >= 2 ? a:2 : '-rF'
-  let command = 'grep! -I'.
-        \ ' --exclude-dir=.git --exclude-dir=node_modules --exclude-dir=vendor'.
-        \ ' --exclude="*.swp" --exclude=bundle.js --exclude=tags'
-  silent execute command flags a:searchStr path
-  redraw!
-  if !empty(getqflist())
-    copen
-  else
-    echo "No results for '".a:searchStr."' "
-  endif
+	let path = a:0 >= 1 ? a:1 : '.'
+	let flags = a:0 >= 2 ? a:2 : '-rF'
+	let command = 'grep! -I --no-messages'.
+				\ ' --exclude-dir=.git --exclude-dir=node_modules'.
+				\ ' --exclude-dir=vendor --exclude-dir=bower_components'.
+				\ ' --exclude="*.swp" --exclude="*.min.*"'.
+				\ ' --exclude=bundle.js --exclude=templates.js --exclude=tags'
+	silent execute command flags a:searchStr path
+	redraw!
+	if !empty(getqflist())
+		copen
+	else
+		echo "No results for '".a:searchStr."' "
+	endif
 endfunction
 command! -nargs=* Grep call s:Grep(<f-args>)
 " }}}
 
 " highlighting {{{
 function! Highlights() abort
-  highlight Folded ctermbg=NONE cterm=NONE " fold lines
-  highlight NonText ctermbg=NONE " eol char colors
-  highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
-  highlight PmenuSbar ctermfg=black " popup scrollbar
-  highlight PmenuSel ctermfg=darkblue " popup menu selected item
-  highlight SignColumn ctermbg=NONE " sign column/gutter
-  highlight SpecialKey ctermbg=NONE " tab/space char colors
-  highlight SpellBad cterm=underline " spelling mistakes
-  highlight TagbarHighlight ctermbg=black " tagbar current tag
-  highlight htmlArg ctermfg=lightblue " html attributes
+	highlight Folded ctermbg=NONE cterm=NONE " fold lines
+	highlight NonText ctermbg=NONE " eol char colors
+	highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
+	highlight PmenuSbar ctermfg=black " popup scrollbar
+	highlight PmenuSel ctermfg=darkblue " popup menu selected item
+	highlight SignColumn ctermbg=NONE " sign column/gutter
+	highlight SpecialKey ctermbg=NONE " tab/space char colors
+	highlight SpellBad cterm=underline " spelling mistakes
+	highlight TagbarHighlight ctermbg=black " tagbar current tag
+	highlight htmlArg ctermfg=lightblue " html attributes
 endfunction
 " }}}
 
@@ -222,46 +228,46 @@ command! FormatJSON %!python -m json.tool
 " ### autocmds {{{
 
 if has('autocmd')
-  augroup misc
-    " remove all autocommands for the current group
-    autocmd!
-    " disable automatic comment leader insertion, remove comment leader when joining lines
-    autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
-    " enable spell checking for certain filetypes
-    autocmd FileType markdown,text setlocal spell
-    " clean up netrw hidden buffers
-    autocmd FileType netrw setlocal bufhidden=wipe
-    " enable line numbers in netrw
-    autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
-    " disable relativenumber and map q to :q in quickfix window
-    autocmd FileType qf setlocal norelativenumber |
-          \ exec "nnoremap <silent> <buffer> q :q<cr>"
-    " set foldmethod to marker
-    autocmd FileType vim setlocal foldmethod=marker foldenable
-    " set foldmethod to syntax
-    autocmd FileType ruby,javascript,json,c setlocal foldmethod=syntax
-    " set php comment string to // (replaces /*  */)
-    autocmd FileType php setlocal commentstring=//\ %s
-    " set tabs to 4 spaces
-    autocmd FileType php,c setlocal tabstop=4 softtabstop=4 shiftwidth=4
-    " each VRC buffer uses a different display buffer
-    autocmd FileType rest let b:vrc_output_buffer_name =
-          \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
-    " set javascript omnicomplete function
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    " disbale folds in fugitive buffers
-    autocmd FileType git setlocal nofoldenable
-    " return to the last cursor position when opening files
-    autocmd BufReadPost *
-          \ if line("'\"") > 1 && line("'\"") <= line('$') |
-          \ exe "normal! g`\"" |
-          \ endif
-    " cursorline in current window and normal mode only
-    autocmd InsertLeave,WinEnter * set cursorline
-    autocmd InsertEnter,WinLeave * set nocursorline
-    " call custom Highlights function when changing colorscheme
-    autocmd ColorScheme * call Highlights()
-  augroup END
+	augroup misc
+		" remove all autocommands for the current group
+		autocmd!
+		" disable automatic comment leader insertion, remove comment leader when joining lines
+		autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
+		" enable spell checking for certain filetypes
+		autocmd FileType markdown,text setlocal spell
+		" clean up netrw hidden buffers
+		autocmd FileType netrw setlocal bufhidden=wipe
+		" enable line numbers in netrw
+		autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
+		" disable relativenumber and map q to :q in quickfix window
+		autocmd FileType qf setlocal norelativenumber |
+					\ exec "nnoremap <silent> <buffer> q :q<cr>"
+		" set foldmethod to marker
+		autocmd FileType vim setlocal foldmethod=marker foldenable
+		" set foldmethod to syntax
+		autocmd FileType ruby,javascript,json,c setlocal foldmethod=syntax
+		" set php comment string to // (replaces /*  */)
+		autocmd FileType php setlocal commentstring=//\ %s
+		" set tabs to 2 spaces
+		autocmd FileType ruby,markdown,yaml,yml setlocal softtabstop=2 shiftwidth=2 expandtab
+		" each VRC buffer uses a different display buffer
+		autocmd FileType rest let b:vrc_output_buffer_name =
+					\ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
+		" set javascript omnicomplete function
+		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+		" disbale folds in fugitive buffers
+		autocmd FileType git setlocal nofoldenable
+		" return to the last cursor position when opening files
+		autocmd BufReadPost *
+					\ if line("'\"") > 1 && line("'\"") <= line('$') |
+					\ exe "normal! g`\"" |
+					\ endif
+		" cursorline in current window and normal mode only
+		autocmd InsertLeave,WinEnter * set cursorline
+		autocmd InsertEnter,WinLeave * set nocursorline
+		" call custom Highlights function when changing colorscheme
+		autocmd ColorScheme * call Highlights()
+	augroup END
 endif
 " }}}
 
@@ -285,7 +291,7 @@ set sessionoptions-=options " when saving a session do not save all options and 
 set shortmess+=I " disable intro message when starting vim
 set showcmd " show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
-set synmaxcol=200 " only highlight the first 200 columns
+set synmaxcol=1000 " only highlight the first 1000 columns
 
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window will put the new window to the right of the current one
@@ -299,7 +305,7 @@ set nofoldenable " start with all folds open
 set hlsearch " highlight all search matches
 set incsearch " search as characters are typed
 
-set wildignore+=*.swp,*/node_modules/*,*/vendor/*,bundle.js,tags " exclude from wildmenu and vimgrep
+set wildignore+=*.swp,*/node_modules/*,*/vendor/*,*/bower_components/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
 
@@ -312,17 +318,14 @@ set linebreak " don't split words when wrapping text
 set nowrap " don't wrap text
 
 set autoindent " copy indent from current line when starting a new line
-set expandtab " use spaces instead of TAB
-set shiftround " round indent to multiple of 'shiftwidth'
-set shiftwidth=2 " number of spaces to use for each step of (auto)indent
-set softtabstop=2 " number of spaces in TAB when editing
-set tabstop=2 " number of visual spaces per TAB
+set tabstop=4 " number of visual spaces per TAB
+set shiftwidth=4 " number of spaces to use for each step of (auto)indent
 
 if has('persistent_undo')
-  set undofile " use persistent undo
-  set undodir=$HOME/.vim/undodir " set persistent undo directory
-  " create undo dir if it doesn't exist
-  silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
+	set undofile " use persistent undo
+	set undodir=$HOME/.vim/undodir " set persistent undo directory
+	" create undo dir if it doesn't exist
+	silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
 endif
 " }}}
 

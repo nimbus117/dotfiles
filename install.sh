@@ -9,17 +9,18 @@ read
 
 # create links in home directory
 declare -a dotfiles=(
-  "ctags/.ctags"
-  "git/.gitconfig"
-  "git/.gitignore_global"
-  "screen/.screenrc"
-  "vim/.vimrc"
-  "zsh/.zshrc"
+	"ctags/.ctags"
+	"git/.gitconfig"
+	"git/.gitignore_global"
+	"mongo/.mongorc.js"
+	"screen/.screenrc"
+	"vim/.vimrc"
+	"zsh/.zshrc"
 )
 
 for i in "${dotfiles[@]}"
 do
-  ln -fsv $(pwd)/$i $HOME/${i##*/}
+	ln -fsv $(pwd)/$i $HOME/${i##*/}
 done
 
 # mySimple zsh theme
@@ -29,5 +30,5 @@ ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-th
 #ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
 
 # universal ctags config
-mkdir "$HOME/.ctags.d"
+mkdir -p "$HOME/.ctags.d"
 ln -fsv "$(pwd)/ctags/universal.ctags" "$HOME/.ctags.d/universal.ctags"
