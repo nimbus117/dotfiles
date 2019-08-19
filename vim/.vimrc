@@ -138,7 +138,8 @@ let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
       \ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
       \ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ]
+      \ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
+      \ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ]
       \ }
 let g:ale_fix_on_save = 1
 
@@ -244,11 +245,11 @@ if has('autocmd')
     " set foldmethod to marker
     autocmd FileType vim setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
-    autocmd FileType javascript,json setlocal foldmethod=syntax
+    autocmd FileType ruby,javascript,json,c setlocal foldmethod=syntax
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
-    " set tab to 2 spaces
-    autocmd FileType yaml,yml setlocal softtabstop=2 shiftwidth=2 expandtab
+    " set tabs to 2 spaces
+    autocmd FileType ruby,yaml,yml setlocal softtabstop=2 shiftwidth=2 expandtab
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
