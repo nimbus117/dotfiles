@@ -1,6 +1,3 @@
-[user]
-  name = JamesG
-  email = james@appointedd.com
 [color]
   ui = auto
 [diff]
@@ -15,3 +12,5 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
+[include]
+	path = ~/.gitconfigUser
