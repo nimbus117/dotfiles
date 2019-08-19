@@ -290,7 +290,7 @@ set sessionoptions-=options " when saving a session do not save all options and 
 set shortmess+=I " disable intro message when starting vim
 set showcmd " show (partial) command in the last line of the screen
 set spelllang=en_gb " set spelling language to English GB
-set synmaxcol=200 " only highlight the first 200 columns
+set synmaxcol=1000 " only highlight the first 1000 columns
 
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window will put the new window to the right of the current one
