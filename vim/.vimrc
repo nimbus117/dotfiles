@@ -189,10 +189,11 @@ command! -nargs=* VGrep call s:VGrep(<f-args>)
 function! s:Grep(searchStr, ...)
   let path = a:0 >= 1 ? a:1 : '.'
   let flags = a:0 >= 2 ? a:2 : '-rF'
-  let command = 'grep! -I'.
+  let command = 'grep! -I --no-messages'.
         \ ' --exclude-dir=.git --exclude-dir=node_modules'.
 		\ ' --exclude-dir=vendor --exclude-dir=bower_components'.
-        \ ' --exclude="*.swp" --exclude=bundle.js --exclude=tags'
+		\ ' --exclude="*.swp" --exclude="*.min.*"'.
+		\ ' --exclude=bundle.js --exclude=templates.js --exclude=tags'
   silent execute command flags a:searchStr path
   redraw!
   if !empty(getqflist())
