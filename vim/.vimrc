@@ -159,7 +159,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 function! s:GitDiff()
 	if exists(':Gvdiffsplit')
 		tabedit %
-		Gvdiffsplit
+		Gvdiffsplit!
 	else
 		echo 'Gdiff not available'
 	endif
@@ -189,8 +189,8 @@ command! -nargs=* VGrep call s:VGrep(<f-args>)
 " similar to VGrep function above except using grep instead of vimgrep
 function! s:Grep(searchStr, ...)
 	let path = a:0 >= 1 ? a:1 : '.'
-	let flags = a:0 >= 2 ? a:2 : '-rF'
-	let command = 'grep! -I --no-messages'.
+	let flags = a:0 >= 2 ? a:2 : '--recursive --fixed-strings'
+	let command = 'grep! --binary-file=without-match --no-messages'.
 				\ ' --exclude-dir=.git --exclude-dir=node_modules'.
 				\ ' --exclude-dir=vendor --exclude-dir=bower_components'.
 				\ ' --exclude="*.swp" --exclude="*.min.*"'.
@@ -245,7 +245,7 @@ if has('autocmd')
 		" set foldmethod to marker
 		autocmd FileType vim setlocal foldmethod=marker foldenable
 		" set foldmethod to syntax
-		autocmd FileType ruby,javascript,json,c setlocal foldmethod=syntax
+		autocmd FileType ruby,javascript,json,c,scss setlocal foldmethod=syntax
 		" set php comment string to // (replaces /*  */)
 		autocmd FileType php setlocal commentstring=//\ %s
 		" set tabs to 2 spaces
