@@ -43,6 +43,11 @@ cheat() {
 	curl -s "https://cheat.sh/"$1 | less
 }
 
+# open papertrail logs in less and force colours
+pt() {
+	LESS=IRSX bash -c "papertrail --force-color $* | less"
+}
+
 # open google search for the given args
 google() {
 	searchStr=
@@ -169,6 +174,8 @@ fi
 
 if [[ $OSTYPE == 'darwin'* ]]; then
 	export TERM="screen-256color"
+	export LESS_TERMCAP_so=$'\E[30;43m'
+	export LESS_TERMCAP_se=$'\E[39;49m'
 fi
 
 ## misc
