@@ -33,6 +33,9 @@ alias s='screenPicker'
 # http server in current directory (default port 8000)
 alias serve="python3 -m http.server"
 
+# Turn tree colorization on always
+alias tree="tree -C"
+
 ## functions
 
 # get the weather
@@ -172,12 +175,6 @@ if [ -d  $HOME/.rbenv/bin ]; then
 	export PATH=$HOME/.rbenv/bin:$PATH
 fi
 
-if [[ $OSTYPE == 'darwin'* ]]; then
-	export TERM="screen-256color"
-	export LESS_TERMCAP_so=$'\E[30;43m'
-	export LESS_TERMCAP_se=$'\E[39;49m'
-fi
-
 ## misc
 
 # load rbenv
@@ -205,4 +202,12 @@ bindkey "^N" down-line-or-search
 # awscli auto completion
 if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
 	source  $HOME/.local/bin/aws_zsh_completer.sh
+fi
+
+## Mac specific
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+	export TERM="screen-256color"
+	export LESS_TERMCAP_so=$'\E[30;43m'
+	export LESS_TERMCAP_se=$'\E[39;49m'
 fi
