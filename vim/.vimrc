@@ -136,10 +136,12 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 let g:ale_lint_on_text_changed = 'normal' " don't run linters when making changes
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
+			\ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'css': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'html': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
 			\ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
 			\ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ]
+			\ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ]
 			\ }
 let g:ale_fix_on_save = 1
 
@@ -167,33 +169,14 @@ endfunction
 command! GitDiff call s:GitDiff()
 " }}}
 
-" search files using vimgrep {{{
-" searches in pwd recursively by default
-" if any matches are found the quickfix window is opened
-function! s:VGrep(searchStr, ...) abort
-	let path = a:0 >= 1 ? a:1 : '**'
-	try
-		noautocmd execute 'vimgrep' '/'.a:searchStr.'/j' path
-	catch
-	endtry
-	if !empty(getqflist())
-		copen
-	else
-		echo "No results for '".a:searchStr."' "
-	endif
-endfunction
-command! -nargs=* VGrep call s:VGrep(<f-args>)
-" }}}
-
 " search files using grep {{{
-" similar to VGrep function above except using grep instead of vimgrep
 function! s:Grep(searchStr, ...)
 	let path = a:0 >= 1 ? a:1 : '.'
 	let flags = a:0 >= 2 ? a:2 : '--recursive --fixed-strings'
 	let command = 'grep! --binary-file=without-match --no-messages'.
 				\ ' --exclude-dir=.git --exclude-dir=node_modules'.
 				\ ' --exclude-dir=vendor --exclude-dir=bower_components'.
-				\ ' --exclude="*.swp" --exclude="*.min.*"'.
+				\ ' --exclude="*.swp" --exclude="*.min.*" --exclude="composer.*"'.
 				\ ' --exclude=bundle.js --exclude=templates.js --exclude=tags'
 	silent execute command flags a:searchStr path
 	redraw!
@@ -220,9 +203,6 @@ function! Highlights() abort
 	highlight htmlArg ctermfg=lightblue " html attributes
 endfunction
 " }}}
-
-" format json using python
-command! FormatJSON %!python -m json.tool
 " }}}
 
 " ### autocmds {{{
@@ -359,6 +339,9 @@ let mapleader = "\<Space>"
 
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
+" format json in normal and visual mode
+nnoremap <leader>=j :%!python -m json.tool<cr>
+vnoremap <leader>=j :!python -m json.tool<cr>
 " stop current search highlighting
 nnoremap <silent> <leader>/ :nohlsearch<cr>
 " go to alternate buffer
@@ -407,10 +390,6 @@ nnoremap <silent> <leader>to :tabonly<cr>
 nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
 " toggle undotree
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
-" search files using vimgrep, see VGrep function below
-nnoremap <leader>vg :VGrep \C<left><left>
-" search for the word under the cursor using VGrep
-nnoremap <silent> <leader>vw :VGrep \<<c-r><c-w>\>\C<cr>
 " same as <c-w>
 nnoremap <leader>w <c-w>
 " open current window in a new tab
