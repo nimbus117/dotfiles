@@ -12,7 +12,6 @@ declare -a dotfiles=(
 	"ctags/.ctags"
 	"git/.gitconfig"
 	"git/.gitignore_global"
-	"mongo/.mongorc.js"
 	"screen/.screenrc"
 	"vim/.vimrc"
 	"zsh/.zshrc"
