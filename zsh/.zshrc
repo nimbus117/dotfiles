@@ -33,6 +33,9 @@ alias s='screenPicker'
 # http server in current directory (default port 8000)
 alias serve="python3 -m http.server"
 
+# Turn tree colorization on always
+alias tree="tree -C"
+
 ## functions
 
 # get the weather
@@ -41,6 +44,11 @@ weather() { curl 'wttr.in/'$1 }
 # cheat.sh
 cheat() {
 	curl -s "https://cheat.sh/"$1 | less
+}
+
+# open papertrail logs in less and force colours
+pt() {
+	LESS=IRSX bash -c "papertrail --force-color $* | less"
 }
 
 # open google search for the given args
@@ -167,10 +175,6 @@ if [ -d  $HOME/.rbenv/bin ]; then
 	export PATH=$HOME/.rbenv/bin:$PATH
 fi
 
-if [[ $OSTYPE == 'darwin'* ]]; then
-	export TERM="screen-256color"
-fi
-
 ## misc
 
 # load rbenv
@@ -198,4 +202,12 @@ bindkey "^N" down-line-or-search
 # awscli auto completion
 if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
 	source  $HOME/.local/bin/aws_zsh_completer.sh
+fi
+
+## Mac specific
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+	export TERM="screen-256color"
+	export LESS_TERMCAP_so=$'\E[30;43m'
+	export LESS_TERMCAP_se=$'\E[39;49m'
 fi
