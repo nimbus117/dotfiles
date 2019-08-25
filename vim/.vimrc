@@ -366,6 +366,8 @@ nnoremap <leader>h :tab help
 nnoremap <silent> <leader>i :setlocal list!<cr>
 " toggle line wrapping
 nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
+" save all and run make
+nnoremap <leader>mk :wall <cr> :silent make <cr> :redraw! <cr> :copen <cr>
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
 " launch LeaderF to search recently used files in the current directory
