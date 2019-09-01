@@ -192,6 +192,11 @@ if [ -f $HOME/.dircolors ]; then
 	eval `dircolors $HOME/.dircolors`
 fi
 
+# awscli auto completion
+if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
+	source  $HOME/.local/bin/aws_zsh_completer.sh
+fi
+
 # enter normal mode in zsh vi-mode
 bindkey "jk" vi-cmd-mode
 
@@ -199,10 +204,8 @@ bindkey "jk" vi-cmd-mode
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
 
-# awscli auto completion
-if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
-	source  $HOME/.local/bin/aws_zsh_completer.sh
-fi
+# stop ctrl-s from freezing the terminal
+stty -ixon
 
 ## Mac specific
 
