@@ -53,11 +53,11 @@ set noshowmode " hide insert/replace/visual on last line
 let g:lightline = {
 			\ 'colorscheme': 'solarized',
 			\ 'active': {
-			\   'left': [ [ 'mode', 'paste' ],
-			\           [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+			\	'left': [ [ 'mode', 'paste' ],
+			\			[ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 			\ },
 			\ 'component_function': {
-			\   'gitbranch': 'fugitive#head'
+			\	'gitbranch': 'fugitive#head'
 			\ }
 			\ }
 " }}}
@@ -72,15 +72,15 @@ let g:Lf_WindowHeight = 0.2
 let g:Lf_HideHelp = 1
 let g:Lf_StlSeparator = {'left': '', 'right': ''}
 let g:Lf_StlPalette = {
-			\   'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
-			\   'stlCategory': {'ctermfg': 'black','ctermbg': 'green'},
-			\   'stlNameOnlyMode': {'ctermfg': 'black','ctermbg': 'white'},
-			\   'stlFullPathMode': {'ctermfg': 'black','ctermbg': 'blue'},
-			\   'stlFuzzyMode': {'ctermfg': 'black','ctermbg': 'blue'},
-			\   'stlCwd': {'ctermfg': '195','ctermbg': 'black'},
-			\   'stlBlank': {'ctermfg': 'NONE','ctermbg': 'black'},
-			\   'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
-			\   'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
+			\ 'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
+			\ 'stlCategory': {'ctermfg': 'black','ctermbg': 'green'},
+			\ 'stlNameOnlyMode': {'ctermfg': 'black','ctermbg': 'white'},
+			\ 'stlFullPathMode': {'ctermfg': 'black','ctermbg': 'blue'},
+			\ 'stlFuzzyMode': {'ctermfg': 'black','ctermbg': 'blue'},
+			\ 'stlCwd': {'ctermfg': '195','ctermbg': 'black'},
+			\ 'stlBlank': {'ctermfg': 'NONE','ctermbg': 'black'},
+			\ 'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
+			\ 'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
 			\ }
 let g:Lf_WildIgnore = {
 			\ 'dir': ['.git', 'node_modules', 'vendor', 'bower_components'],
@@ -123,7 +123,7 @@ let g:vrc_curl_opts = {
 " fastfold - automatic folds
 let g:fastfold_force = 1 " prevent on every buffer change
 let g:fastfold_fold_movement_commands = [']z', '[z']
-let g:fastfold_fold_command_suffixes =  ['x','X','o','O','c','C','r','R','m','M']
+let g:fastfold_fold_command_suffixes = ['x','X','o','O','c','C','r','R','m','M']
 let g:fastfold_minlines= 0
 
 " vdebug - vim debugger
@@ -152,7 +152,7 @@ let g:undotree_WindowLayout = 2
 let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 " }}}
 
-" ### functions/commands {{{
+" ### functions {{{
 
 " run git diff against the current buffer {{{
 " opens a new tab with a vertical split
@@ -237,6 +237,8 @@ if has('autocmd')
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 		" disbale folds in fugitive buffers
 		autocmd FileType git setlocal nofoldenable
+		" tags file for c system header files
+		autocmd FileType c setlocal tags+=~/.vim/systags
 		" return to the last cursor position when opening files
 		autocmd BufReadPost *
 					\ if line("'\"") > 1 && line("'\"") <= line('$') |
@@ -320,7 +322,7 @@ let php_htmlInStrings = 1 " highlight HTML syntax
 
 " ### key mappings {{{
 
-" map jk to exit, doesn't move cursor back
+" map jk to exit
 inoremap jk <esc>
 
 " swap quote and backtick in normal mode
@@ -367,7 +369,7 @@ nnoremap <silent> <leader>i :setlocal list!<cr>
 " toggle line wrapping
 nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
 " save all and run make
-nnoremap <leader>mk :wall <cr> :silent make <cr> :redraw! <cr> :copen <cr>
+nnoremap <leader>mk :wall<cr>:silent make<cr>:redraw!<cr>:copen<cr>
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
 " launch LeaderF to search recently used files in the current directory
