@@ -172,7 +172,7 @@ command! GitDiff call s:GitDiff()
 " search files using grep {{{
 function! s:Grep(searchStr, ...)
 	let path = a:0 >= 1 ? a:1 : '.'
-	let flags = a:0 >= 2 ? a:2 : '--recursive --fixed-strings'
+	let flags = a:0 >= 2 ? join(a:000[1:len(a:000)]) : '--recursive --fixed-strings'
 	let command = 'grep! --binary-file=without-match --no-messages'.
 				\ ' --exclude-dir=.git --exclude-dir=node_modules'.
 				\ ' --exclude-dir=vendor --exclude-dir=bower_components'.
