@@ -68,7 +68,7 @@ let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = '\.swp$' " hide *.swp files
 
 " leaderF - fuzzy finder {{{
-let g:Lf_WindowHeight = 0.2
+let g:Lf_WindowHeight = 10
 let g:Lf_HideHelp = 1
 let g:Lf_StlSeparator = {'left': '', 'right': ''}
 let g:Lf_StlPalette = {
