@@ -38,6 +38,15 @@
 * Select JSON value
   * `select JSON_EXTRACT(columnName, "$.jsonKey") from tableName;`
 
+### MongoDB
+
+* Delete index on collection
+  * db.runCommand({dropIndexes: "collection", index: "index_name"})
+* Delete document in collection
+  * db.collection.deleteOne({_id:ObjectId("5d70db81ec87c23ac2776fb2")})
+* Find and return only the selected fields of all documents in the collection
+  * db.collection.find({}, {"field_name": 1})
+
 ### s3cmd
 
 * List latest file (filter by .sql.gz.enc extension) from each s3 Bucket / DigitalOcean Space (needs s3cmd)
