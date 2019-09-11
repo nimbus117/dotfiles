@@ -353,7 +353,7 @@ nnoremap <leader>gg :Grep
 " use git log to load the commit history into the quickfix list
 nnoremap <silent> <leader>gl :Glog<cr>
 " open Gstatus
-nnoremap <silent> <leader>gs :Gstatus<cr>:resize 10<cr>
+nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
 " search for the word under the cursor using Grep
 nnoremap <silent> <leader>gw :Grep <c-r><c-w> . -rw<cr>
 " search help and open in new tab
