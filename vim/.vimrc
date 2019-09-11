@@ -259,49 +259,42 @@ filetype plugin indent on " enable filetype detection, plugins and indent settin
 syntax enable " enable syntax highlighting
 colorscheme solarized " set color scheme
 
+set autoindent " copy indent from current line when starting a new line
 set background=dark " light/dark
 set backspace=2 " allow backspace over indent, eol, start
-set encoding=utf-8 " set character encoding
-set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
-set history=500 " command line mode history
-set lazyredraw " stops the screen being redrawn during some operations, better performance
-set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
-set nrformats-=octal " don't treat numbers as octal when using ctrl-a
-set pumheight=10 " popup menu max height
-set scrolloff=5 " number of screen lines to keep above and below the cursor
-set sessionoptions-=options " when saving a session do not save all options and mappings
-set shortmess+=I " disable intro message when starting vim
-set showcmd " show (partial) command in the last line of the screen
-set spelllang=en_gb " set spelling language to English GB
-set synmaxcol=1000 " only highlight the first 1000 columns
-
-set splitbelow " splitting a window will put the new window below the current one
-set splitright " splitting a window will put the new window to the right of the current one
-
 set complete-=i " do not scan included files when using c-p/c-n
 set completeopt-=preview " don't show extra information in preview window
-
+set display+=lastline " show as much as possible of the last line
+set encoding=utf-8 " set character encoding
 set foldnestmax=5 " sets the maximum nest level of folds
-set nofoldenable " start with all folds open
-
+set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
+set history=500 " command line mode history
 set hlsearch " highlight all search matches
 set incsearch " search as characters are typed
-
+set lazyredraw " stops the screen being redrawn during some operations, better performance
+set linebreak " don't split words when wrapping text
+set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
+set nofoldenable " start with all folds open
+set nowrap " don't wrap text
+set nrformats-=octal " don't treat numbers as octal when using ctrl-a
+set number " show line numbers
+set numberwidth=3 " set number column to start at 3
+set pumheight=10 " popup menu max height
+set relativenumber " show relative line numbers
+set scrolloff=5 " number of screen lines to keep above and below the cursor
+set sessionoptions-=options " when saving a session do not save all options and mappings
+set shiftwidth=4 " number of spaces to use for each step of (auto)indent
+set shortmess+=I " disable intro message when starting vim
+set showcmd " show (partial) command in the last line of the screen
+set signcolumn=number " display signs in the number column
+set spelllang=en_gb " set spelling language to English GB
+set splitbelow " splitting a window will put the new window below the current one
+set splitright " splitting a window will put the new window to the right of the current one
+set synmaxcol=1000 " only highlight the first 1000 columns
+set tabstop=4 " number of visual spaces per TAB
 set wildignore+=*.swp,*/node_modules/*,*/vendor/*,*/bower_components/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
-
-set number " show line numbers
-set numberwidth=3 " set number column to start at 3
-set relativenumber " show relative line numbers
-
-set display+=lastline " show as much as possible of the last line
-set linebreak " don't split words when wrapping text
-set nowrap " don't wrap text
-
-set autoindent " copy indent from current line when starting a new line
-set tabstop=4 " number of visual spaces per TAB
-set shiftwidth=4 " number of spaces to use for each step of (auto)indent
 
 if has('persistent_undo')
 	set undofile " use persistent undo
