@@ -219,8 +219,9 @@ if has('autocmd')
 		autocmd FileType netrw setlocal bufhidden=wipe
 		" enable line numbers in netrw
 		autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
-		" disable relativenumber and map q to :q in quickfix window
+		" disable relativenumber, set no scrolloff and map q to :q in quickfix window
 		autocmd FileType qf setlocal norelativenumber |
+					\ setlocal scrolloff=0 |
 					\ exec "nnoremap <silent> <buffer> q :q<cr>"
 		" set foldmethod to marker
 		autocmd FileType vim setlocal foldmethod=marker foldenable
