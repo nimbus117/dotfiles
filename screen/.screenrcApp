@@ -1,0 +1,22 @@
+source $HOME/.screenrc
+select 1
+stuff " echo -ne '\ekapi\e\\'; cd ~/code/appointedd/api/server; clear; npm run dev^M"
+select 2
+stuff " echo -ne '\ekchronos\e\\'; cd ~/code/appointedd/chronos; clear; PORT=8123 npm run start-dev-watch^M"
+select 3
+stuff " echo -ne '\eklocal\e\\'; cd ~/code/appointedd/local; clear; npm start^M"
+select 4
+stuff " clear; cd /Applications/MAMP/bin; ./startApacheIfNotRunning.sh^M"
+
+layout new devenv
+select 1
+split -v
+split
+focus down
+select 2
+focus right
+select 3
+split
+focus down
+select 4
+layout select devenv

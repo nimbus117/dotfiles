@@ -1,10 +1,10 @@
+## oh-my-zsh {{{
+
 # Path to your oh-my-zsh installation
 export ZSH=~/.oh-my-zsh
 
 # Set theme
 ZSH_THEME="mySimple"
-
-# DISABLE_AUTO_TITLE="true"
 
 # plugins
 plugins=(
@@ -15,8 +15,9 @@ plugins=(
 )
 
 source $ZSH/oh-my-zsh.sh
+#}}}
 
-## aliases
+## aliases {{{
 
 # properly clears the terminal
 alias cls='tput reset'
@@ -35,23 +36,28 @@ alias serve="python3 -m http.server"
 
 # Turn tree colorization on always
 alias tree="tree -C"
+#}}}
 
-## functions
+## functions {{{
 
 # get the weather
 weather() { curl 'wttr.in/'$1 }
 
 # cheat.sh
-cheat() {
-	curl -s "https://cheat.sh/"$1 | less
-}
+cheat() { curl -s "https://cheat.sh/"$1 | less }
 
-# open papertrail logs in less and force colours
-pt() {
-	LESS=IRSX bash -c "papertrail --force-color $* | less"
-}
+# load environment variables for ssh-agent and add ssh pass
+sshadd() { eval `ssh-agent`; ssh-add }
 
-# open google search for the given args
+# open papertrail logs in less and force colours {{{
+if command -v lnav >/dev/null; then
+	pt() { papertrail --follow --delay 5 $* | lnav; }
+else
+	pt() { LESS=IRSXN bash -c "papertrail --force-color --follow --delay 5 $* | less +F" }
+fi
+#}}}
+
+# open google search for the given args {{{
 google() {
 	searchStr=
 	for i in "$@"; do
@@ -64,8 +70,9 @@ google() {
 		open $url
 	fi
 }
+#}}}
 
-# launch screen with .screenVim config file
+# launch screen with .screenVim config file {{{
 # ( source .screenrc then open vim )
 screenVim() {
 	if [ -f $HOME/code/dotfiles/screen/.screenrcVim ]; then
@@ -74,8 +81,9 @@ screenVim() {
 		screen
 	fi
 }
+#}}}
 
-# pick screen session to reconnect to or launch a new one
+# pick screen session to reconnect to or launch a new one {{{
 screenPicker() {
 	screens=`screen -ls | sed '1d;$d'`
 	count=$(echo -n "$screens" | grep -c '^')
@@ -83,31 +91,32 @@ screenPicker() {
 	else
 		counter=1
 		sessions=
-		echo $screens | while read line ; do
-		sessions+="$counter. $line\n"
-		(( counter+=1 ))
-	done
-	echo '0.  New session'
-	echo $sessions | column -t
-	echo -n 'Enter number: '
-	read num
-	if [ $num -eq 0 2> /dev/null ]; then; screenVim
-	elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
-		screen -d -r `echo $screens | sed -n ${num}'p' | awk '{print $1}'`
-	else
-		echo "Invalid selection - please enter a number from 0 to $count"
-		screenPicker
-	fi
+		echo $screens | while read line; do
+			sessions+="$counter. $line\n"
+			(( counter+=1 ))
+		done
+		echo '0.  New session'
+		echo $sessions | column -t
+		echo -n 'Enter number: '
+		read num
+		if [ $num -eq 0 2> /dev/null ]; then; screenVim
+		elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
+			screen -d -r `echo $screens | sed -n ${num}'p' | awk '{print $1}'`
+		else
+			echo "Invalid selection - please enter a number from 0 to $count"
+			screenPicker
+		fi
 	fi
 }
+#}}}
 
-# load environment variables for ssh-agent and add ssh pass
-sshadd() {
-	eval `ssh-agent`
-	ssh-add
-}
+# setup devenv - launch screen with .screenApp config file {{{
+if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
+	devenv() { screen -S devenv -c $HOME/code/dotfiles/screen/.screenrcApp }
+fi
+#}}}
 
-# get dad joke
+# get dad joke {{{
 joke() {
 	joke=`curl -s https://icanhazdadjoke.com/`
 	if command -v cowsay >/dev/null && command -v lolcat >/dev/null; then
@@ -118,8 +127,10 @@ joke() {
 		echo $joke
 	fi
 }
+#}}}
+#}}}
 
-## environment variables
+## environment variables {{{
 
 # set default editor
 export VISUAL=vim
@@ -131,15 +142,14 @@ export EDITOR=$VISUAL
 if command -v less >/dev/null; then
 	export LESS=IRSFX
 fi
+#}}}
 
-## path
+## path {{{
 
-# if "$HOME/.bin" exists add to PATH variable
 if [ -d  $HOME/.bin ]; then
 	export PATH=$HOME/.bin:$PATH
 fi
 
-# if "$HOME/.local/bin" exists add to PATH variable
 if [ -d  $HOME/.local/bin/ ]; then
 	export PATH=$HOME/.local/bin:$PATH
 fi
@@ -149,33 +159,24 @@ if command -v brew >/dev/null; then
 	export PATH=/usr/local/bin:$PATH
 fi
 
-# add composer/vendor/bin to PATH
 if [ -d  $HOME/.config/composer/vendor/bin ]; then
 	export PATH=$PATH:$HOME/.config/composer/vendor/bin
 fi
 
-# add /Applications/MAMP/Library/bin to PATH
 if [ -d  /Applications/MAMP/Library/bin ]; then
 	export PATH=$PATH:/Applications/MAMP/Library/bin
 fi
 
-# add /Applications/MAMP/bin/php/php7.0.33/bin
 if [ -d  '/Applications/MAMP/bin/php/php7.0.33/bin' ]; then
 	export PATH=$PATH:/Applications/MAMP/bin/php/php7.0.33/bin
 fi
 
-if [ -d  "$HOME/.nvm" ]; then
-	export NVM_DIR="$HOME/.nvm"
-	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-fi
-
-# add rbenv to PATH
 if [ -d  $HOME/.rbenv/bin ]; then
 	export PATH=$HOME/.rbenv/bin:$PATH
 fi
+#}}}
 
-## misc
+## misc {{{
 
 # load rbenv
 if command -v rbenv >/dev/null; then
@@ -197,6 +198,13 @@ if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
 	source  $HOME/.local/bin/aws_zsh_completer.sh
 fi
 
+# load nvm and bash completion
+if [ -d  "$HOME/.nvm" ]; then
+	export NVM_DIR="$HOME/.nvm"
+	[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+	[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+fi
+
 # enter normal mode in zsh vi-mode
 bindkey "jk" vi-cmd-mode
 
@@ -206,11 +214,13 @@ bindkey "^N" down-line-or-search
 
 # stop ctrl-s from freezing the terminal
 stty -ixon
+#}}}
 
-## Mac specific
+## mac specific {{{
 
 if [[ $OSTYPE == 'darwin'* ]]; then
 	export TERM="screen-256color"
 	export LESS_TERMCAP_so=$'\E[30;43m'
 	export LESS_TERMCAP_se=$'\E[39;49m'
 fi
+#}}}

@@ -40,6 +40,8 @@
 
 ### MongoDB
 
+* MongoDB shell enhancements
+  * npm install -g mongo-hacker
 * Delete index on collection
   * db.runCommand({dropIndexes: "collection", index: "index_name"})
 * Delete document in collection

@@ -224,7 +224,7 @@ if has('autocmd')
 					\ setlocal scrolloff=0 |
 					\ exec "nnoremap <silent> <buffer> q :q<cr>"
 		" set foldmethod to marker
-		autocmd FileType vim setlocal foldmethod=marker foldenable
+		autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
 		" set foldmethod to syntax
 		autocmd FileType ruby,javascript,json,c,scss setlocal foldmethod=syntax
 		" set php comment string to // (replaces /*  */)

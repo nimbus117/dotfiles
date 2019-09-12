@@ -22,11 +22,7 @@ maptimeout 5
 # enable utf8
 defutf8 on
 
-# status line and caption
-hardstatus alwayslastline
-hardstatus string '%{Bk} %D %d %{kG}%=%-Lw%{bk} %n*%f %t %{-}%+Lw%=%{Bk} %0c '
-caption string '%{G}%2n %t'
-rendition so = kG
+# window setup {{{
 
 # window numbering starts at 1
 bind c screen 1
@@ -39,7 +35,19 @@ screen 2
 screen 3
 screen 4
 
-# layouts
+# windows 1-3 will be in the directory screen was launched from, window 4 is set to home
+# the terminal in each window is also cleared
+select 4
+stuff " cd ~; clear^M"
+select 3
+stuff " clear^M"
+select 2
+stuff " clear^M"
+select 1
+stuff " clear^M"
+#}}}
+
+# layouts {{{
 layout new a
 select 1
 layout new h1
@@ -76,19 +84,16 @@ focus right
 select 1
 focus left
 layout select a
+#}}}
 
-# windows 1-3 will be in the directory screen was launched from, window 4 is set to home
-# the terminal in each window is also cleared
-select 4
-stuff " cd ~; clear^M"
-select 3
-stuff " clear^M"
-select 2
-stuff " clear^M"
-select 1
-stuff " clear^M"
+# status line and caption {{{
+hardstatus alwayslastline
+hardstatus string '%{Bk} %D %d %{kG}%=%-Lw%{bk} %n*%f %t %{-}%+Lw%=%{Bk} %0c '
+caption string '%{G}%2n %t'
+rendition so = kG
+#}}}
 
-### key bindings
+# key bindings {{{
 
 # change focus between regions
 bind j focus down
@@ -104,3 +109,4 @@ bindkey "[1;5B" layout prev
 bind s
 bind z
 bind x
+#}}}
