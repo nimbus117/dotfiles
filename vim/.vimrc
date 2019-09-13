@@ -353,7 +353,7 @@ nnoremap <leader>gd :GitDiff<cr>
 " search files using grep, see Grep function below
 nnoremap <leader>gg :Grep 
 " use git log to load the commit history into the quickfix list
-nnoremap <silent> <leader>gl :Glog<cr>
+nnoremap <silent> <leader>gl :Glog %<cr>
 " open Gstatus
 nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
 " search for the word under the cursor using Grep
