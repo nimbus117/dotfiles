@@ -110,12 +110,6 @@ screenPicker() {
 }
 #}}}
 
-# setup devenv - launch screen with .screenApp config file {{{
-if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
-	devenv() { screen -S devenv -c $HOME/code/dotfiles/screen/.screenrcApp }
-fi
-#}}}
-
 # get dad joke {{{
 joke() {
 	joke=`curl -s https://icanhazdadjoke.com/`
@@ -128,9 +122,22 @@ joke() {
 	fi
 }
 #}}}
+
+# dev environment {{{
+if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
+	devup() { screen -S devenv -c $HOME/code/dotfiles/screen/.screenrcApp }
+	devdown() { stopMampApache; pkill node; screen -X quit }
+fi
 #}}}
 
-## environment variables {{{
+# MAMP {{{
+startMampApache() { sudo /Applications/MAMP/bin/startApache.sh }
+
+stopMampApache() { sudo /Applications/MAMP/bin/stopApache.sh }
+#}}}
+#}}}
+
+# environment variables {{{
 
 # set default editor
 export VISUAL=vim
@@ -152,11 +159,6 @@ fi
 
 if [ -d  $HOME/.local/bin/ ]; then
 	export PATH=$HOME/.local/bin:$PATH
-fi
-
-# recommended by brew doctor
-if command -v brew >/dev/null; then
-	export PATH=/usr/local/bin:$PATH
 fi
 
 if [ -d  $HOME/.config/composer/vendor/bin ]; then
