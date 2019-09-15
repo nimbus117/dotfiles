@@ -9,8 +9,8 @@
 * Find and delete all files ending in .swp (';' = command is run once for each file)
   * `find . -iname "*.swp*" -exec rm {} \;`
 
-* Find the  10 largest php files in a directory recursively
-  * `find ./ -iname "*.php" -printf "%s\t%p\n" | sort -nr | sed 10q`
+* Find the 10 largest php files in a directory recursively (handles spaces in filenames)
+  * `find . -type f -print0 | xargs -0 ls -Ssh1 | sed 10q`
 
 * Show file count (inodes) used per folder
   * `sudo find . -xdev -type f | cut -d "/" -f 2 | sort | uniq -c | sort -nr`
