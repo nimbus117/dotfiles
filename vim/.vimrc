@@ -215,12 +215,9 @@ if has('autocmd')
 		autocmd!
 		" disable automatic comment leader insertion, remove comment leader when joining lines
 		autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
-		" enable spell checking for certain filetypes
-		autocmd FileType markdown,text setlocal spell
-		" clean up netrw hidden buffers
-		autocmd FileType netrw setlocal bufhidden=wipe
-		" enable line numbers in netrw
-		autocmd FileType netrw let g:netrw_bufsettings -= "nonu"
+		" clean up netrw hidden buffers, enable line numbers
+		autocmd FileType netrw setlocal bufhidden=wipe |
+					\ let g:netrw_bufsettings -= "nonu"
 		" disable relativenumber, set no scrolloff and map q to :q in quickfix window
 		autocmd FileType qf setlocal norelativenumber |
 					\ setlocal scrolloff=0 |
@@ -238,10 +235,6 @@ if has('autocmd')
 					\ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
 		" set javascript omnicomplete function
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-		" disbale folds in fugitive buffers
-		autocmd FileType git setlocal nofoldenable
-		" tags file for c system header files
-		autocmd FileType c setlocal tags+=~/.vim/systags
 		" return to the last cursor position when opening files
 		autocmd BufReadPost *
 					\ if line("'\"") > 1 && line("'\"") <= line('$') |
@@ -309,11 +302,15 @@ endif
 
 " ### language specific settings {{{
 
-" php settings {{{
+" php {{{
 let php_sql_query = 1 " highlight SQL syntax
 let php_baselib = 1 " highlight baselib methods
 let php_htmlInStrings = 1 " highlight HTML syntax
 " }}}
+
+" markdown {{{
+let g:markdown_folding = 1
+"}}}
 " }}}
 
 " ### key mappings {{{
@@ -363,7 +360,7 @@ nnoremap <leader>h :tab help
 " show/hide invisibles
 nnoremap <silent> <leader>i :setlocal list!<cr>
 " toggle line wrapping
-nnoremap <leader>l :set wrap!<cr>:set wrap?<cr>
+nnoremap <leader>l :setlocal wrap!<cr>:setlocal wrap?<cr>
 " save all and run make
 nnoremap <leader>mk :wall<cr>:silent make<cr>:redraw!<cr>:copen<cr>
 " save current session as .vimsess
@@ -376,6 +373,8 @@ nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
 nnoremap <silent> <leader>p :set paste!<cr>
 " find/replace all on word under cursor
 nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
+" toggle spell checking
+nnoremap <silent> <leader>sp :setlocal spell!<cr>:setlocal spell?<cr>
 " source the session saved in .vimsess
 nnoremap <silent> <leader>ss :source .vimsess<cr>
 " open tagbar with autoclose set
