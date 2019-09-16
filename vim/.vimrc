@@ -138,11 +138,13 @@ let g:ale_lint_on_text_changed = 'normal' " don't run linters when making change
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
 			\ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'css': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
 			\ 'html': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'css': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'scss': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
 			\ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
 			\ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ]
+			\ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ '*': ['remove_trailing_lines', 'trim_whitespace']
 			\ }
 let g:ale_fix_on_save = 1
 "}}}
@@ -161,9 +163,9 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
 
 " open git diff in a new tab for the current buffer {{{
 function! s:GitDiff()
-	if exists(':Gvdiffsplit')
+	if exists(':Gdiffsplit')
 		tabedit %
-		Gvdiffsplit!
+		Gdiffsplit!
 	else
 		echo 'Gdiff not available'
 	endif
@@ -260,6 +262,7 @@ set background=dark " light/dark
 set backspace=2 " allow backspace over indent, eol, start
 set complete-=i " do not scan included files when using c-p/c-n
 set completeopt-=preview " don't show extra information in preview window
+set diffopt+=vertical " always use vertical diffs
 set display+=lastline " show as much as possible of the last line
 set encoding=utf-8 " set character encoding
 set foldnestmax=5 " sets the maximum nest level of folds
@@ -267,6 +270,7 @@ set hidden " causes buffers to be hidden instead of abandoned, allows changing b
 set history=500 " command line mode history
 set hlsearch " highlight all search matches
 set incsearch " search as characters are typed
+set iskeyword+=- " treat - as a regular word character
 set lazyredraw " stops the screen being redrawn during some operations, better performance
 set linebreak " don't split words when wrapping text
 set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
@@ -348,7 +352,7 @@ nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explor
 " open git diff tab, see DiffWithGit function below
 nnoremap <leader>gd :GitDiff<cr>
 " search files using grep, see Grep function below
-nnoremap <leader>gg :Grep 
+nnoremap <leader>gg :Grep<space>
 " use git log to load the commit history into the quickfix list
 nnoremap <silent> <leader>gl :Glog %<cr>
 " open Gstatus
@@ -356,7 +360,7 @@ nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
 " search for the word under the cursor using Grep
 nnoremap <silent> <leader>gw :Grep <c-r><c-w> . -rw<cr>
 " search help and open in new tab
-nnoremap <leader>h :tab help 
+nnoremap <leader>h :tab help<space>
 " show/hide invisibles
 nnoremap <silent> <leader>i :setlocal list!<cr>
 " toggle line wrapping
