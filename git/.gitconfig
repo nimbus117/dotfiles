@@ -14,3 +14,7 @@ tool = vimdiff
 	excludesfile = ~/.gitignore_global
 [include]
 	path = ~/.gitconfigUser
+; add to ~/.gitconfigUser
+; [user]
+; 	name = xxxxx
+; 	email = xxxxx@yyyyy.com
