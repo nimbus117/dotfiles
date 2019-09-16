@@ -31,10 +31,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-php/tagbar-phpctags.vim', {'do': 'make'}
-Plug 'vim-vdebug/vdebug', {'for': 'php'}
+Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make' }
+Plug 'vim-vdebug/vdebug', { 'for': 'php' }
 Plug 'w0rp/ale'
-Plug 'Yggdroot/LeaderF', {'do': './install.sh'}
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 call plug#end()
 " }}}
 if new == 1
@@ -81,8 +81,8 @@ let g:Lf_StlPalette = {
 			\ 'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
 			\ }
 let g:Lf_WildIgnore = {
-			\ 'dir': ['.git', 'node_modules', 'vendor', 'bower_components'],
-			\ 'file': ['*.swp', 'bundle.js', 'tags']
+			\ 'dir': [ '.git', 'node_modules', 'vendor', 'bower_components' ],
+			\ 'file': [ '*.swp', 'bundle.js', 'tags' ]
 			\}
 let g:Lf_PreviewResult = {
 			\ 'BufTag': 0,
@@ -121,8 +121,8 @@ let g:vrc_curl_opts = {
 
 " fastfold - automatic folds {{{
 let g:fastfold_force = 1 " prevent on every buffer change
-let g:fastfold_fold_movement_commands = [']z', '[z']
-let g:fastfold_fold_command_suffixes = ['x','X','o','O','c','C','r','R','m','M']
+let g:fastfold_fold_movement_commands = [ ']z', '[z' ]
+let g:fastfold_fold_command_suffixes = [ 'x','X','o','O','c','C','r','R','m','M' ]
 let g:fastfold_minlines= 0
 "}}}
 
@@ -137,14 +137,14 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 let g:ale_lint_on_text_changed = 'normal' " don't run linters when making changes
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
-			\ 'c': ['clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'html': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'css': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'scss': ['prettier', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'javascript': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'json': ['prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ 'php': ['phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
-			\ '*': ['remove_trailing_lines', 'trim_whitespace']
+			\ 'c': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'html': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'css': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'scss': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'javascript': [ 'prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'json': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ 'php': [ 'phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
+			\ '*': [ 'remove_trailing_lines', 'trim_whitespace' ]
 			\ }
 let g:ale_fix_on_save = 1
 "}}}
@@ -156,7 +156,7 @@ packadd! matchit
 let g:undotree_WindowLayout = 2
 
 " editorconfig - maintain consistent coding styles
-let g:EditorConfig_exclude_patterns = ['fugitive://.\*']
+let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
 " }}}
 
 " ### functions {{{
@@ -237,6 +237,8 @@ if has('autocmd')
 					\ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
 		" set javascript omnicomplete function
 		autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+		" treat '-' as a regular word character
+		autocmd FileType html,css,scss setlocal iskeyword+=-
 		" return to the last cursor position when opening files
 		autocmd BufReadPost *
 					\ if line("'\"") > 1 && line("'\"") <= line('$') |
@@ -270,7 +272,6 @@ set hidden " causes buffers to be hidden instead of abandoned, allows changing b
 set history=500 " command line mode history
 set hlsearch " highlight all search matches
 set incsearch " search as characters are typed
-set iskeyword+=- " treat - as a regular word character
 set lazyredraw " stops the screen being redrawn during some operations, better performance
 set linebreak " don't split words when wrapping text
 set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
