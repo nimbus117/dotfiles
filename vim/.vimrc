@@ -230,8 +230,6 @@ if has('autocmd')
 		autocmd FileType ruby,javascript,json,c,scss setlocal foldmethod=syntax
 		" set php comment string to // (replaces /*  */)
 		autocmd FileType php setlocal commentstring=//\ %s
-		" set tabs to 2 spaces
-		autocmd FileType ruby,markdown,yaml,yml setlocal softtabstop=2 shiftwidth=2 expandtab
 		" each VRC buffer uses a different display buffer
 		autocmd FileType rest let b:vrc_output_buffer_name =
 					\ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
@@ -284,7 +282,6 @@ set pumheight=10 " popup menu max height
 set relativenumber " show relative line numbers
 set scrolloff=5 " number of screen lines to keep above and below the cursor
 set sessionoptions-=options " when saving a session do not save all options and mappings
-set shiftwidth=4 " number of spaces to use for each step of (auto)indent
 set shortmess+=I " disable intro message when starting vim
 set showcmd " show (partial) command in the last line of the screen
 set signcolumn=number " display signs in the number column
@@ -292,10 +289,13 @@ set spelllang=en_gb " set spelling language to English GB
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window will put the new window to the right of the current one
 set synmaxcol=1000 " only highlight the first 1000 columns
-set tabstop=4 " number of visual spaces per TAB
 set wildignore+=*.swp,*/node_modules/*,*/vendor/*,*/bower_components/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
+
+set expandtab " use spaces instead of tabs
+set shiftwidth=2 " number of spaces to use for each step of (auto)indent
+set tabstop=2 " number of visual spaces per TAB
 
 if has('persistent_undo')
 	set undofile " use persistent undo
