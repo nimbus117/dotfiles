@@ -1,24 +1,24 @@
 {
-	"workbench.colorTheme": "Better Solarized Dark",
-	"window.zoomLevel": 0,
-	"vim.visualstar": true,
-	"vim.useSystemClipboard": true,
-	"vim.leader": "<space>",
-	"vim.insertModeKeyBindings": [
-		{
-			"before": ["j", "k"],
-			"after": ["<Esc>"]
-		}
-	],
-	"editor.minimap.enabled": false,
-	"editor.lineNumbers": "relative",
-	"liveServer.settings.donotShowInfoMsg": true,
-	"workbench.startupEditor": "newUntitledFile",
-	"editor.renderWhitespace": "boundary",
-	"editor.tabSize": 4,
-	"window.titleBarStyle": "custom",
-	"editor.fontLigatures": true,
-	"editor.fontSize": 14,
-	"editor.formatOnSave": true,
-	"editor.renderWhitespace": "all"
+  "workbench.colorTheme": "Better Solarized Dark",
+  "window.zoomLevel": 0,
+  "vim.visualstar": true,
+  "vim.useSystemClipboard": true,
+  "vim.leader": "<space>",
+  "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "k"],
+      "after": ["<Esc>"]
+    }
+  ],
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "liveServer.settings.donotShowInfoMsg": true,
+  "workbench.startupEditor": "newUntitledFile",
+  "editor.renderWhitespace": "boundary",
+  "editor.tabSize": 4,
+  "window.titleBarStyle": "custom",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 14,
+  "editor.formatOnSave": true,
+  "editor.renderWhitespace": "all"
 }

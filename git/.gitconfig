@@ -1,20 +1,20 @@
 [color]
-	ui = auto
+  ui = auto
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [difftool]
-	prompt = false
+  prompt = false
 [merge]
 tool = vimdiff
-	conflictstyle = diff3
+  conflictstyle = diff3
 [mergetool]
-	prompt = false
+  prompt = false
 [core]
-	editor = vim
-	excludesfile = ~/.gitignore_global
+  editor = vim
+  excludesfile = ~/.gitignore_global
 [include]
-	path = ~/.gitconfigUser
+  path = ~/.gitconfigUser
 ; add to ~/.gitconfigUser
 ; [user]
-; 	name = xxxxx
-; 	email = xxxxx@yyyyy.com
+;   name = xxxxx
+;   email = xxxxx@yyyyy.com
