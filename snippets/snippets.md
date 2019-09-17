@@ -41,13 +41,16 @@
 ### MongoDB
 
 * MongoDB shell enhancements
-  * npm install -g mongo-hacker
+  * `npm install -g mongo-hacker`
 * Delete index on collection
-  * db.runCommand({dropIndexes: "collection", index: "index_name"})
+  * `db.runCommand({dropIndexes: "collection", index: "index_name"})`
 * Delete document in collection
-  * db.collection.deleteOne({_id:ObjectId("5d70db81ec87c23ac2776fb2")})
+  * `db.collection.deleteOne({_id:ObjectId("5d70db81ec87c23ac2776fb2")})`
 * Find and return only the selected fields of all documents in the collection
-  * db.collection.find({}, {"field_name": 1})
+  * `db.collection.find({}, {"field_name": 1})`
+* Group by and count (optionally first first)
+  * `db.collection.aggregate({$group: {_id: "$count_field", count: {$sum:1}}})`
+  * `db.collection.aggregate([{$match: {filter_field: "value")}}, {$group: {_id: "$count_field", count: {$sum: 1}}}])`
 
 ### s3cmd
 
