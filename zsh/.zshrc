@@ -49,11 +49,15 @@ cheat() { curl -s "https://cheat.sh/"$1 | less }
 # load environment variables for ssh-agent and add ssh pass
 sshadd() { eval `ssh-agent`; ssh-add }
 
-# open papertrail logs in less and force colours {{{
-if command -v lnav >/dev/null; then
-	pt() { papertrail --follow --delay 5 $* | lnav; }
-else
-	pt() { LESS=IRSXN bash -c "papertrail --force-color --follow --delay 5 $* | less +F" }
+# open papertrail logs in lnav/less {{{
+if command -v papertrail >/dev/null; then
+	if command -v lnav >/dev/null; then
+		ptf() { papertrail --follow --delay 5 $* | lnav; }
+		pt() { papertrail $* | lnav; }
+	else
+		ptf() { LESS=IRSXN bash -c "papertrail --force-color --follow --delay 5 $* | less +F" }
+		pt() { LESS=IRSXN bash -c "papertrail --force-color $* | less +F" }
+	fi
 fi
 #}}}
 
