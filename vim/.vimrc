@@ -16,6 +16,7 @@ Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
+Plug 'jremmen/vim-ripgrep'
 Plug 'Konfekt/FastFold'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
@@ -166,26 +167,6 @@ function! s:GitDiff()
   endif
 endfunction
 command! GitDiff call s:GitDiff()
-" }}}
-
-" search files using grep {{{
-function! s:Grep(searchStr, ...)
-  let path = a:0 >= 1 ? a:1 : '.'
-  let flags = a:0 >= 2 ? join(a:000[1:len(a:000)]) : '--recursive --fixed-strings'
-  let command = 'grep! --binary-file=without-match --no-messages'.
-        \ ' --exclude-dir=.git --exclude-dir=node_modules'.
-        \ ' --exclude-dir=vendor --exclude-dir=bower_components'.
-        \ ' --exclude="*.swp" --exclude="*.min.*" --exclude="composer.*"'.
-        \ ' --exclude=bundle.js --exclude=templates.js --exclude=tags'
-  silent execute command flags a:searchStr path
-  redraw!
-  if !empty(getqflist())
-    copen
-  else
-    echo "No results for '".a:searchStr."' "
-  endif
-endfunction
-command! -nargs=* Grep call s:Grep(<f-args>)
 " }}}
 
 " highlighting {{{
@@ -347,14 +328,14 @@ nnoremap <silent> <leader>c :LeaderfTag<cr>
 nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
 " open git diff tab, see DiffWithGit function below
 nnoremap <leader>gd :GitDiff<cr>
-" search files using grep, see Grep function below
-nnoremap <leader>gg :Grep<space>
+" search files using ripgrep
+nnoremap <leader>gg :Rg<space>
 " use git log to load the commit history into the quickfix list
 nnoremap <silent> <leader>gl :Glog %<cr>
 " open Gstatus
 nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
-" search for the word under the cursor using Grep
-nnoremap <silent> <leader>gw :Grep <c-r><c-w> . -rw<cr>
+" search for the word under the cursor using ripgrep
+nnoremap <silent> <leader>gw :Rg -w <c-r><c-w><cr>
 " search help and open in new tab
 nnoremap <leader>h :tab help<space>
 " show/hide invisibles
