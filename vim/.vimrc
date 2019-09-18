@@ -50,11 +50,10 @@ set noshowmode " hide insert/replace/visual on last line
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
-      \ 'left': [ [ 'mode', 'paste' ],
-      \     [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
       \ },
       \ 'component_function': {
-      \ 'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'fugitive#head'
       \ }
       \ }
 " }}}
@@ -63,7 +62,7 @@ let g:lightline = {
 let g:netrw_banner = 0 " hide the banner
 let g:netrw_liststyle = 3 " tree mode
 let g:netrw_list_hide = '\.swp$' " hide *.swp files
-"}}}
+" }}}
 
 " leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 10
@@ -80,14 +79,10 @@ let g:Lf_StlPalette = {
       \ 'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
       \ 'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
       \ }
-let g:Lf_WildIgnore = {
-      \ 'dir': [ '.git', 'node_modules', 'vendor', 'bower_components' ],
-      \ 'file': [ '*.swp', 'bundle.js', 'tags' ]
-      \}
 let g:Lf_PreviewResult = {
       \ 'BufTag': 0,
       \ 'Function': 0,
-      \}
+      \ }
 " }}}
 
 " tagbar - browse tags from the current file {{{
@@ -100,13 +95,13 @@ let g:tagbar_sort = 0 " sort based on order in source file
 let g:UltiSnipsListSnippets = "<f5>" " snippet list
 let g:UltiSnipsJumpForwardTrigger = "<tab>" " jump forward in snippet
 let g:UltiSnipsJumpBackwardTrigger = "<s-tab>" " jump back in snippet
-"}}}
+" }}}
 
 " vim-rest-console - rest requests {{{
 let s:vrc_auto_format_response_patterns = {
       \ 'json': 'python -m json.tool',
       \ 'xml': 'xmllint --format -',
-      \}
+      \ }
 
 let g:vrc_curl_opts = {
       \ '--connect-timeout': 10,
@@ -116,7 +111,7 @@ let g:vrc_curl_opts = {
       \ '--ipv4': '',
       \ '--insecure': '',
       \ '--silent': '',
-      \}
+      \ }
 " }}}
 
 " fastfold - automatic folds {{{
@@ -124,14 +119,14 @@ let g:fastfold_force = 1 " prevent on every buffer change
 let g:fastfold_fold_movement_commands = [ ']z', '[z' ]
 let g:fastfold_fold_command_suffixes = [ 'x','X','o','O','c','C','r','R','m','M' ]
 let g:fastfold_minlines= 0
-"}}}
+" }}}
 
 " vdebug - vim debugger {{{
 if !exists('g:vdebug_options')
   let g:vdebug_options = {}
 endif
 let g:vdebug_options.break_on_open = 0 " don't break on the first line
-"}}}
+" }}}
 
 " ale - asynchronous lint engine {{{
 let g:ale_lint_on_text_changed = 'normal' " don't run linters when making changes
@@ -147,7 +142,7 @@ let g:ale_fixers = {
       \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ]
       \ }
 let g:ale_fix_on_save = 1
-"}}}
+" }}}
 
 " matchit - extended matching with %
 packadd! matchit
@@ -315,7 +310,7 @@ let php_htmlInStrings = 1 " highlight HTML syntax
 
 " markdown {{{
 let g:markdown_folding = 1
-"}}}
+" }}}
 " }}}
 
 " ### key mappings {{{
