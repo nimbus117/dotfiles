@@ -10,6 +10,8 @@ ZSH_THEME="mySimple"
 plugins=(
   git
   history
+  npm
+  npx
   nvm
   vi-mode
 )
@@ -34,8 +36,11 @@ alias s='screenPicker'
 # http server in current directory (default port 8000)
 alias serve="python3 -m http.server"
 
-# Turn tree colorization on always
+# turn tree colorization on always
 alias tree="tree -C"
+
+# launch node debug
+alias nd="node --inspect-brk"
 #}}}
 
 ## functions {{{
@@ -202,13 +207,6 @@ fi
 # awscli auto completion
 if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
   source  $HOME/.local/bin/aws_zsh_completer.sh
-fi
-
-# load nvm and bash completion
-if [ -d  "$HOME/.nvm" ]; then
-  export NVM_DIR="$HOME/.nvm"
-  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-  [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 fi
 
 # enter normal mode in zsh vi-mode
