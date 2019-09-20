@@ -6,7 +6,7 @@ stuff " echo -ne '\ekchronos\e\\'; cd ~/code/appointedd/chronos; clear; PORT=812
 select 3
 stuff " echo -ne '\eklocal\e\\'; cd ~/code/appointedd/local; clear; npm start^M"
 select 4
-stuff " echo -ne '\ektop\e\\'; clear; startMampApache; top^M"
+stuff " echo -ne '\ektop\e\\'; clear; startMampApache; top -o cpu^M"
 
 layout new devenv
 select 1
