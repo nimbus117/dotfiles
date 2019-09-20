@@ -210,9 +210,6 @@ bindkey "jk" vi-cmd-mode
 # make ctrl-p.n behave like up/down arrows
 bindkey "^P" up-line-or-search
 bindkey "^N" down-line-or-search
-
-# stop ctrl-s from freezing the terminal
-stty -ixon
 #}}}
 
 ## mac specific {{{
