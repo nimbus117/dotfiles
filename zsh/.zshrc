@@ -55,14 +55,9 @@ cheat() { curl -s "https://cheat.sh/"$1 | less }
 sshadd() { eval `ssh-agent`; ssh-add }
 
 # open papertrail logs in lnav/less {{{
-if command -v papertrail >/dev/null; then
-  if command -v lnav >/dev/null; then
-    ptf() { papertrail --follow --delay 5 $* | lnav; }
-    pt() { papertrail $* | lnav; }
-  else
-    ptf() { LESS=IRSXN bash -c "papertrail --force-color --follow --delay 5 $* | less +F" }
-    pt() { LESS=IRSXN bash -c "papertrail --force-color $* | less +F" }
-  fi
+if command -v papertrail >/dev/null && command -v lnav >/dev/null; then
+  ptf() { papertrail --follow --delay 5 $* | lnav; }
+  pt() { papertrail $* | lnav; }
 fi
 #}}}
 
