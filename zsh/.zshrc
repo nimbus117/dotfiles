@@ -40,7 +40,11 @@ alias serve="python3 -m http.server"
 alias tree="tree -C"
 
 # launch node debug
-alias nd="node --inspect-brk"
+if [[ $HOST == 'penguin'* ]]; then
+  alias nd="node --inspect-brk=0.0.0.0"
+else
+  alias nd="node --inspect-brk"
+fi
 #}}}
 
 ## functions {{{
