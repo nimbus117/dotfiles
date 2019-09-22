@@ -130,7 +130,7 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 " }}}
 
 " ale - asynchronous lint engine {{{
-let g:ale_lint_on_text_changed = 'normal' " don't run linters when making changes
+let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
       \ 'c': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
@@ -142,7 +142,8 @@ let g:ale_fixers = {
       \ 'php': [ 'phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
       \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ]
       \ }
-let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1 " run fixers on save
+let g:ale_open_list = 'on_save' " open local list if errors on save
 " }}}
 
 " matchit - extended matching with %
