@@ -21,13 +21,15 @@ source $ZSH/oh-my-zsh.sh
 
 ## aliases {{{
 
+# list directories
+alias l="ls -lh"
+alias ll="ls -lAh"
+
 # properly clears the terminal
 alias cls='tput reset'
 
 # open snippets file in vim
-if [ -f $HOME/code/dotfiles/snippets/snippets.md ]; then
-  alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
-fi
+alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 
 # launch screen and open vim in the first window
 # or pick an active screen session to reconnect to
@@ -35,9 +37,6 @@ alias s='screenPicker'
 
 # http server in current directory (default port 8000)
 alias serve="python3 -m http.server"
-
-# turn tree colorization on always
-alias tree="tree -C"
 
 # launch node debug
 if [[ $HOST == 'penguin'* ]]; then
@@ -58,7 +57,7 @@ cheat() { curl -s "https://cheat.sh/"$1 | less }
 # load environment variables for ssh-agent and add ssh pass
 sshadd() { eval `ssh-agent`; ssh-add }
 
-# open papertrail logs in lnav/less {{{
+# open papertrail logs in lnav {{{
 if command -v papertrail >/dev/null && command -v lnav >/dev/null; then
   ptf() { papertrail --follow --delay 5 $* | lnav; }
   pt() { papertrail $* | lnav; }
@@ -146,7 +145,7 @@ stopMampApache() { sudo /Applications/MAMP/bin/stopApache.sh }
 #}}}
 #}}}
 
-# environment variables {{{
+## environment variables {{{
 
 # set default editor
 export VISUAL=vim
@@ -213,8 +212,8 @@ fi
 bindkey "jk" vi-cmd-mode
 
 # make ctrl-p.n behave like up/down arrows
-bindkey "^P" up-line-or-search
-bindkey "^N" down-line-or-search
+bindkey "^P" up-line-or-beginning-search
+bindkey "^N" down-line-or-beginning-search
 
 # don't show % at the end of partial lines
 export PROMPT_EOL_MARK=""
