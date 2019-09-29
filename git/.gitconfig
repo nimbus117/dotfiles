@@ -5,16 +5,13 @@
 [difftool]
   prompt = false
 [merge]
-tool = vimdiff
+  tool = vimdiff
   conflictstyle = diff3
 [mergetool]
   prompt = false
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
-[include]
-  path = ~/.gitconfigUser
-; add to ~/.gitconfigUser
-; [user]
-;   name = xxxxx
-;   email = xxxxx@yyyyy.com
+[user]
+  name = JamesG
+  email = james@appointedd.com
