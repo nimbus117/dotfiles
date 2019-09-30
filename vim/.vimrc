@@ -156,7 +156,7 @@ let g:undotree_WindowLayout = 2
 let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
 " }}}
 
-" ### functions {{{
+" ### functions/commands {{{
 
 " open git diff in a new tab for the current buffer {{{
 function! s:GitDiff()
@@ -184,6 +184,9 @@ function! Highlights() abort
   highlight htmlArg ctermfg=lightblue " html attributes
 endfunction
 " }}}
+
+" format json
+command! -range=% JSON <line1>,<line2>!python -m json.tool
 " }}}
 
 " ### autocmds {{{
@@ -317,9 +320,6 @@ let mapleader = "\<Space>"
 
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
-" format json in normal and visual mode
-nnoremap <leader>=j :%!python -m json.tool<cr>
-vnoremap <leader>=j :!python -m json.tool<cr>
 " stop current search highlighting
 nnoremap <silent> <leader>/ :nohlsearch<cr>
 " go to alternate buffer
