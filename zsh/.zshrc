@@ -178,7 +178,7 @@ if [ -d  /Applications/MAMP/Library/bin ]; then
 fi
 
 if [ -d  '/Applications/MAMP/bin/php/php7.0.33/bin' ]; then
-  export PATH=$PATH:/Applications/MAMP/bin/php/php7.0.33/bin
+  export PATH=/Applications/MAMP/bin/php/php7.0.33/bin:$PATH
 fi
 
 if [ -d  $HOME/.rbenv/bin ]; then
