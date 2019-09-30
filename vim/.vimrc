@@ -209,7 +209,8 @@ if has('autocmd')
     autocmd FileType php setlocal commentstring=//\ %s
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
-          \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__"
+          \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__" |
+          \ setlocal foldmethod=indent
     " set javascript omnicomplete function
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " treat '-' as a regular word character
