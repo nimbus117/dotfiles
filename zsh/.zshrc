@@ -31,6 +31,9 @@ alias cls='tput reset'
 # open snippets file in vim
 alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 
+# open notes in vim
+alias notes="vim $HOME/notes.md"
+
 # launch screen and open vim in the first window
 # or pick an active screen session to reconnect to
 alias s='screenPicker'
