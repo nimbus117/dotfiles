@@ -136,7 +136,7 @@ joke() {
 # dev environment {{{
 if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
   sessionName=devenv
-  devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR $sessionName }
+  devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
   devdown() { stopMampApache; pkill node; screen -S $sessionName -X quit }
 fi
 #}}}
