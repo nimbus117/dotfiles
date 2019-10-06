@@ -26,6 +26,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -154,6 +155,9 @@ let g:undotree_WindowLayout = 2
 
 " editorconfig - maintain consistent coding styles
 let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
+
+" dadbod - database interface
+let g:db = "mongodb:" " default url
 " }}}
 
 " ### functions/commands {{{
@@ -326,6 +330,8 @@ nnoremap <silent> <leader>/ :nohlsearch<cr>
 nnoremap <silent> <leader>a :buffer #<cr>
 " launch LeaderF to search tags (ctags)
 nnoremap <silent> <leader>c :LeaderfTag<cr>
+" run the current line on the selected database (dadbod)
+nnoremap <silent> <leader>db :.DB<cr><c-w><s-h>
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
 " open git diff tab, see DiffWithGit function below
@@ -364,6 +370,8 @@ nnoremap <silent> <leader>ss :source .vimsess<cr>
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
 nnoremap <silent> <leader>tc :tabclose<cr>
+" open new tab for dadbod mongo queries
+nnoremap <silent> <leader>td :tabedit .vim.mongo.js<cr>
 " open new tab
 nnoremap <silent> <leader>tn :tabnew<cr>
 " close all other tabs

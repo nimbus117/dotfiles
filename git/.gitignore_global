@@ -2,9 +2,7 @@
 *.swp
 .vimsess
 .vrc.rest
-
-# git files
-*.orig
+.vim.mongo.js
 
 # ctags
 tags

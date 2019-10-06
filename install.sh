@@ -15,6 +15,7 @@ declare -a dotfiles=(
   "screen/.screenrc"
   "vim/.vimrc"
   "zsh/.zshrc"
+  "mongo/.mongorc.js"
 )
 
 for i in "${dotfiles[@]}"
@@ -24,15 +25,6 @@ done
 
 # mySimple zsh theme
 ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
-
-# vscode user settings.json
-if [[ $OSTYPE == 'linux-gnu' ]]; then
-  mkdir -p "$HOME/.config/Code/User"
-  ln -fsv "$(pwd)/vscode/settings.json" "$HOME/.config/Code/User/settings.json"
-elif [[ $OSTYPE == 'darwin'* ]]; then
-  mkdir -p "/Users/jamesg/Library/Application Support/Code/User"
-  ln -fsv "$(pwd)/vscode/settings.json" "$HOME/Library/Application Support/Code/User/settings.json"
-fi
 
 # universal ctags config
 mkdir -p "$HOME/.ctags.d"
