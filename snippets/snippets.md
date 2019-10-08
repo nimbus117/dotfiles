@@ -61,3 +61,9 @@
 
 * Create an ssh tunnel from localhost:3000 to host:3000
   * `ssh user@host -L 3000:localhost:3000 -Nf`
+
+
+### GitHub
+
+* set split mode, tab width and hide whitespaces changes in GitHub diffs
+  * `?diff=split&w=1&ts=2`
