@@ -21,6 +21,7 @@ Plug 'Konfekt/FastFold'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
+Plug 'maximbaz/lightline-ale'
 Plug 'mbbill/undotree'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
@@ -52,12 +53,24 @@ set noshowmode " hide insert/replace/visual on last line
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \   'left': [[ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ]],
+      \   'right': [[ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ],
+      \     [ 'linter_checking', 'linter_errors', 'linter_warnings' ]]
       \ },
       \ 'component_function': {
       \   'gitbranch': 'fugitive#head'
+      \ },
+      \ 'component_expand': {
+      \   'linter_checking': 'lightline#ale#checking',
+      \   'linter_warnings': 'lightline#ale#warnings',
+      \   'linter_errors': 'lightline#ale#errors'
+      \ },
+      \ 'component_type': {
+      \   'linter_checking': 'left',
+      \   'linter_warnings': 'warning',
+      \   'linter_errors': 'error',
       \ }
-      \ }
+      \}
 " }}}
 
 " netrw - file explorer {{{
@@ -144,7 +157,6 @@ let g:ale_fixers = {
       \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ]
       \ }
 let g:ale_fix_on_save = 1 " run fixers on save
-let g:ale_open_list = 'on_save' " open local list if errors on save
 " }}}
 
 " matchit - extended matching with %
