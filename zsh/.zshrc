@@ -58,7 +58,7 @@ weather() { curl 'wttr.in/'$1 }
 cheat() { curl -s "https://cheat.sh/"$1 | less }
 
 # load environment variables for ssh-agent and add ssh pass
-sshadd() { eval `ssh-agent`; ssh-add }
+sshadd() { eval $(ssh-agent); ssh-add }
 
 # open papertrail logs in lnav {{{
 if command -v papertrail >/dev/null && command -v lnav >/dev/null; then
@@ -95,7 +95,7 @@ screenVim() {
 
 # pick screen session to reconnect to or launch a new one {{{
 screenPicker() {
-  screens=`screen -ls | sed '1d;$d'`
+  screens=$(screen -ls | sed '1d;$d')
   count=$(echo -n "$screens" | grep -c '^')
   if [ $count -eq 0 ]; then; screenVim
   else
@@ -111,7 +111,7 @@ screenPicker() {
     read num
     if [ $num -eq 0 2> /dev/null ]; then; screenVim
     elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
-      screen -d -r `echo $screens | sed -n ${num}'p' | awk '{print $1}'`
+      screen -d -r $(echo $screens | sed -n ${num}'p' | awk '{print $1}')
     else
       echo "Invalid selection - please enter a number from 0 to $count"
       screenPicker
@@ -122,9 +122,9 @@ screenPicker() {
 
 # get dad joke {{{
 joke() {
-  joke=`curl -s https://icanhazdadjoke.com/`
+  joke=$(curl -s https://icanhazdadjoke.com/)
   if command -v cowsay >/dev/null && command -v lolcat >/dev/null; then
-    cowFile=`cowsay -l | sed "1d" | tr " " "\n" | sort --random-sort | sed 1q`
+    cowFile=$(cowsay -l | sed "1d" | tr " " "\n" | sort --random-sort | sed 1q)
     echo $joke | cowsay -w -f ${cowFile} | lolcat -a -s 320 -d 6
     echo ""
   else
@@ -194,7 +194,7 @@ fi
 
 # load rbenv
 if command -v rbenv >/dev/null; then
-  eval `rbenv init - --no-rehash`
+  eval $(rbenv init - --no-rehash)
 fi
 
 # required for tilix
@@ -204,7 +204,7 @@ fi
 
 # if dircolors, set colour for ls
 if [ -f $HOME/.dircolors ]; then
-  eval `dircolors $HOME/.dircolors`
+  eval $(dircolors $HOME/.dircolors)
 fi
 
 # awscli auto completion
