@@ -134,17 +134,13 @@ joke() {
 #}}}
 
 # dev environment {{{
-if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
+if [ -f $HOME/code/dotfiles/screen/.screenrcApp ] && [ -d /Applications/MAMP/bin  ]; then
+  startMampApache() { sudo /Applications/MAMP/bin/startApache.sh }
+  stopMampApache() { sudo /Applications/MAMP/bin/stopApache.sh }
+
   sessionName=devenv
   devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
   devdown() { stopMampApache; pkill node; screen -S $sessionName -X quit }
-fi
-#}}}
-
-# MAMP {{{
-if [ -d /Applications/MAMP/bin ]; then
-  startMampApache() { sudo /Applications/MAMP/bin/startApache.sh }
-  stopMampApache() { sudo /Applications/MAMP/bin/stopApache.sh }
 fi
 #}}}
 #}}}
