@@ -198,6 +198,7 @@ function! Highlights() abort
   highlight SpellBad cterm=underline " spelling mistakes
   highlight TagbarHighlight ctermbg=black " tagbar current tag
   highlight htmlArg ctermfg=lightblue " html attributes
+  highlight CursorLineNr cterm=NONE " remove underline on relative line number
 endfunction
 " }}}
 
