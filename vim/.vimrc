@@ -364,7 +364,7 @@ nnoremap <silent> <leader>c :LeaderfTag<cr>
 " run the current line on the selected database (dadbod)
 nnoremap <silent> <leader>db :.DB<cr><c-w><s-h>
 " toggle file explorer
-nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore .<cr>' : ':Rexplore<cr>'
+nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<cr>' : ':Rexplore<cr>'
 " open git diff tab, see DiffWithGit function below
 nnoremap <leader>gd :GitDiff<cr>
 " search files using ripgrep
