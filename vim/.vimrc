@@ -50,27 +50,43 @@ endif
 " lightline - status line {{{
 set laststatus=2 " always show status line
 set noshowmode " hide insert/replace/visual on last line
+let g:lightline#ale#indicator_checking = '...'
 let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [[ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ]],
-      \   'right': [[ 'lineinfo' ], ['percent'], [ 'fileformat', 'fileencoding', 'filetype' ],
+      \   'right': [[ 'lineinfo' ], ['percent'], ['fileInfo'],
       \     [ 'linter_checking', 'linter_errors', 'linter_warnings' ]]
       \ },
       \ 'component_function': {
-      \   'gitbranch': 'fugitive#head'
+      \   'gitbranch': 'LightlineFugitive',
+      \   'fileInfo': 'LightlineFileInfo',
       \ },
       \ 'component_expand': {
       \   'linter_checking': 'lightline#ale#checking',
       \   'linter_warnings': 'lightline#ale#warnings',
-      \   'linter_errors': 'lightline#ale#errors'
+      \   'linter_errors': 'lightline#ale#errors',
       \ },
       \ 'component_type': {
-      \   'linter_checking': 'left',
       \   'linter_warnings': 'warning',
       \   'linter_errors': 'error',
       \ }
       \}
+
+" functions {{{
+
+" return file and encoding information unless in vertical split
+function! LightlineFileInfo()
+  let l:fileType = &filetype !=# '' ? &filetype : 'no ft'
+  let l:fileInfo = &fileformat . ' | ' . &encoding . ' | ' . l:fileType
+  return winwidth(0) == &columns ? l:fileInfo : ''
+endfunction
+
+" return current git HEAD unless in vertical split
+function! LightlineFugitive()
+  return winwidth(0) == &columns ? fugitive#head() : ''
+endfunction
+" }}}
 " }}}
 
 " netrw - file explorer {{{
@@ -188,17 +204,19 @@ command! GitDiff call s:GitDiff()
 
 " highlighting {{{
 function! Highlights() abort
+  highlight CursorLineNr cterm=NONE " relative line number
   highlight Folded ctermbg=NONE cterm=NONE " fold lines
-  highlight NonText ctermbg=NONE " eol char colors
+  highlight htmlArg ctermfg=lightblue " html attributes
+  highlight NonText ctermbg=NONE " eol character
   highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
   highlight PmenuSbar ctermfg=black " popup scrollbar
   highlight PmenuSel ctermfg=darkblue " popup menu selected item
+  highlight QuickFixLine ctermbg=NONE ctermfg=white " current item in quickfix
+  highlight Search ctermbg=black ctermfg=NONE " current item in quickfix
   highlight SignColumn ctermbg=NONE " sign column/gutter
-  highlight SpecialKey ctermbg=NONE " tab/space char colors
+  highlight SpecialKey ctermbg=NONE " tab/space characters
   highlight SpellBad cterm=underline " spelling mistakes
   highlight TagbarHighlight ctermbg=black " tagbar current tag
-  highlight htmlArg ctermfg=lightblue " html attributes
-  highlight CursorLineNr cterm=NONE " remove underline on relative line number
 endfunction
 " }}}
 
@@ -219,7 +237,7 @@ if has('autocmd')
           \ let g:netrw_bufsettings -= "nonu"
     " disable relativenumber, set no scrolloff and map q to :q in quickfix window
     autocmd FileType qf setlocal norelativenumber |
-          \ setlocal scrolloff=0 |
+          \ setlocal scrolloff=1 |
           \ exec "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
@@ -285,7 +303,7 @@ set showcmd " show (partial) command in the last line of the screen
 set signcolumn=number " display signs in the number column
 set spelllang=en_gb " set spelling language to English GB
 set splitbelow " splitting a window will put the new window below the current one
-set splitright " splitting a window will put the new window to the right of the current one
+set splitright " splitting a window vertically will put the new window to the right of the current one
 set synmaxcol=1000 " only highlight the first 1000 columns
 set wildignore+=*.swp,*/node_modules/*,*/vendor/*,*/bower_components/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
@@ -333,7 +351,7 @@ cnoremap <c-n> <down>
 
 " set <leader> key to space bar
 nnoremap <space> <nop>
-let mapleader = "\<Space>"
+let mapleader = "\<space>"
 
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
@@ -351,7 +369,7 @@ nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explor
 nnoremap <leader>gd :GitDiff<cr>
 " search files using ripgrep
 nnoremap <leader>gg :Rg<space>
-" use git log to load the commit history into the quickfix list
+" use git log to load the commit history into the quickfix list for the current file
 nnoremap <silent> <leader>gl :Glog %<cr>
 " open Gstatus
 nnoremap <silent> <leader>gs :G<cr><c-w>T
