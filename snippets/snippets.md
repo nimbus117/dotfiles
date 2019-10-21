@@ -67,3 +67,5 @@
 
 * set split mode, tab width and hide whitespaces changes in GitHub diffs
   * `?diff=split&w=1&ts=2`
+* make diffs fill the whole screen width
+  * `document.body.classList.toggle('full-width')`
