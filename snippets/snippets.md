@@ -65,7 +65,8 @@
 
 ### GitHub
 
-* set split mode, tab width and hide whitespaces changes in GitHub diffs
-  * `?diff=split&w=1&ts=2`
+* set diff mode, tab width and hide whitespaces changes in GitHub diffs
+  * split - `javascript:location.href = location.origin + location.pathname + "?diff=split&w=1&ts=2";`
+  * unified - `javascript:location.href = location.origin + location.pathname + "?diff=unified&w=1&ts=2";`
 * make diffs fill the whole screen width
-  * `document.body.classList.toggle('full-width')`
+  * `javascript:document.body.classList.toggle('full-width');`
