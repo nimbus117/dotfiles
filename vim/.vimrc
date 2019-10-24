@@ -163,14 +163,11 @@ let g:vdebug_options.break_on_open = 0 " don't break on the first line
 let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
-      \ 'c': [ 'clang-format', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'html': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'css': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'scss': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'javascript': [ 'prettier', 'eslint', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'json': [ 'prettier', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ 'php': [ 'phpcbf', 'remove_trailing_lines', 'trim_whitespace' ],
-      \ '*': [ 'remove_trailing_lines', 'trim_whitespace' ]
+      \ 'javascript': [ 'eslint' ],
+      \ 'json': [ 'prettier' ],
+      \ 'html': [ 'prettier' ],
+      \ 'css': [ 'prettier' ],
+      \ 'scss': [ 'prettier' ],
       \ }
 let g:ale_fix_on_save = 1 " run fixers on save
 " }}}
@@ -236,8 +233,7 @@ if has('autocmd')
     autocmd FileType netrw setlocal bufhidden=wipe |
           \ let g:netrw_bufsettings -= "nonu"
     " disable relativenumber, set no scrolloff and map q to :q in quickfix window
-    autocmd FileType qf setlocal norelativenumber |
-          \ setlocal scrolloff=1 |
+    autocmd FileType qf setlocal norelativenumber scrolloff=1 |
           \ exec "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
@@ -284,7 +280,6 @@ set encoding=utf-8 " set character encoding
 set foldnestmax=5 " sets the maximum nest level of folds
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
 set history=500 " command line mode history
-set hlsearch " highlight all search matches
 set incsearch " search as characters are typed
 set lazyredraw " stops the screen being redrawn during some operations, better performance
 set linebreak " don't split words when wrapping text
@@ -356,7 +351,7 @@ let mapleader = "\<space>"
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
 " stop current search highlighting
-nnoremap <silent> <leader>/ :nohlsearch<cr>
+nnoremap <silent> <leader>/ :setlocal hlsearch!<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
 " launch LeaderF to search tags (ctags)
