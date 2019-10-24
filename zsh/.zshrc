@@ -225,5 +225,6 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   export TERM="screen-256color"
   export LESS_TERMCAP_so=$'\E[30;43m'
   export LESS_TERMCAP_se=$'\E[39;49m'
+  alias tree="tree -C"
 fi
 #}}}
