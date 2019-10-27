@@ -73,7 +73,7 @@ let g:lightline = {
       \ }
       \}
 
-" functions {{{
+" component functions {{{
 
 " return file and encoding information unless in vertical split
 function! LightlineFileInfo()
@@ -180,27 +180,12 @@ let g:undotree_WindowLayout = 2
 
 " editorconfig - maintain consistent coding styles
 let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
-
-" dadbod - database interface
-let g:db = "mongodb:" " default url
 " }}}
 
 " ### functions/commands {{{
 
-" open git diff in a new tab for the current buffer {{{
-function! s:GitDiff()
-  if exists(':Gdiffsplit')
-    tabedit %
-    Gdiffsplit!
-  else
-    echo 'Gdiff not available'
-  endif
-endfunction
-command! GitDiff call s:GitDiff()
-" }}}
-
-" highlighting {{{
-function! Highlights() abort
+" custom highlighting {{{
+function! CustomHighlights() abort
   highlight CursorLineNr cterm=NONE " relative line number
   highlight Folded ctermbg=NONE cterm=NONE " fold lines
   highlight htmlArg ctermfg=lightblue " html attributes
@@ -217,6 +202,35 @@ function! Highlights() abort
 endfunction
 " }}}
 
+" open git diff in a new tab for the current buffer {{{
+function! s:GitDiff()
+  if exists(':Gdiffsplit')
+    tabedit %
+    Gdiffsplit!
+  else
+    echo 'Gdiffsplit command not available'
+  endif
+endfunction
+command! GitDiff call s:GitDiff()
+" }}}
+
+" open a new tab for MongoDB queries using dadbod {{{
+function! s:Mongo()
+  if exists(':DB')
+    tabedit .vim.mongo.js
+    let b:db = "mongodb:"
+    execute "nnoremap <silent> <buffer> <c-j> :.DB<cr><c-w><s-h>"
+    execute "xnoremap <silent> <buffer> <c-j> :DB<cr><c-w><s-h>"
+  else
+    echo 'DB command not available'
+  endif
+endfunction
+command! Mongo call s:Mongo()
+" }}}
+
+" open vim-rest-console in new tab
+command! Vrc tabedit .vrc.rest
+
 " format json
 command! -range=% JSON <line1>,<line2>!python -m json.tool
 " }}}
@@ -232,9 +246,9 @@ if has('autocmd')
     " clean up netrw hidden buffers, enable line numbers
     autocmd FileType netrw setlocal bufhidden=wipe |
           \ let g:netrw_bufsettings -= "nonu"
-    " disable relativenumber, set no scrolloff and map q to :q in quickfix window
-    autocmd FileType qf setlocal norelativenumber scrolloff=1 |
-          \ exec "nnoremap <silent> <buffer> q :q<cr>"
+    " disable relativenumber, enable cursorline, set scrolloff to 1 and map q to :q in quickfix window
+    autocmd FileType qf setlocal norelativenumber cursorline scrolloff=1 |
+          \ execute "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
@@ -257,8 +271,8 @@ if has('autocmd')
     " cursorline in current window and normal mode only
     autocmd InsertLeave,WinEnter * set cursorline
     autocmd InsertEnter,WinLeave * set nocursorline
-    " call custom Highlights function when changing colorscheme
-    autocmd ColorScheme * call Highlights()
+    " call CustomHighlights function when changing colorscheme
+    autocmd ColorScheme * call CustomHighlights()
   augroup END
 endif
 " }}}
@@ -300,7 +314,6 @@ set spelllang=en_gb " set spelling language to English GB
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window vertically will put the new window to the right of the current one
 set synmaxcol=1000 " only highlight the first 1000 columns
-set wildignore+=*.swp,*/node_modules/*,*/vendor/*,*/bower_components/*,bundle.js,tags " exclude from wildmenu and vimgrep
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
 
@@ -350,24 +363,22 @@ let mapleader = "\<space>"
 
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
-" stop current search highlighting
+" toggle search highlighting
 nnoremap <silent> <leader>/ :setlocal hlsearch!<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
 " launch LeaderF to search tags (ctags)
 nnoremap <silent> <leader>c :LeaderfTag<cr>
-" run the current line on the selected database (dadbod)
-nnoremap <silent> <leader>db :.DB<cr><c-w><s-h>
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<cr>' : ':Rexplore<cr>'
-" open git diff tab, see DiffWithGit function below
+" open git diff tab, see DiffWithGit function above
 nnoremap <leader>gd :GitDiff<cr>
 " search files using ripgrep
 nnoremap <leader>gg :Rg<space>
 " use git log to load the commit history into the quickfix list for the current file
 nnoremap <silent> <leader>gl :Glog %<cr>
 " open Gstatus
-nnoremap <silent> <leader>gs :G<cr><c-w>T
+nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
 " search for the word under the cursor using ripgrep
 nnoremap <silent> <leader>gw :Rg -w <c-r><c-w><cr>
 " search help and open in new tab
@@ -376,8 +387,6 @@ nnoremap <leader>h :tab help<space>
 nnoremap <silent> <leader>i :setlocal list!<cr>
 " toggle line wrapping
 nnoremap <leader>l :setlocal wrap!<cr>:setlocal wrap?<cr>
-" save all and run make
-nnoremap <leader>mk :wall<cr>:silent make<cr>:redraw!<cr>:copen<cr>
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
 " launch LeaderF to search recently used files in the current directory
@@ -396,14 +405,10 @@ nnoremap <silent> <leader>ss :source .vimsess<cr>
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
 nnoremap <silent> <leader>tc :tabclose<cr>
-" open new tab for dadbod mongo queries
-nnoremap <silent> <leader>td :tabedit .vim.mongo.js<cr>
 " open new tab
 nnoremap <silent> <leader>tn :tabnew<cr>
 " close all other tabs
 nnoremap <silent> <leader>to :tabonly<cr>
-" open vim-rest-console in new tab
-nnoremap <silent> <leader>tr :tabedit .vrc.rest<cr>
 " toggle undotree
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 " same as <c-w>
