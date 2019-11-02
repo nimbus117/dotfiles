@@ -76,14 +76,14 @@ let g:lightline = {
 " component functions {{{
 
 " return file and encoding information unless in vertical split
-function! LightlineFileInfo()
+function! LightlineFileInfo() abort
   let l:fileType = &filetype !=# '' ? &filetype : 'no ft'
   let l:fileInfo = &fileformat . ' | ' . &encoding . ' | ' . l:fileType
   return winwidth(0) == &columns ? l:fileInfo : ''
 endfunction
 
 " return current git HEAD unless in vertical split
-function! LightlineFugitive()
+function! LightlineFugitive() abort
   return winwidth(0) == &columns ? fugitive#head() : ''
 endfunction
 " }}}
@@ -149,7 +149,7 @@ let g:vrc_curl_opts = {
 let g:fastfold_force = 1 " prevent on every buffer change
 let g:fastfold_fold_movement_commands = [ ']z', '[z' ]
 let g:fastfold_fold_command_suffixes = [ 'x','X','o','O','c','C','r','R','m','M' ]
-let g:fastfold_minlines= 0
+let g:fastfold_minlines = 0
 " }}}
 
 " vdebug - vim debugger {{{
@@ -203,7 +203,7 @@ endfunction
 " }}}
 
 " open git diff in a new tab for the current buffer {{{
-function! s:GitDiff()
+function! s:GitDiff() abort
   if exists(':Gdiffsplit')
     tabedit %
     Gdiffsplit!
@@ -215,7 +215,7 @@ command! GitDiff call s:GitDiff()
 " }}}
 
 " open a new tab for MongoDB queries using dadbod {{{
-function! s:Mongo()
+function! s:Mongo() abort
   if exists(':DB')
     tabedit .vim.mongo.js
     let b:db = "mongodb:"
