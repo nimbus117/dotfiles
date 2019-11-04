@@ -52,6 +52,12 @@ alias s='screenPicker'
 alias sl="screen -ls"
 alias sn="screen"
 alias sv="screenVim"
+
+# ranger file explorer
+if command -v ranger >/dev/null
+then
+  alias r='source ranger'
+fi
 #}}}
 
 ## functions {{{

@@ -279,9 +279,9 @@ endif
 
 " ### general settings {{{
 
+colorscheme solarized " set color scheme
 filetype plugin indent on " enable filetype detection, plugins and indent settings
 syntax enable " enable syntax highlighting
-colorscheme solarized " set color scheme
 
 set autoindent " copy indent from current line when starting a new line
 set background=dark " light/dark
