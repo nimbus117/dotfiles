@@ -293,7 +293,7 @@ set display+=lastline " show as much as possible of the last line
 set encoding=utf-8 " set character encoding
 set foldnestmax=5 " sets the maximum nest level of folds
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
-set history=500 " command line mode history
+set history=1000 " command line mode history
 set incsearch " search as characters are typed
 set lazyredraw " stops the screen being redrawn during some operations, better performance
 set linebreak " don't split words when wrapping text
