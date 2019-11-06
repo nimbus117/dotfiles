@@ -22,8 +22,8 @@ source $ZSH/oh-my-zsh.sh
 ## aliases {{{
 
 # list directories
-alias l="ls -lh"
-alias ll="ls -lAh"
+alias l='ls -lh'
+alias ll='ls -lAh'
 
 # properly clears the terminal
 alias cls='tput reset'
@@ -35,27 +35,26 @@ alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 alias notes="vim $HOME/notes.md"
 
 # http server in current directory (default port 8000)
-alias serve="python3 -m http.server"
+alias serve='python3 -m http.server'
 
 # launch node debug
 if [[ $HOST == 'penguin'* ]]; then
-  alias nd="node --inspect-brk=0.0.0.0"
+  alias nd='node --inspect-brk=0.0.0.0'
 else
-  alias nd="node --inspect-brk"
+  alias nd='node --inspect-brk'
 fi
 
 # always turn colorization on
-alias tree="tree -C"
+alias tree='tree -C'
 
 # screen aliases
 alias s='screenPicker'
-alias sl="screen -ls"
-alias sn="screen"
-alias sv="screenVim"
+alias sl='screen -ls'
+alias sn='screen'
+alias sv='screenVim'
 
 # ranger file explorer
-if command -v ranger >/dev/null
-then
+if command -v ranger >/dev/null; then
   alias r='source ranger'
 fi
 #}}}
@@ -154,6 +153,17 @@ if [ -f $HOME/code/dotfiles/screen/.screenrcApp ] && [ -d /Applications/MAMP/bin
   devdown() { stopMampApache; pkill node; screen -S $sessionName -X quit }
 fi
 #}}}
+
+# gita - git fetch and summary
+if command -v gita >/dev/null; then
+  gu() {
+    if [ "$(ssh-add -l)" = "The agent has no identities." ]; then
+      sshadd
+    fi
+    gita fetch
+    gita ll
+  }
+fi
 #}}}
 
 ## environment variables {{{
