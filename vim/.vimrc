@@ -79,7 +79,7 @@ let g:lightline = {
 function! LightlineFileInfo() abort
   let l:fileType = &filetype !=# '' ? &filetype : 'no ft'
   let l:fileInfo = &fileformat . ' | ' . &encoding . ' | ' . l:fileType
-  return winwidth(0) == &columns ? l:fileInfo : ''
+  return winwidth(0) == &columns ? l:fileInfo : l:fileType
 endfunction
 
 " return current git HEAD unless in vertical split
