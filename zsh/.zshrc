@@ -8,6 +8,7 @@ ZSH_THEME="mySimple"
 
 # plugins
 plugins=(
+  aws
   git
   history
   npm
@@ -56,6 +57,11 @@ alias sv='screenVim'
 # ranger file explorer
 if command -v ranger >/dev/null; then
   alias r='source ranger'
+fi
+
+# open
+if command -v xdg-open >/dev/null; then
+  alias open='xdg-open >/dev/null 2>&1'
 fi
 #}}}
 
