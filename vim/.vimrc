@@ -55,7 +55,7 @@ let g:lightline = {
       \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [[ 'mode', 'paste' ], [ 'gitbranch', 'readonly', 'filename', 'modified' ]],
-      \   'right': [[ 'lineinfo' ], ['percent'], ['fileInfo'],
+      \   'right': [[ 'lineinfo' ], [ 'percent' ], [ 'fileInfo' ],
       \     [ 'linter_checking', 'linter_errors', 'linter_warnings' ]]
       \ },
       \ 'component_function': {
@@ -194,7 +194,7 @@ function! CustomHighlights() abort
   highlight PmenuSbar ctermfg=black " popup scrollbar
   highlight PmenuSel ctermfg=darkblue " popup menu selected item
   highlight QuickFixLine ctermbg=NONE ctermfg=white " current item in quickfix
-  highlight Search ctermbg=black ctermfg=NONE " current item in quickfix
+  highlight Search ctermbg=black ctermfg=NONE " search match
   highlight SignColumn ctermbg=NONE " sign column/gutter
   highlight SpecialKey ctermbg=NONE " tab/space characters
   highlight SpellBad cterm=underline " spelling mistakes
