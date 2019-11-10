@@ -8,7 +8,6 @@ ZSH_THEME="mySimple"
 
 # plugins
 plugins=(
-  aws
   git
   history
   npm
@@ -231,8 +230,8 @@ if [ -f $HOME/.dircolors ]; then
 fi
 
 # awscli auto completion
-if [ -f  $HOME/.local/bin/aws_zsh_completer.sh ]; then
-  source  $HOME/.local/bin/aws_zsh_completer.sh
+if [ -f  /usr/local/bin/aws_zsh_completer.sh ]; then
+  source /usr/local/bin/aws_zsh_completer.sh
 fi
 
 # enter normal mode in zsh vi-mode
@@ -254,3 +253,4 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   export LESS_TERMCAP_se=$'\E[39;49m'
 fi
 #}}}
+
