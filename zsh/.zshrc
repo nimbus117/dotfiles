@@ -158,17 +158,6 @@ if [ -f $HOME/code/dotfiles/screen/.screenrcApp ] && [ -d /Applications/MAMP/bin
   devdown() { stopMampApache; pkill node; screen -S $sessionName -X quit }
 fi
 #}}}
-
-# gita - git fetch and summary
-if command -v gita >/dev/null; then
-  gu() {
-    if [ "$(ssh-add -l)" = "The agent has no identities." ]; then
-      sshadd
-    fi
-    gita fetch
-    gita ll
-  }
-fi
 #}}}
 
 ## environment variables {{{
@@ -253,4 +242,3 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   export LESS_TERMCAP_se=$'\E[39;49m'
 fi
 #}}}
-
