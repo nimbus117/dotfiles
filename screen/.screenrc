@@ -22,6 +22,9 @@ maptimeout 5
 # enable utf8
 defutf8 on
 
+# enable alternate screen
+altscreen on
+
 # status line and caption {{{
 hardstatus alwayslastline
 hardstatus string '%{Bk} %D %d %{kG}%=%-Lw%{bk} %n*%f %t %{-}%+Lw%=%{Bk} %0c '
