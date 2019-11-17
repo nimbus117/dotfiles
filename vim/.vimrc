@@ -364,13 +364,13 @@ let mapleader = "\<space>"
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
 " toggle search highlighting
-nnoremap <silent> <leader>/ :setlocal hlsearch!<cr>
+nnoremap <silent> <leader>/ :setlocal hlsearch!<cr>:set hlsearch?<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
 " launch LeaderF to search tags (ctags)
 nnoremap <silent> <leader>c :LeaderfTag<cr>
 " toggle file explorer
-nnoremap <silent> <expr> <leader>e match(expand('%:t'),'Netrw') == -1 ? ':Explore<cr>' : ':Rexplore<cr>'
+nnoremap <silent> <expr> <leader>e exists(':Rexplore') ? ':Rexplore<cr>' : ':Explore<cr>'
 " open git diff tab, see DiffWithGit function above
 nnoremap <leader>gd :GitDiff<cr>
 " search files using ripgrep
@@ -392,7 +392,7 @@ nnoremap <leader>ms :mksession! .vimsess<cr>
 " launch LeaderF to search recently used files in the current directory
 nnoremap <silent> <leader>mr :LeaderfMruCwd<cr>
 " toggle relative numbering
-nnoremap <silent> <leader>n :setlocal relativenumber!<cr>
+nnoremap <silent> <leader>n :setlocal relativenumber!<cr>: set relativenumber?<cr>
 " toggle paste mode
 nnoremap <silent> <leader>p :set paste!<cr>
 " find/replace all on word under cursor
@@ -417,3 +417,5 @@ nnoremap <leader>w <c-w>
 nnoremap <leader>wt <c-w>T
 " }}}
 " }}}
+
+let g:asmsyntax = 'nasm'
