@@ -231,6 +231,9 @@ bindkey "jk" vi-cmd-mode
 bindkey "^P" up-line-or-beginning-search
 bindkey "^N" down-line-or-beginning-search
 
+# set shift-tab to reverse select menus
+bindkey -M menuselect '^[[Z' reverse-menu-complete
+
 # don't show % at the end of partial lines
 export PROMPT_EOL_MARK=""
 #}}}
