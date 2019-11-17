@@ -14,6 +14,7 @@ plugins=(
   npx
   nvm
   vi-mode
+  z
 )
 
 source $ZSH/oh-my-zsh.sh
