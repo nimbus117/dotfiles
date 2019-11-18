@@ -6,6 +6,8 @@
 
 # ctags
 tags
+tags.lock
+tags.temp
 
 # OS generated files #
 ######################
