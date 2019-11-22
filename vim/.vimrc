@@ -228,17 +228,6 @@ endfunction
 command! Mongo call s:Mongo()
 " }}}
 
-" open/close netrw - use Rexplore whenever possible {{{
-function! s:OpenExplorer()
-  if exists(':Rexplore') && ( exists('w:netrw_rexlocal') || &ft == 'netrw')
-    Rexplore
-  else
-    Explore
-  endif
-endfunction
-command! OpenExplorer call s:OpenExplorer()
-" }}}
-
 " open vim-rest-console in new tab
 command! Vrc tabedit .vrc.rest
 
@@ -381,7 +370,7 @@ nnoremap <silent> <leader>a :buffer #<cr>
 " launch LeaderF to search tags (ctags)
 nnoremap <silent> <leader>c :LeaderfTag<cr>
 " toggle file explorer
-nnoremap <silent> <leader>e :OpenExplorer<cr>
+nnoremap <silent> <expr> <leader>e &ft == 'netrw' ? ':Rexplore<cr>' : ':Explore<cr>'
 " open git diff tab, see DiffWithGit function above
 nnoremap <leader>gd :GitDiff<cr>
 " search files using ripgrep
