@@ -338,7 +338,11 @@ let php_htmlInStrings = 1 " highlight HTML syntax
 " }}}
 
 " markdown {{{
-let g:markdown_folding = 1
+let g:markdown_folding = 1 " enable markdown folding
+" }}}
+
+" assembly {{{
+let g:asmsyntax = 'nasm' " set filetype for .asm
 " }}}
 " }}}
 
@@ -417,5 +421,3 @@ nnoremap <leader>w <c-w>
 nnoremap <leader>wt <c-w>T
 " }}}
 " }}}
-
-let g:asmsyntax = 'nasm'
