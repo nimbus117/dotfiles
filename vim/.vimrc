@@ -185,7 +185,7 @@ let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
 " ### functions/commands {{{
 
 " custom highlighting {{{
-function! CustomHighlights() abort
+function! s:CustomHighlights() abort
   highlight CursorLineNr cterm=NONE " relative line number
   highlight Folded ctermbg=NONE cterm=NONE " fold lines
   highlight htmlArg ctermfg=lightblue " html attributes
@@ -202,16 +202,14 @@ function! CustomHighlights() abort
 endfunction
 " }}}
 
-" open git diff in a new tab for the current buffer {{{
-function! s:GitDiff() abort
-  if exists(':Gdiffsplit')
+" open current buffer in new tab and execute string {{{
+function! s:openInNewTabAndExecute(string) abort
     tabedit %
-    Gdiffsplit!
-  else
-    echo 'Gdiffsplit command not available'
-  endif
+    execute a:string
 endfunction
-command! GitDiff call s:GitDiff()
+
+command! GitDiff silent call s:openInNewTabAndExecute('Gdiffsplit!')
+command! GitLog silent call s:openInNewTabAndExecute('Glog %:p')
 " }}}
 
 " open a new tab for MongoDB queries using dadbod {{{
@@ -272,7 +270,7 @@ if has('autocmd')
     autocmd InsertLeave,WinEnter * set cursorline
     autocmd InsertEnter,WinLeave * set nocursorline
     " call CustomHighlights function when changing colorscheme
-    autocmd ColorScheme * call CustomHighlights()
+    autocmd ColorScheme * call s:CustomHighlights()
   augroup END
 endif
 " }}}
@@ -305,7 +303,7 @@ set number " show line numbers
 set numberwidth=3 " set number column to start at 3
 set pumheight=10 " popup menu max height
 set relativenumber " show relative line numbers
-set scrolloff=5 " number of screen lines to keep above and below the cursor
+set scrolloff=2 " number of screen lines to keep above and below the cursor
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set shortmess+=I " disable intro message when starting vim
 set showcmd " show (partial) command in the last line of the screen
@@ -332,7 +330,6 @@ endif
 " ### language specific settings {{{
 
 " php {{{
-let php_sql_query = 1 " highlight SQL syntax
 let php_baselib = 1 " highlight baselib methods
 let php_htmlInStrings = 1 " highlight HTML syntax
 " }}}
@@ -375,12 +372,12 @@ nnoremap <silent> <leader>a :buffer #<cr>
 nnoremap <silent> <leader>c :LeaderfTag<cr>
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e &ft == 'netrw' ? ':Rexplore<cr>' : ':Explore<cr>'
-" open git diff tab, see DiffWithGit function above
+" open git diff of current buffer in a new tab
 nnoremap <leader>gd :GitDiff<cr>
 " search files using ripgrep
 nnoremap <leader>gg :Rg<space>
-" use git log to load the commit history into the quickfix list for the current file
-nnoremap <silent> <leader>gl :Glog %<cr>
+" open git log of current buffer file in a new tab
+nnoremap <silent> <leader>gl :GitLog<cr>
 " open Gstatus
 nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
 " search for the word under the cursor using ripgrep
