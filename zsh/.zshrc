@@ -244,5 +244,8 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   export TERM="screen-256color"
   export LESS_TERMCAP_so=$'\E[30;43m'
   export LESS_TERMCAP_se=$'\E[39;49m'
+  if command -v gls >/dev/null; then
+    alias ls="gls --color"
+  fi
 fi
 #}}}
