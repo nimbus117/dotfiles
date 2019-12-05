@@ -23,6 +23,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'mbbill/undotree'
+Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
@@ -180,6 +181,9 @@ let g:undotree_WindowLayout = 2
 
 " editorconfig - maintain consistent coding styles
 let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
+
+" vim-grip - github readme instant preview
+let g:grip_default_map = 0
 " }}}
 
 " ### functions/commands {{{
