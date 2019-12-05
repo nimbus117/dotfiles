@@ -23,8 +23,8 @@ source $ZSH/oh-my-zsh.sh
 ## aliases {{{
 
 # list directories
-alias l='ls -lh'
-alias ll='ls -lAh'
+alias l='ls -lh --group-directories-first'
+alias ll='ls -lAh --group-directories-first'
 
 # properly clears the terminal
 alias cls='tput reset'
