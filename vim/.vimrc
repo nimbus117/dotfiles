@@ -165,12 +165,15 @@ let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
       \ 'javascript': [ 'eslint' ],
+      \ 'typescript': ['eslint'],
       \ 'json': [ 'prettier' ],
       \ 'html': [ 'prettier' ],
       \ 'css': [ 'prettier' ],
       \ 'scss': [ 'prettier' ],
       \ }
 let g:ale_fix_on_save = 1 " run fixers on save
+let g:ale_sign_error = " -"
+let g:ale_sign_warning = " -"
 " }}}
 
 " matchit - extended matching with %
@@ -263,6 +266,9 @@ if has('autocmd')
           \ setlocal foldmethod=indent
     " set javascript omnicomplete function
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    " use ale for typescript omnifunc
+    autocmd FileType typescript setlocal omnifunc=ale#completion#OmniFunc | 
+          \ nnoremap  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
     " return to the last cursor position when opening files
