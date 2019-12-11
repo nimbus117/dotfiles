@@ -270,6 +270,8 @@ if has('autocmd')
           \ nnoremap  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
+    " set textwidth to 80 for markdown
+    autocmd FileType markdown setlocal textwidth=80
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
