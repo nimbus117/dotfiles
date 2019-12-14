@@ -2,12 +2,12 @@
 *.swp
 .vimsess
 .vrc.rest
-
-# git files
-*.orig
+.vim.mongo.js
 
 # ctags
 tags
+tags.lock
+tags.temp
 
 # OS generated files #
 ######################
