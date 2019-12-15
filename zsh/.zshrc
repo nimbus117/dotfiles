@@ -32,9 +32,6 @@ alias cls='tput reset'
 # open snippets file in vim
 alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 
-# open notes in vim
-alias notes="vim $HOME/notes.md"
-
 # http server in current directory (default port 8000)
 alias serve='python3 -m http.server'
 
@@ -158,6 +155,20 @@ if [ -f $HOME/code/dotfiles/screen/.screenrcApp ] && [ -d /Applications/MAMP/bin
   devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
   devdown() { stopMampApache; pkill node; screen -S $sessionName -X quit }
 fi
+#}}}
+
+# open notes in vim {{{
+notes() {
+  root=$HOME/notes
+  if [ -d $root ]; then
+    if [ -z "$1"  ]; then
+      1=notes
+    fi
+    vim $root/$1.md
+  else
+    echo "create directory $root"
+  fi
+}
 #}}}
 #}}}
 
