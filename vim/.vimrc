@@ -250,8 +250,8 @@ if has('autocmd')
     " clean up netrw hidden buffers, enable line numbers
     autocmd FileType netrw setlocal bufhidden=wipe |
           \ let g:netrw_bufsettings -= "nonu"
-    " disable relativenumber, enable cursorline, set scrolloff to 1 and map q to :q in quickfix window
-    autocmd FileType qf setlocal norelativenumber cursorline scrolloff=1 |
+    " disable relativenumber, set scrolloff to 1 and map q to :q in quickfix window
+    autocmd FileType qf setlocal norelativenumber scrolloff=1 |
           \ execute "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
@@ -262,10 +262,10 @@ if has('autocmd')
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__" |
-          \ setlocal foldmethod=indent
+          \ setlocal foldmethod=indent nofoldenable
     " set javascript omnicomplete function
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-    " use ale for typescript omnifunc
+    " use ale for typescript omnifunc and goto definition
     autocmd FileType typescript setlocal omnifunc=ale#completion#OmniFunc | 
           \ nnoremap  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
