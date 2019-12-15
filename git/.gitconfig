@@ -12,6 +12,9 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
-[user]
-  name = JamesG
-  email = james@appointedd.com
+[include]
+ 	path = ~/.gitconfigUser
+; add to ~/.gitconfigUser
+; [user]
+; 	name = xxxxx
+; 	email = xxxxx@yyyyy.com
