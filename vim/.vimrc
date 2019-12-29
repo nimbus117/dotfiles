@@ -208,23 +208,13 @@ function! s:CustomHighlights() abort
 endfunction
 " }}}
 
-" open current buffer in new tab and execute string {{{
-function! s:openInNewTabAndExecute(string) abort
-    tabedit %
-    execute a:string
-endfunction
-
-command! GitDiff silent call s:openInNewTabAndExecute('Gdiffsplit!')
-command! GitLog silent call s:openInNewTabAndExecute('Glog %:p')
-" }}}
-
 " open a new tab for MongoDB queries using dadbod {{{
 function! s:Mongo() abort
   if exists(':DB')
     tabedit .vim.mongo.js
     let b:db = "mongodb:"
-    execute "nnoremap <silent> <buffer> <c-j> :.DB<cr><c-w><s-h>"
-    execute "xnoremap <silent> <buffer> <c-j> :DB<cr><c-w><s-h>"
+    nnoremap <silent> <buffer> <c-j> :.DB<cr><c-w><s-h>
+    xnoremap <silent> <buffer> <c-j> :DB<cr><c-w><s-h>
   else
     echo 'DB command not available'
   endif
@@ -251,7 +241,7 @@ if has('autocmd')
     autocmd FileType netrw setlocal bufhidden=wipe |
           \ let g:netrw_bufsettings -= "nonu"
     " disable relativenumber, set scrolloff to 1 and map q to :q in quickfix window
-    autocmd FileType qf setlocal norelativenumber scrolloff=1 |
+    autocmd FileType qf setlocal norelativenumber scrolloff=1 cursorline |
           \ execute "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
@@ -384,11 +374,11 @@ nnoremap <silent> <leader>c :LeaderfTag<cr>
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e &ft == 'netrw' ? ':Rexplore<cr>' : ':Explore<cr>'
 " open git diff of current buffer in a new tab
-nnoremap <leader>gd :GitDiff<cr>
+nnoremap <silent> <leader>gd :tabedit %<cr>:Gdiffsplit!<cr>
 " search files using ripgrep
 nnoremap <leader>gg :Rg<space>
 " open git log of current buffer file in a new tab
-nnoremap <silent> <leader>gl :GitLog<cr>
+nnoremap <silent> <leader>gl :tabedit %<cr>:Glog %:p<cr>
 " open Gstatus
 nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
 " search for the word under the cursor using ripgrep
