@@ -287,6 +287,7 @@ set background=dark " light/dark
 set backspace=2 " allow backspace over indent, eol, start
 set complete-=i " do not scan included files when using c-p/c-n
 set completeopt-=preview " don't show extra information in preview window
+set cursorline " highlight the text line of the cursor
 set diffopt+=vertical " always use vertical diffs
 set display+=lastline " show as much as possible of the last line
 set encoding=utf-8 " set character encoding
