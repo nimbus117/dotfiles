@@ -207,18 +207,9 @@ fi
 if [ -d  '/Applications/MAMP/bin/php/php7.0.33/bin' ]; then
   export PATH=/Applications/MAMP/bin/php/php7.0.33/bin:$PATH
 fi
-
-if [ -d  $HOME/.rbenv/bin ]; then
-  export PATH=$HOME/.rbenv/bin:$PATH
-fi
 #}}}
 
 ## misc {{{
-
-# load rbenv
-if command -v rbenv >/dev/null; then
-  eval $(rbenv init - --no-rehash)
-fi
 
 # required for tilix
 if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
