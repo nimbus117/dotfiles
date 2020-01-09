@@ -268,8 +268,8 @@ if has('autocmd')
           \ exe "normal! g`\"" |
           \ endif
     " cursorline in current window and normal mode only
-    autocmd InsertLeave,WinEnter * set cursorline
-    autocmd InsertEnter,WinLeave * set nocursorline
+    autocmd InsertLeave * set cursorline
+    autocmd InsertEnter * set nocursorline
     " call CustomHighlights function when changing colorscheme
     autocmd ColorScheme * call s:CustomHighlights()
   augroup END
