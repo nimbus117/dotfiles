@@ -246,7 +246,7 @@ if has('autocmd')
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
-    autocmd FileType ruby,javascript,json,c,scss setlocal foldmethod=syntax
+    autocmd FileType ruby,javascript,typescript,json,c,scss setlocal foldmethod=syntax
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " each VRC buffer uses a different display buffer
