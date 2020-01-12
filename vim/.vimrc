@@ -8,6 +8,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 " plugins {{{
 call plug#begin('~/.vim/plugged')
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'altercation/vim-colors-solarized'
 Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
@@ -15,7 +16,7 @@ Plug 'editorconfig/editorconfig-vim'
 Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'jremmen/vim-ripgrep'
 Plug 'Konfekt/FastFold'
 Plug 'ludovicchabant/vim-gutentags'
@@ -25,11 +26,11 @@ Plug 'maximbaz/lightline-ale'
 Plug 'mbbill/undotree'
 Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
-Plug 'SirVer/ultisnips'
+" Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-dadbod'
-Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
@@ -123,10 +124,23 @@ let g:tagbar_show_linenumbers = 2 " show relative line numbers
 let g:tagbar_sort = 0 " sort based on order in source file
 " }}}
 
-" ultisnips - snippets in vim {{{
-let g:UltiSnipsListSnippets = "<f5>" " snippet list
-let g:UltiSnipsJumpForwardTrigger = "<tab>" " jump forward in snippet
-let g:UltiSnipsJumpBackwardTrigger = "<s-tab>" " jump back in snippet
+" coc - async autocompletion {{{
+let g:coc_global_extensions = ['coc-snippets','coc-pairs', 'coc-tsserver','coc-tag']
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+      \"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
 " }}}
 
 " vim-rest-console - rest requests {{{
@@ -205,6 +219,7 @@ function! s:CustomHighlights() abort
   highlight SpecialKey ctermbg=NONE " tab/space characters
   highlight SpellBad cterm=underline " spelling mistakes
   highlight TagbarHighlight ctermbg=black " tagbar current tag
+  highlight CocErrorFloat ctermfg=red ctermbg=black " coc error
 endfunction
 " }}}
 
@@ -308,6 +323,7 @@ set relativenumber " show relative line numbers
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set shortmess+=I " disable intro message when starting vim
+set shortmess+=c " don't give |ins-completion-menu| messages
 set showcmd " show (partial) command in the last line of the screen
 set signcolumn=number " display signs in the number column
 set spelllang=en_gb " set spelling language to English GB
