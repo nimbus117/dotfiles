@@ -22,18 +22,15 @@ source $ZSH/oh-my-zsh.sh
 
 ## aliases {{{
 
+# properly clears the terminal
+alias cls='tput reset'
+
 # list directories
 alias l='ls -lh --group-directories-first'
 alias ll='ls -lAh --group-directories-first'
 
-# properly clears the terminal
-alias cls='tput reset'
-
-# open snippets file in vim
-alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
-
-# http server in current directory (default port 8000)
-alias serve='python3 -m http.server'
+# notes function
+alias n='notes'
 
 # launch node debug
 if [[ $HOST == 'penguin'* ]]; then
@@ -41,6 +38,22 @@ if [[ $HOST == 'penguin'* ]]; then
 else
   alias nd='node --inspect-brk'
 fi
+
+# open
+if command -v xdg-open >/dev/null; then
+  alias open='xdg-open >/dev/null 2>&1'
+fi
+
+# ranger file explorer
+if command -v ranger >/dev/null; then
+  alias r='source ranger'
+fi
+
+# http server in current directory (default port 8000)
+alias serve='python3 -m http.server'
+
+# open snippets file in vim
+alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 
 # always turn colorization on
 alias tree='tree -C'
@@ -50,16 +63,6 @@ alias s='screenPicker'
 alias sl='screen -ls'
 alias sn='screen'
 alias sv='screenVim'
-
-# ranger file explorer
-if command -v ranger >/dev/null; then
-  alias r='source ranger'
-fi
-
-# open
-if command -v xdg-open >/dev/null; then
-  alias open='xdg-open >/dev/null 2>&1'
-fi
 #}}}
 
 ## functions {{{
@@ -169,9 +172,18 @@ notes() {
     echo "create directory $notesRoot"
   fi
 }
-notesList() {
-  ls $notesRoot | tr " " "\n" | sed 's/\.md$//'
+
+# autocomplete for above notes function
+function _notes(){
+  local state 
+  _arguments '1:notes:->notesRoot'
+  case $state in
+    notesRoot)
+      _describe 'notes' "($(ls $notesRoot | sed 's/\.md$//g'))"
+      ;;
+  esac
 }
+compdef _notes notes
 #}}}
 #}}}
 
