@@ -126,7 +126,7 @@ screenPicker() {
     elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
       screen -d -r $(echo $screens | sed -n ${num}'p' | awk '{print $1}')
     else
-      echo "Invalid selection - please enter a number from 0 to $count"
+      echo "\nInvalid selection - please enter a number from 0 to $count\n"
       screenPicker
     fi
   fi
