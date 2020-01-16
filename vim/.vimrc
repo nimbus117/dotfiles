@@ -36,7 +36,6 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make' }
-Plug 'vim-vdebug/vdebug', { 'for': 'php' }
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 call plug#end()
@@ -153,13 +152,6 @@ let g:fastfold_fold_command_suffixes = [ 'x','X','o','O','c','C','r','R','m','M'
 let g:fastfold_minlines = 0
 " }}}
 
-" vdebug - vim debugger {{{
-if !exists('g:vdebug_options')
-  let g:vdebug_options = {}
-endif
-let g:vdebug_options.break_on_open = 0 " don't break on the first line
-" }}}
-
 " ale - asynchronous lint engine {{{
 let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
@@ -220,6 +212,38 @@ function! s:Mongo() abort
   endif
 endfunction
 command! Mongo call s:Mongo()
+" }}}
+
+" Markdown Headers {{{
+function! s:underlineWith(character) abort
+  let l:lineLength = strlen(getline('.'))
+  execute "normal o" . l:lineLength . "i" . a:character
+endfunction
+
+function! s:atxHeaders(level) abort
+  execute "normal "a:level . "I#a "
+endfunction
+
+" insert a markdown header (defaults to setext style h1)
+function s:markdownHeader(...) abort
+  let l:level = a:0 > 0 && a:1 > 0 ? a:1 <= 6 ? a:1 : 6 : 1
+  if a:0 > 1 && a:2 == 'atx' || l:level > 2
+    call s:atxHeaders(l:level)
+  else
+    let l:character = l:level == 1 ? '=' : '-'
+    call s:underlineWith(l:character)
+  endif
+endfunction
+
+function s:headerCompletion(ArgLead,CmdLine,CursorPos)
+  if a:CursorPos == 9
+    return ['1','2','3','4','5','6']
+  elseif a:CursorPos > 10
+    return ['atx', 'setext']
+  endif
+endfunction
+
+command! -complete=customlist,s:headerCompletion -nargs=* MdHeader call s:markdownHeader(<f-args>)
 " }}}
 
 " open vim-rest-console in new tab
