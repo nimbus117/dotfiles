@@ -158,16 +158,19 @@ fi
 #}}}
 
 # open notes in vim {{{
+notesRoot=$HOME/notes
 notes() {
-  root=$HOME/notes
-  if [ -d $root ]; then
+  if [ -d $notesRoot ]; then
     if [ -z "$1"  ]; then
       1=notes
     fi
-    vim $root/$1.md
+    vim $notesRoot/$1.md
   else
-    echo "create directory $root"
+    echo "create directory $notesRoot"
   fi
+}
+notesList() {
+  ls $notesRoot | tr " " "\n" | sed 's/\.md$//'
 }
 #}}}
 #}}}
