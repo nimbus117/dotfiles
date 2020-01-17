@@ -23,6 +23,7 @@ Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'mbbill/undotree'
+Plug 'nimbus117/markdown.vim'
 Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
@@ -214,38 +215,6 @@ endfunction
 command! Mongo call s:Mongo()
 " }}}
 
-" Markdown Headers {{{
-function! s:underlineWith(character) abort
-  let l:lineLength = strlen(getline('.'))
-  execute "normal o" . l:lineLength . "i" . a:character
-endfunction
-
-function! s:atxHeaders(level) abort
-  execute "normal "a:level . "I#a "
-endfunction
-
-" insert a markdown header (defaults to setext style h1)
-function s:markdownHeader(...) abort
-  let l:level = a:0 > 0 && a:1 > 0 ? a:1 <= 6 ? a:1 : 6 : 1
-  if a:0 > 1 && a:2 == 'atx' || l:level > 2
-    call s:atxHeaders(l:level)
-  else
-    let l:character = l:level == 1 ? '=' : '-'
-    call s:underlineWith(l:character)
-  endif
-endfunction
-
-function s:headerCompletion(ArgLead,CmdLine,CursorPos)
-  if a:CursorPos == 9
-    return ['1','2','3','4','5','6']
-  elseif a:CursorPos > 10
-    return ['atx', 'setext']
-  endif
-endfunction
-
-command! -complete=customlist,s:headerCompletion -nargs=* MdHeader call s:markdownHeader(<f-args>)
-" }}}
-
 " open vim-rest-console in new tab
 command! Vrc tabedit .vrc.rest
 
@@ -284,8 +253,6 @@ if has('autocmd')
           \ nnoremap  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
-    " set textwidth to 80 for markdown
-    autocmd FileType markdown setlocal textwidth=80
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
@@ -351,22 +318,6 @@ if has('persistent_undo')
   " create undo dir if it doesn't exist
   silent !mkdir -p -m 0700 "$HOME/.vim/undodir"
 endif
-" }}}
-
-" ### language specific settings {{{
-
-" php {{{
-let php_baselib = 1 " highlight baselib methods
-let php_htmlInStrings = 1 " highlight HTML syntax
-" }}}
-
-" markdown {{{
-let g:markdown_folding = 1 " enable markdown folding
-" }}}
-
-" assembly {{{
-let g:asmsyntax = 'nasm' " set filetype for .asm
-" }}}
 " }}}
 
 " ### key mappings {{{
