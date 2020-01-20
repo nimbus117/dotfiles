@@ -168,6 +168,12 @@ let g:ale_fix_on_save = 1 " run fixers on save
 let g:ale_sign_error = "->"
 " }}}
 
+" vim-markdown - markdown settings {{{
+let g:markdown_folding = 1
+let g:vim_markdown_new_list_item_indent = 2
+let g:vim_markdown_toc_autofit = 1
+" }}}
+
 " matchit - extended matching with %
 packadd! matchit
 
@@ -253,6 +259,8 @@ if has('autocmd')
           \ nnoremap  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
+    " enable spell checking and max text width for markdown
+    autocmd FileType markdown setlocal spell textwidth=80
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
@@ -393,5 +401,7 @@ nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 nnoremap <leader>w <c-w>
 " open current window in a new tab
 nnoremap <leader>wt <c-w>T
+" toggle markdown checkbox
+nnoremap <silent> <leader>x :MdCheckboxToggle<cr>
 " }}}
 " }}}
