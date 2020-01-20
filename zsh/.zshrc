@@ -90,11 +90,7 @@ google() {
     searchStr="$searchStr+$i"
   done
   url="https://www.google.co.uk/search?q=$searchStr"
-  if [[ $OSTYPE == 'linux-gnu' ]]; then
-    xdg-open $url >> /dev/null
-  elif [[ $OSTYPE == 'darwin'* ]]; then
-    open $url
-  fi
+  open $url
 }
 #}}}
 
@@ -175,13 +171,15 @@ notes() {
 
 # autocomplete for above notes function
 function _notes(){
-  local state 
-  _arguments '1:notes:->notesRoot'
-  case $state in
-    notesRoot)
-      _describe 'notes' "($(ls $notesRoot | sed 's/\.md$//g'))"
-      ;;
-  esac
+  if [ -d $notesRoot ]; then
+    local state 
+    _arguments '1:notes:->notesRoot'
+    case $state in
+      notesRoot)
+        _describe 'notes' "($(ls $notesRoot | sed 's/\.md$//g'))"
+        ;;
+    esac
+  fi
 }
 compdef _notes notes
 #}}}
