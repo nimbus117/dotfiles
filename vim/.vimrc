@@ -403,5 +403,9 @@ nnoremap <leader>w <c-w>
 nnoremap <leader>wt <c-w>T
 " toggle markdown checkbox
 nnoremap <silent> <leader>x :MdCheckboxToggle<cr>
+" toggle markdown header
+nnoremap <silent> <leader>mh :MdHeaderToggle<cr>
+nnoremap <silent> <leader>> :MdHeaderIncrease<cr>
+nnoremap <silent> <leader>< :MdHeaderDecrease<cr>
 " }}}
 " }}}
