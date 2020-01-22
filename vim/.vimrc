@@ -261,6 +261,8 @@ if has('autocmd')
     autocmd FileType html,css,scss setlocal iskeyword+=-
     " enable spell checking and max text width for markdown
     autocmd FileType markdown setlocal spell textwidth=80
+    " enable spell checking for gitcommit messages
+    autocmd FileType gitcommit setlocal spell
     " return to the last cursor position when opening files
     autocmd BufReadPost *
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
@@ -392,7 +394,7 @@ nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
 nnoremap <silent> <leader>tc :tabclose<cr>
 " open new tab
-nnoremap <silent> <leader>tn :tabnew<cr>
+nnoremap <silent> <leader>tn :$tabnew<cr>
 " close all other tabs
 nnoremap <silent> <leader>to :tabonly<cr>
 " toggle undotree
