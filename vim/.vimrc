@@ -221,6 +221,18 @@ endfunction
 command! Mongo call s:Mongo()
 " }}}
 
+" close tab and go to previous {{{
+function! s:CloseTab() abort
+  if tabpagenr() < tabpagenr('$') && tabpagenr() > 1
+    tabclose
+    normal gT
+  else
+    tabclose
+  endif
+endfunction
+command! CloseTab call s:CloseTab()
+" }}}
+
 " open vim-rest-console in new tab
 command! Vrc tabedit .vrc.rest
 
@@ -392,9 +404,9 @@ nnoremap <silent> <leader>ss :source .vimsess<cr>
 " open tagbar with autoclose set
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
-nnoremap <silent> <leader>tc :tabclose<cr>
+nnoremap <leader>tc :CloseTab<cr>
 " open new tab
-nnoremap <silent> <leader>tn :$tabnew<cr>
+nnoremap <silent> <leader>tn :tabnew<cr>
 " close all other tabs
 nnoremap <silent> <leader>to :tabonly<cr>
 " toggle undotree
