@@ -238,6 +238,9 @@ command! Vrc tabedit .vrc.rest
 
 " format json
 command! -range=% JSON <line1>,<line2>!python -m json.tool
+
+" Copy current buffer full filepath to default register
+command! CopyFilePath let @" = expand("%:p")
 " }}}
 
 " ### autocmds {{{
