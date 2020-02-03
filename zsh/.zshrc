@@ -160,10 +160,10 @@ fi
 notesRoot=$HOME/notes
 notes() {
   if [ -d $notesRoot ]; then
-    if [ -z "$1"  ]; then
+    if [ -z "$1" ]; then
       1=notes
     fi
-    vim $notesRoot/$1.md
+    vim $notesRoot/$1.md -c "cd $notesRoot"
   else
     echo "create directory $notesRoot"
   fi
