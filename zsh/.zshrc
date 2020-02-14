@@ -76,10 +76,16 @@ cheat() { curl -s "https://cheat.sh/"$1 | less }
 # load environment variables for ssh-agent and add ssh pass
 sshadd() { eval $(ssh-agent); ssh-add }
 
-# open papertrail logs in lnav {{{
-if command -v papertrail >/dev/null && command -v lnav >/dev/null; then
-  ptf() { papertrail --follow --delay 5 $* | lnav; }
-  pt() { papertrail $* | lnav; }
+# papertrail functions {{{
+if command -v papertrail >/dev/null; then
+  if command -v lnav >/dev/null; then
+    ptf() { papertrail --follow --delay 5 $* | lnav; }
+    pt() { papertrail $* | lnav; }
+  fi
+
+  if command -v jq >/dev/null; then
+    ptj() { papertrail $* | cut -d' ' -f'7-' | jq }
+  fi
 fi
 #}}}
 
