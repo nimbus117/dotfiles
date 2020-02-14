@@ -407,7 +407,7 @@ nnoremap <silent> <leader>ss :source .vimsess<cr>
 " open tagbar with autoclose set
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
-nnoremap <leader>tc :CloseTab<cr>
+nnoremap <silent> <leader>tc :CloseTab<cr>
 " open new tab
 nnoremap <silent> <leader>tn :tabnew<cr>
 " close all other tabs
@@ -425,4 +425,8 @@ nnoremap <silent> <leader>mh :MdHeaderToggle<cr>
 nnoremap <silent> <leader>> :MdHeaderIncrease<cr>
 nnoremap <silent> <leader>< :MdHeaderDecrease<cr>
 " }}}
+" }}}
+
+" ### abbreviations {{{
+abbreviate alot a lot
 " }}}
