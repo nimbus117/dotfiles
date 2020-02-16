@@ -271,7 +271,7 @@ if has('autocmd')
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
     " use ale for typescript omnifunc and goto definition
     autocmd FileType typescript setlocal omnifunc=ale#completion#OmniFunc | 
-          \ nnoremap  :ALEGoToDefinition<cr>
+          \ nnoremap <buffer>  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
     " enable spell checking and max text width for markdown
