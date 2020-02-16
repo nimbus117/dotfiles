@@ -59,8 +59,7 @@ alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 alias tree='tree -C'
 
 # screen aliases
-alias s='screenPicker'
-alias sl='screen -ls'
+alias sl='screenPicker'
 alias sn='screen'
 alias sv='screenVim'
 #}}}
@@ -115,15 +114,13 @@ screenVim() {
 screenPicker() {
   screens=$(screen -ls | sed '1d;$d')
   count=$(echo -n "$screens" | grep -c '^')
-  if [ $count -eq 0 ]; then; screenVim
-  else
+  if [ $count -gt 0 ]; then
     counter=1
     sessions=
     echo $screens | while read line; do
       sessions+="$counter. $line\n"
       (( counter+=1 ))
     done
-    echo '0.  New session'
     echo $sessions | column -t
     echo -n 'Enter number: '
     read num
@@ -134,6 +131,8 @@ screenPicker() {
       echo "\nInvalid selection - please enter a number from 0 to $count\n"
       screenPicker
     fi
+  else
+    echo "No screen sessions"
   fi
 }
 #}}}
