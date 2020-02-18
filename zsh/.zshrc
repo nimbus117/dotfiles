@@ -124,11 +124,10 @@ screenPicker() {
     echo $sessions | column -t
     echo -n 'Enter number: '
     read num
-    if [ $num -eq 0 2> /dev/null ]; then; screenVim
-    elif [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
+    if [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
       screen -d -r $(echo $screens | sed -n ${num}'p' | awk '{print $1}')
     else
-      echo "\nInvalid selection - please enter a number from 0 to $count\n"
+      echo "\nInvalid selection - please enter a number from 1 to $count\n"
       screenPicker
     fi
   else
