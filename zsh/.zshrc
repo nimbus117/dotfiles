@@ -8,6 +8,8 @@ ZSH_THEME="mySimple"
 
 # plugins
 plugins=(
+  docker
+  docker-compose
   git
   history
   npm
