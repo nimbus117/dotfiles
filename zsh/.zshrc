@@ -79,10 +79,8 @@ sshadd() { eval $(ssh-agent); ssh-add }
 
 # papertrail functions {{{
 if command -v papertrail >/dev/null; then
-  if command -v lnav >/dev/null; then
-    ptf() { papertrail --follow --delay 5 $* | lnav; }
-    pt() { papertrail $* | lnav; }
-  fi
+  ptf() { papertrail --follow --delay 5 $* }
+  pt() { papertrail $* }
 
   if command -v jq >/dev/null; then
     ptj() { papertrail $* | cut -d' ' -f'7-' | jq }
