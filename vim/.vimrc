@@ -377,7 +377,7 @@ nnoremap <silent> <expr> <leader>e &ft == 'netrw' ? ':Rexplore<cr>' : ':Explore<
 " open git diff of current buffer in a new tab
 nnoremap <silent> <leader>gd :tabedit %<cr>:Gdiffsplit!<cr>
 " search files using ripgrep
-nnoremap <leader>gg :Rg<space>
+nnoremap <leader>gg :Rg<space>""<left>
 " open git log of current buffer file in a new tab
 nnoremap <silent> <leader>gl :tabedit %<cr>:Glog %:p<cr>
 " open Gstatus
