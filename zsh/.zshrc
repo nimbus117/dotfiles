@@ -255,6 +255,11 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # don't show % at the end of partial lines
 export PROMPT_EOL_MARK=""
+
+# history settings
+HISTFILE="$HOME/.zsh_history"
+HISTSIZE=100000
+SAVEHIST=$HISTSIZE
 #}}}
 
 ## mac specific {{{
