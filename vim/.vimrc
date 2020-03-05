@@ -429,4 +429,6 @@ nnoremap <silent> <leader>< :MdHeaderDecrease<cr>
 
 " ### abbreviations {{{
 abbreviate alot a lot
+abbreviate chnage change
+abbreviate chnaged changed
 " }}}
