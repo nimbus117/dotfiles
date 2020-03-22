@@ -24,12 +24,12 @@ Plug 'mattn/emmet-vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'mbbill/undotree'
 Plug 'nimbus117/markdown.vim'
+Plug 'nimbus117/mongodb.vim'
 Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-dadbod'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
 Plug 'tpope/vim-fugitive'
@@ -205,20 +205,6 @@ function! s:CustomHighlights() abort
   highlight SpellBad cterm=underline " spelling mistakes
   highlight TagbarHighlight ctermbg=black " tagbar current tag
 endfunction
-" }}}
-
-" open a new tab for MongoDB queries using dadbod {{{
-function! s:Mongo() abort
-  if exists(':DB')
-    tabedit .vim.mongo.js
-    let b:db = "mongodb:"
-    nnoremap <silent> <buffer> <c-j> :.DB<cr><c-w><s-h>
-    xnoremap <silent> <buffer> <c-j> :DB<cr><c-w><s-h>
-  else
-    echo 'DB command not available'
-  endif
-endfunction
-command! Mongo call s:Mongo()
 " }}}
 
 " close tab and go to previous {{{
