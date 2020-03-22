@@ -227,6 +227,18 @@ command! -range=% JSON <line1>,<line2>!python -m json.tool
 
 " Copy current buffer full filepath to default register
 command! CopyFilePath let @" = expand("%:p")
+
+" format the current file using npx and Prettier {{{
+function! s:Prettier() abort
+  if executable('npx')
+    write
+    execute "!npx prettier " . expand("%:p") . " --write"
+  else
+    echo "No npx command."
+  endif
+endfunction
+command! Prettier call s:Prettier()
+" }}}
 " }}}
 
 " ### autocmds {{{
@@ -269,7 +281,7 @@ if has('autocmd')
           \ if line("'\"") > 1 && line("'\"") <= line('$') |
           \ exe "normal! g`\"" |
           \ endif
-    " cursorline in current window and normal mode only
+    " disable cursor line in insert mode
     autocmd InsertLeave * set cursorline
     autocmd InsertEnter * set nocursorline
     " call CustomHighlights function when changing colorscheme
