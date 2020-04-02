@@ -99,6 +99,7 @@ let g:netrw_list_hide = '\.swp$' " hide *.swp files
 " leaderF - fuzzy finder {{{
 let g:Lf_WindowHeight = 10
 let g:Lf_HideHelp = 1
+let g:Lf_ShowDevIcons = 0
 let g:Lf_StlSeparator = {'left': '', 'right': ''}
 let g:Lf_StlPalette = {
       \ 'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
