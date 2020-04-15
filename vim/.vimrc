@@ -159,7 +159,9 @@ let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fixers = {
       \ 'javascript': [ 'eslint' ],
-      \ 'typescript': ['eslint'],
+      \ 'javascriptreact': [ 'eslint' ],
+      \ 'typescript': [ 'eslint' ],
+      \ 'typescriptreact': [ 'eslint' ],
       \ 'json': [ 'prettier' ],
       \ 'html': [ 'prettier' ],
       \ 'css': [ 'prettier' ],
@@ -259,7 +261,7 @@ if has('autocmd')
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
-    autocmd FileType ruby,javascript,typescript,json,c,scss setlocal foldmethod=syntax
+    autocmd FileType ruby,javascript,javascriptreact,typescript,typescriptreact,json,c,scss setlocal foldmethod=syntax
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " each VRC buffer uses a different display buffer
@@ -267,9 +269,9 @@ if has('autocmd')
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__" |
           \ setlocal foldmethod=indent nofoldenable
     " set javascript omnicomplete function
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+    autocmd FileType javascript,javascriptreact setlocal omnifunc=javascriptcomplete#CompleteJS
     " use ale for typescript omnifunc and goto definition
-    autocmd FileType typescript setlocal omnifunc=ale#completion#OmniFunc | 
+    autocmd FileType typescript,typescriptreact setlocal omnifunc=ale#completion#OmniFunc | 
           \ nnoremap <buffer>  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
