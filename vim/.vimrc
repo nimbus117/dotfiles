@@ -432,4 +432,5 @@ nnoremap <silent> <leader>< :MdHeaderDecrease<cr>
 abbreviate alot a lot
 abbreviate chnage change
 abbreviate chnaged changed
+abbreviate chnages changes
 " }}}
