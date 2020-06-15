@@ -12,6 +12,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'godlygeek/tabular'
 Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -268,10 +269,8 @@ if has('autocmd')
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__" |
           \ setlocal foldmethod=indent nofoldenable
-    " set javascript omnicomplete function
-    autocmd FileType javascript,javascriptreact setlocal omnifunc=javascriptcomplete#CompleteJS
-    " use ale for typescript omnifunc and goto definition
-    autocmd FileType typescript,typescriptreact setlocal omnifunc=ale#completion#OmniFunc | 
+    " use ale for javascript/typescript omnifunc and goto definition (install typscript globally)
+    autocmd FileType javascript,javascriptreact,typescript,typescriptreact setlocal omnifunc=ale#completion#OmniFunc | 
           \ nnoremap <buffer>  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
