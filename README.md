@@ -7,15 +7,16 @@ Setup Instructions
 ------------------
 
 1. Install [zsh and Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
-2. Install the [solarized colorscheme](https://ethanschoonover.com/solarized/)
+2. Install the [solarized dark
+   colorscheme](https://ethanschoonover.com/solarized/) for your terminal
 3. Clone this repository
 4. Run install.sh
 
 Screenshots
 -----------
 
-![screenshot1](https://user-images.githubusercontent.com/37874299/47457546-4de73400-d7cf-11e8-876b-95262f51227a.png)
+![Screenshot 2020-06-28 at 15 47 22](https://user-images.githubusercontent.com/37874299/85950852-2c9cfa80-b957-11ea-9dbd-8774a1d08be6.png)
 
-![screenshot2](https://user-images.githubusercontent.com/37874299/47457583-5fc8d700-d7cf-11e8-9c4a-9eaae15de181.png)
+![Screenshot 2020-06-28 at 15 47 53](https://user-images.githubusercontent.com/37874299/85950872-45a5ab80-b957-11ea-82b5-cb7f2aed40fd.png)
 
-![screenshot3](https://user-images.githubusercontent.com/37874299/47457689-ae767100-d7cf-11e8-94d4-6bf8a4fa1920.png)
+![Screenshot 2020-06-28 at 15 48 53](https://user-images.githubusercontent.com/37874299/85950879-535b3100-b957-11ea-8b85-f2946f339856.png)
