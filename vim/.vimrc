@@ -300,7 +300,7 @@ if has('autocmd')
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__" |
           \ setlocal foldmethod=indent nofoldenable
     " use ale for javascript/typescript omnifunc and goto definition (install typscript globally)
-    autocmd FileType javascript,javascriptreact,typescript,typescriptreact setlocal omnifunc=ale#completion#OmniFunc | 
+    autocmd FileType javascript,javascriptreact,typescript,typescriptreact setlocal omnifunc=ale#completion#OmniFunc |
           \ nnoremap <buffer>  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
@@ -455,11 +455,4 @@ nnoremap <silent> <leader>mh :MdHeaderToggle<cr>
 nnoremap <silent> <leader>> :MdHeaderIncrease<cr>
 nnoremap <silent> <leader>< :MdHeaderDecrease<cr>
 " }}}
-" }}}
-
-" ### abbreviations {{{
-abbreviate alot a lot
-abbreviate chnage change
-abbreviate chnaged changed
-abbreviate chnages changes
 " }}}
