@@ -163,10 +163,11 @@ let g:ale_fixers = {
       \ 'javascriptreact': [ 'eslint' ],
       \ 'typescript': [ 'eslint' ],
       \ 'typescriptreact': [ 'eslint' ],
-      \ 'json': [ 'prettier' ],
-      \ 'html': [ 'prettier' ],
       \ 'css': [ 'prettier' ],
+      \ 'html': [ 'prettier' ],
+      \ 'json': [ 'prettier' ],
       \ 'scss': [ 'prettier' ],
+      \ 'yaml': [ 'prettier' ],
       \ }
 let g:ale_fix_on_save = 1 " run fixers on save
 let g:ale_sign_error = "->"
