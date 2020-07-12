@@ -54,6 +54,8 @@ MongoDB
 - Group by and count (optionally filter first)
   - `db.collection.aggregate({$group: {_id: "$count_field", count: {$sum:1}}})`
   - `db.collection.aggregate([{$match: {filter_field: "value")}}, {$group: {_id: "$count_field", count: {$sum: 1}}}])`
+- Convert ObjectId to Date
+  - new Date(parseInt(ObjectId.substring(0, 8), 16) * 1000)
 
 s3cmd
 -----
