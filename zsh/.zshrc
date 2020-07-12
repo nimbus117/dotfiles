@@ -156,7 +156,7 @@ if [ -f $HOME/code/dotfiles/screen/.screenrcApp ] && [ -d /Applications/MAMP/bin
 
   sessionName=devenv
   devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
-  devdown() { stopMampApache; pkill node; screen -S $sessionName -X quit }
+  devdown() { stopMampApache; screen -S $sessionName -X quit }
 fi
 #}}}
 
@@ -199,7 +199,7 @@ export EDITOR=$VISUAL
 # I - case insensitive search, R - enable coloured output, S - don't wrap lines
 # F - quit if output fits in one screen, X - don't clear the screen on exit
 if command -v less >/dev/null; then
-  export LESS=IRSFX
+  export LESS=IRS #FX
 fi
 #}}}
 
