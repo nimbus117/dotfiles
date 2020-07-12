@@ -156,8 +156,10 @@ let g:fastfold_minlines = 0
 " }}}
 
 " ale - asynchronous lint engine {{{
+let g:ale_sign_error = "->"
 let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
+let g:ale_fix_on_save = 1 " run fixers on save
 let g:ale_fixers = {
       \ 'javascript': [ 'eslint' ],
       \ 'javascriptreact': [ 'eslint' ],
@@ -169,8 +171,6 @@ let g:ale_fixers = {
       \ 'scss': [ 'prettier' ],
       \ 'yaml': [ 'prettier' ],
       \ }
-let g:ale_fix_on_save = 1 " run fixers on save
-let g:ale_sign_error = "->"
 " }}}
 
 " vim-markdown - markdown settings {{{
@@ -408,10 +408,10 @@ nnoremap <silent> <expr> <leader>e &ft == 'netrw' ? ':Rexplore<cr>' : ':Explore<
 nnoremap <silent> <leader>gd :tabedit %<cr>:Gdiffsplit!<cr>
 " search files using ripgrep
 nnoremap <leader>gg :Rg<space>""<left>
-" open git log of current buffer file in a new tab
-nnoremap <silent> <leader>gl :tabedit %<cr>:Glog %:p<cr>
-" open Gstatus
-nnoremap <silent> <leader>gs :Gstatus<cr><c-w>T
+" open Git log of current buffer file in a new tab
+nnoremap <silent> <leader>gl :tab Git log %<cr>
+" open Git status in a new tab
+nnoremap <silent> <leader>gs :tab Git<cr>
 " search for the word under the cursor using ripgrep
 nnoremap <silent> <leader>gw :Rg -w <c-r><c-w><cr>
 " search help and open in new tab
