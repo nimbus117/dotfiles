@@ -68,10 +68,10 @@ s3cmd
 ssh
 ---
 
-- Create an ssh tunnel from localhost:3000 to host:3000 (-f = background ssh, -N = no command)
+- Create a ssh tunnel from localhost:3000 to host:3000 (-f = background ssh, -N = no command)
   - `ssh user@host -NfL 3000:localhost:3000`
-- Create an ssh tunnel from localhost:3389 to host and forward to otherhost
-  - `ssh user@host -NL localhost:3389:otherhost:3389`
+- Create a ssh tunnel from localhost:3389 to host and forward to otherhost:3389
+  - `ssh user@host -NL 3389:otherhost:3389`
 
 GitHub
 ------
