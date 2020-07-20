@@ -290,9 +290,11 @@ if has('autocmd')
     autocmd FileType qf setlocal norelativenumber scrolloff=1 cursorline |
           \ execute "nnoremap <silent> <buffer> q :q<cr>"
     " set foldmethod to marker
-    autocmd FileType vim,zsh,screen setlocal foldmethod=marker foldenable
+    autocmd FileType vim,zsh,screen
+          \ setlocal foldmethod=marker foldenable
     " set foldmethod to syntax
-    autocmd FileType ruby,javascript,javascriptreact,typescript,typescriptreact,json,c,scss setlocal foldmethod=syntax
+    autocmd FileType ruby,javascript,javascriptreact,typescript,typescriptreact,json,c,scss
+          \ setlocal foldmethod=syntax
     " set php comment string to // (replaces /*  */)
     autocmd FileType php setlocal commentstring=//\ %s
     " each VRC buffer uses a different display buffer
@@ -300,7 +302,8 @@ if has('autocmd')
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__" |
           \ setlocal foldmethod=indent nofoldenable
     " use ale for javascript/typescript omnifunc and goto definition (install typscript globally)
-    autocmd FileType javascript,javascriptreact,typescript,typescriptreact setlocal omnifunc=ale#completion#OmniFunc |
+    autocmd FileType javascript,javascriptreact,typescript,typescriptreact
+          \ setlocal omnifunc=ale#completion#OmniFunc |
           \ nnoremap <buffer>  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
