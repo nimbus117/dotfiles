@@ -166,6 +166,7 @@ let g:ale_fixers = {
       \ 'typescript': [ 'eslint' ],
       \ 'typescriptreact': [ 'eslint' ],
       \ 'css': [ 'prettier' ],
+      \ 'graphql': [ 'prettier' ],
       \ 'html': [ 'prettier' ],
       \ 'json': [ 'prettier' ],
       \ 'scss': [ 'prettier' ],
