@@ -289,7 +289,7 @@ if has('autocmd')
           \ let g:netrw_bufsettings -= "nonu"
     " disable relativenumber, set scrolloff to 1 and map q to :q in quickfix window
     autocmd FileType qf setlocal norelativenumber scrolloff=1 cursorline |
-          \ execute "nnoremap <silent> <buffer> q :q<cr>"
+          \ nnoremap <silent> <buffer> q :q<cr>
     " set foldmethod to marker
     autocmd FileType vim,zsh,screen
           \ setlocal foldmethod=marker foldenable
@@ -401,7 +401,7 @@ let mapleader = "\<space>"
 " cycle between windows by pressing <leader> key twice
 nnoremap <leader><leader> <c-w>w
 " toggle search highlighting
-nnoremap <silent> <leader>/ :setlocal hlsearch!<cr>:set hlsearch?<cr>
+nnoremap <silent> <leader>/ :setlocal hlsearch!<cr>:setlocal hlsearch?<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
 " launch LeaderF to search tags (ctags)
@@ -421,7 +421,7 @@ nnoremap <silent> <leader>gw :Rg -w <c-r><c-w><cr>
 " search help and open in new tab
 nnoremap <leader>h :tab help<space>
 " show/hide invisibles
-nnoremap <silent> <leader>i :setlocal list!<cr>
+nnoremap <silent> <leader>i :setlocal list!<cr>:setlocal list?<cr>
 " toggle line wrapping
 nnoremap <leader>l :setlocal wrap!<cr>:setlocal wrap?<cr>
 " save current session as .vimsess
@@ -429,7 +429,7 @@ nnoremap <leader>ms :mksession! .vimsess<cr>
 " launch LeaderF to search recently used files in the current directory
 nnoremap <silent> <leader>mr :LeaderfMruCwd<cr>
 " toggle relative numbering
-nnoremap <silent> <leader>n :setlocal relativenumber!<cr>: set relativenumber?<cr>
+nnoremap <silent> <leader>n :setlocal relativenumber!<cr>: setlocal relativenumber?<cr>
 " toggle paste mode
 nnoremap <silent> <leader>p :set paste!<cr>
 " find/replace all on word under cursor
