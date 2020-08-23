@@ -69,7 +69,7 @@ alias sv='screenVim'
 ## functions {{{
 
 # get the weather
-weather() { curl 'wttr.in/'$1 }
+weather() { curl 'wttr.in/'${1:-'edinburgh'} }
 
 # cheat.sh
 cheat() { curl -s "https://cheat.sh/"$1 | less }
@@ -110,7 +110,7 @@ screenVim() {
 }
 #}}}
 
-# pick screen session to reconnect to or launch a new one {{{
+# pick screen session to reconnect to {{{
 screenPicker() {
   screens=$(screen -ls | sed '1d;$d')
   count=$(echo -n "$screens" | grep -c '^')
@@ -180,7 +180,7 @@ function _notes(){
     _arguments '1:notes:->notesRoot'
     case $state in
       notesRoot)
-        _describe 'notes' "($(ls $notesRoot | sed 's/\.md$//g'))"
+        _describe 'notes' "($((cd $notesRoot && ls *.md) | sed 's/\.md$//'))"
         ;;
     esac
   fi
