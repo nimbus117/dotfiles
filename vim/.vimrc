@@ -403,6 +403,8 @@ nnoremap <silent> <leader>ss :source .vimsess<cr>
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
 nnoremap <silent> <leader>tc :CloseTab<cr>
+" clone tab
+nnoremap <silent> <leader>tl <c-w>v<c-w>T
 " open new tab
 nnoremap <silent> <leader>tn :tabnew<cr>
 " close all other tabs
