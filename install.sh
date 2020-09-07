@@ -31,3 +31,7 @@ ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-th
 # universal ctags config
 mkdir -p "$HOME/.ctags.d"
 ln -fsv "$(pwd)/ctags/universal.ctags" "$HOME/.ctags.d/universal.ctags"
+
+# powershell profile
+mkdir -p "$HOME/.config/powershell"
+ln -fsv "$(pwd)/powershell/Microsoft.PowerShell_profile.ps1" "$HOME/.config/powershell/Microsoft.PowerShell_profile.ps1"

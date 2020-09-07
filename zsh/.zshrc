@@ -246,7 +246,7 @@ fi
 # enter normal mode in zsh vi-mode
 bindkey "jk" vi-cmd-mode
 
-# make ctrl-p.n behave like up/down arrows
+# make ctrl-p/n behave like up/down arrows
 bindkey "^P" up-line-or-beginning-search
 bindkey "^N" down-line-or-beginning-search
 

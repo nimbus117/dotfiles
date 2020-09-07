@@ -203,6 +203,7 @@ function! s:CustomHighlights() abort
   highlight Folded ctermbg=NONE cterm=NONE " fold lines
   highlight htmlArg ctermfg=lightblue " html attributes
   highlight NonText ctermbg=NONE " eol character
+  highlight Normal guibg=NONE ctermbg=NONE " transparent background
   highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
   highlight PmenuSbar ctermfg=black " popup scrollbar
   highlight PmenuSel ctermfg=darkblue " popup menu selected item
@@ -220,7 +221,7 @@ function! s:CloseTab() abort
   if tabpagenr() < tabpagenr('$') && tabpagenr() > 1
     tabclose
     normal gT
-  else
+  elseif tabpagenr('$') > 1
     tabclose
   endif
 endfunction
