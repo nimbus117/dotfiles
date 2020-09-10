@@ -228,6 +228,33 @@ endfunction
 command! CloseTab call s:CloseTab()
 " }}}
 
+" open note in vertical split {{{
+let s:notesRoot = '~/notes/'
+function! s:Notes(...) abort
+  let l:note = a:0 > 0 ? a:1 : "notes"
+  execute 'vnew'.s:notesRoot.l:note.".md"
+  execute "lcd ".s:notesRoot
+endfunction
+
+function! s:NotesComplete(ArgLead,CmdLine,CursorPos) abort
+  let l:filePaths = glob(fnameescape(s:notesRoot)."*.md", 1, 1)
+  let l:notes = map(
+        \   l:filePaths,
+        \   'substitute(fnamemodify(v:val, ":t"), "\.md", "","")'
+        \ )
+  let l:argCount = len(split(a:CmdLine, " "))
+  if (l:argCount == 1 || (l:argCount == 2 && a:CmdLine =~ "\S$"))
+    return filter(l:notes, 'v:val =~ "^'. a:ArgLead .'"')
+  endif
+endfunction
+
+command!
+      \ -complete=customlist,s:NotesComplete
+      \ -nargs=?
+      \ Notes
+      \ call s:Notes(<f-args>)
+" }}}
+
 " format json
 command! -range=% JSON <line1>,<line2>!python -m json.tool
 
