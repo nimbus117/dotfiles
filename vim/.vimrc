@@ -40,6 +40,7 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make' }
+Plug 'vim-test/vim-test'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 call plug#end()
