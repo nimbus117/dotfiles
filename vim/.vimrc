@@ -353,6 +353,7 @@ set spelllang=en_gb " set spelling language to English GB
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window vertically will put the new window to the right of the current one
 set synmaxcol=1000 " only highlight the first 1000 columns
+set t_Co=16 " set number of colors
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
 
