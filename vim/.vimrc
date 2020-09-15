@@ -194,6 +194,9 @@ let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
 
 " vim-grip - github readme instant preview
 let g:grip_default_map = 0
+
+" vim-test - wrapper for running tests
+let test#strategy="vimterminal"
 " }}}
 
 " ### functions/commands {{{
