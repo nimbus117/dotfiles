@@ -233,6 +233,7 @@ command! CloseTab call s:CloseTab()
 
 " open note in vertical split {{{
 let s:notesRoot = '~/notes/'
+
 function! s:Notes(...) abort
   let l:note = a:0 > 0 ? a:1 : "notes"
   execute 'vnew'.s:notesRoot.l:note.".md"
@@ -240,14 +241,13 @@ function! s:Notes(...) abort
 endfunction
 
 function! s:NotesComplete(ArgLead,CmdLine,CursorPos) abort
-  let l:filePaths = glob(fnameescape(s:notesRoot)."*.md", 1, 1)
   let l:notes = map(
-        \   l:filePaths,
+        \   glob(fnameescape(s:notesRoot)."*.md", 1, 1),
         \   'substitute(fnamemodify(v:val, ":t"), "\.md", "","")'
         \ )
   let l:argCount = len(split(a:CmdLine, " "))
-  if (l:argCount == 1 || (l:argCount == 2 && a:CmdLine =~ "\S$"))
-    return filter(l:notes, 'v:val =~ "^'. a:ArgLead .'"')
+  if (l:argCount == 1 || (l:argCount == 2 && a:CmdLine =~ '\S$'))
+    return filter(copy(l:notes), 'v:val =~? "^'. a:ArgLead .'"')
   endif
 endfunction
 
