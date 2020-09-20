@@ -30,7 +30,6 @@ Plug 'nimbus117/prettier.vim'
 Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
-Plug 'styled-components/vim-styled-components', { 'branch': 'main'   }
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
@@ -266,7 +265,12 @@ command! -range=% JSON <line1>,<line2>!python -m json.tool
 command! CopyFilePath let @" = expand("%:p")
 
 " open vim-rest-console in new tab
-command! Vrc tabedit .vrc.rest
+
+function! s:Vrc() abort
+  tabedit .vrc.rest
+  set ft=rest
+endfunction
+command! Vrc call s:Vrc()
 " }}}
 
 " ### autocmds {{{
