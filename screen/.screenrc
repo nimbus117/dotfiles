@@ -27,9 +27,9 @@ altscreen on
 
 # status line and caption {{{
 hardstatus alwayslastline
-hardstatus string '%{Bk} %D %d %{kG}%=%-Lw%{bk} %n*%f %t %{-}%+Lw%=%{Bk} %0c '
+hardstatus string '%{Bw} %D %d %{wG}%=%-Lw%{bw} %n*%f %t %{-}%+Lw%=%{Bw} %0c '
 caption string '%{G}%2n %t'
-rendition so = kG
+rendition so = wk
 #}}}
 
 # window setup {{{

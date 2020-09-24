@@ -105,15 +105,15 @@ let g:Lf_HideHelp = 1
 let g:Lf_ShowDevIcons = 0
 let g:Lf_StlSeparator = {'left': '', 'right': ''}
 let g:Lf_StlPalette = {
-      \ 'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
-      \ 'stlCategory': {'ctermfg': 'black','ctermbg': 'green'},
-      \ 'stlNameOnlyMode': {'ctermfg': 'black','ctermbg': 'white'},
-      \ 'stlFullPathMode': {'ctermfg': 'black','ctermbg': 'blue'},
-      \ 'stlFuzzyMode': {'ctermfg': 'black','ctermbg': 'blue'},
-      \ 'stlCwd': {'ctermfg': '195','ctermbg': 'black'},
-      \ 'stlBlank': {'ctermfg': 'NONE','ctermbg': 'black'},
-      \ 'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
-      \ 'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
+      \ 'stlName': {'ctermfg': 'white','ctermbg': 'darkblue','cterm': 'NONE'},
+      \ 'stlCategory': {'ctermfg': 'white','ctermbg': 'green'},
+      \ 'stlNameOnlyMode': {'ctermfg': 'white','ctermbg': 'red'},
+      \ 'stlFullPathMode': {'ctermfg': 'white','ctermbg': 'blue'},
+      \ 'stlFuzzyMode': {'ctermfg': 'white','ctermbg': 'blue'},
+      \ 'stlCwd': {'ctermfg': 'black','ctermbg': 'grey'},
+      \ 'stlBlank': {'ctermfg': 'NONE','ctermbg': 'grey'},
+      \ 'stlLineInfo': {'ctermfg': 'white','ctermbg': 'blue'},
+      \ 'stlTotal': {'ctermfg': 'white','ctermbg': 'green'}
       \ }
 let g:Lf_PreviewResult = {
       \ 'BufTag': 0,
@@ -206,16 +206,16 @@ function! s:CustomHighlights() abort
   highlight Folded ctermbg=NONE cterm=NONE " fold lines
   highlight htmlArg ctermfg=lightblue " html attributes
   highlight NonText ctermbg=NONE " eol character
-  highlight Normal guibg=NONE ctermbg=NONE " transparent background
-  highlight Pmenu ctermfg=black ctermbg=grey " popup menu items
-  highlight PmenuSbar ctermfg=black " popup scrollbar
-  highlight PmenuSel ctermfg=darkblue " popup menu selected item
-  highlight QuickFixLine ctermbg=NONE ctermfg=white " current item in quickfix
-  highlight Search ctermbg=black ctermfg=NONE " search match
+  highlight Pmenu ctermfg=grey ctermbg=black " popup menu items
+  highlight PmenuSbar ctermfg=grey " popup scrollbar
+  highlight PmenuSel ctermfg=darkblue ctermbg=white " popup menu selected item
+  highlight QuickFixLine ctermbg=grey ctermfg=black " current item in quickfix
+  highlight Search ctermbg=white ctermfg=NONE " search match
   highlight SignColumn ctermbg=NONE " sign column/gutter
   highlight SpecialKey ctermbg=NONE " tab/space characters
   highlight SpellBad cterm=underline " spelling mistakes
-  highlight TagbarHighlight ctermbg=black " tagbar current tag
+  highlight TagbarHighlight ctermbg=darkblue ctermfg=white " tagbar current tag
+  highlight VertSplit ctermbg=grey ctermfg=grey
 endfunction
 " }}}
 
@@ -330,7 +330,7 @@ filetype plugin indent on " enable filetype detection, plugins and indent settin
 syntax enable " enable syntax highlighting
 
 set autoindent " copy indent from current line when starting a new line
-set background=dark " light/dark
+set background=light " light/dark
 set backspace=2 " allow backspace over indent, eol, start
 set complete-=i " do not scan included files when using c-p/c-n
 set completeopt-=preview " don't show extra information in preview window
