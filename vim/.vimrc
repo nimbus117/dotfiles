@@ -265,7 +265,6 @@ command! -range=% JSON <line1>,<line2>!python -m json.tool
 command! CopyFilePath let @" = expand("%:p")
 
 " open vim-rest-console in new tab
-
 function! s:Vrc() abort
   tabedit .vrc.rest
   set ft=rest
@@ -315,8 +314,8 @@ if has('autocmd')
           \ exe "normal! g`\"" |
           \ endif
     " disable cursor line in insert mode
-    autocmd InsertLeave * set cursorline
-    autocmd InsertEnter * set nocursorline
+    autocmd InsertLeave,WinEnter * setlocal cursorline
+    autocmd InsertEnter,WinLeave * setlocal nocursorline
     " call CustomHighlights function when changing colorscheme
     autocmd ColorScheme * call s:CustomHighlights()
   augroup END
