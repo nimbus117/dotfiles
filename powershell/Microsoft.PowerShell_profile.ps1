@@ -1,3 +1,7 @@
+# Aliases
+
+Set-Alias -Name l -Value Get-ChildItem
+
 # PSReadLine Options
 $PSReadLineOptions = @{
   EditMode = "vi"
@@ -10,7 +14,7 @@ $PSReadLineOptions = @{
 }
 Set-PSReadLineOption @PSReadLineOptions
 
-# Key bindings
+# PSReadLine key bindings
 Set-PSReadLineKeyHandler -Chord 'j,k' -ViMode Insert -Function ViCommandMode
 
 Set-PSReadLineKeyHandler -Chord 'Ctrl+p' -ViMode Insert -Function HistorySearchBackward
