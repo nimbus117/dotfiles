@@ -64,6 +64,9 @@ alias tree='tree -C'
 alias sl='screenPicker'
 alias sn='screen'
 alias sv='screenVim'
+
+# exit
+alias :q='exit'
 #}}}
 
 ## functions {{{
