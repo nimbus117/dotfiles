@@ -199,10 +199,14 @@ export VISUAL=vim
 export EDITOR=$VISUAL
 
 # set less options
-# I - case insensitive search, R - enable coloured output, S - don't wrap lines
-# F - quit if output fits in one screen, X - don't clear the screen on exit
+# i - case insensitive search (unless pattern contains capital)
+# R - enable coloured output
+# S - don't wrap lines
+# F - quit if output fits in one screen
+# X - don't clear the screen on exit
+# c - clear-screen - Causes full screen repaints to be painted from the top line down
 if command -v less >/dev/null; then
-  export LESS=IRS #FX
+  export LESS=iRSc #FX
 fi
 #}}}
 
