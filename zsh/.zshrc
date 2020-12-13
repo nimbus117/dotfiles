@@ -72,7 +72,7 @@ alias :q='exit'
 ## functions {{{
 
 # get the weather
-weather() { curl 'wttr.in/'${1:-'edinburgh'} }
+weather() { curl -s 'wttr.in/'${1:-'edinburgh'} | less }
 
 # cheat.sh
 cheat() { curl -s "https://cheat.sh/"$1 | less }
