@@ -450,6 +450,11 @@ nnoremap <silent> <leader>to :tabonly<cr>
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 " same as <c-w>
 nnoremap <leader>w <c-w>
+" increase/decrase window size by 10
+nnoremap <leader>w> <c-w>20>
+nnoremap <leader>w< <c-w>20<
+nnoremap <leader>w+ <c-w>20+
+nnoremap <leader>w- <c-w>20-
 " move current window into a new tab
 nnoremap <leader>wt <c-w>T
 " toggle markdown checkbox
