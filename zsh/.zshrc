@@ -189,6 +189,12 @@ function _notes(){
   fi
 }
 compdef _notes notes
+
+# make a folder and cd into it
+function mk(){
+  mkdir -p $1
+  cd $1
+}
 #}}}
 #}}}
 
