@@ -106,9 +106,9 @@ google() {
 # ( source .screenrc then open vim )
 screenVim() {
   if [ -f $HOME/code/dotfiles/screen/.screenrcVim ]; then
-    screen -c $HOME/code/dotfiles/screen/.screenrcVim
+    screen -c $HOME/code/dotfiles/screen/.screenrcVim $*
   else
-    screen
+    screen $*
   fi
 }
 #}}}
