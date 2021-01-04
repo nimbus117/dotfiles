@@ -259,6 +259,15 @@ fi
 # enter normal mode in zsh vi-mode
 bindkey "jk" vi-cmd-mode
 
+# vi mode indicator
+function zle-line-init zle-keymap-select {
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
 # make ctrl-p/n behave like up/down arrows
 bindkey "^P" up-line-or-beginning-search
 bindkey "^N" down-line-or-beginning-search
