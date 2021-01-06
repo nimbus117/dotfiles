@@ -258,7 +258,7 @@ fi
 
 # vi mode indicator
 function zle-line-init zle-keymap-select {
-  RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+  RPS1=${${KEYMAP/vicmd/%{$fg[red]%}<<<}/(main|viins)/%{$fg[green]%}}%{$reset_color%}
   RPS2=$RPS1
   zle reset-prompt
 }
