@@ -256,17 +256,17 @@ if [ -f  /usr/local/bin/aws_zsh_completer.sh ]; then
   source /usr/local/bin/aws_zsh_completer.sh
 fi
 
-# enter normal mode in zsh vi-mode
-bindkey "jk" vi-cmd-mode
-
 # vi mode indicator
 function zle-line-init zle-keymap-select {
-    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
-    RPS2=$RPS1
-    zle reset-prompt
+  RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+  RPS2=$RPS1
+  zle reset-prompt
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
+
+# enter normal mode in zsh vi-mode
+bindkey "jk" vi-cmd-mode
 
 # make ctrl-p/n behave like up/down arrows
 bindkey "^P" up-line-or-beginning-search
@@ -274,6 +274,9 @@ bindkey "^N" down-line-or-beginning-search
 
 # set shift-tab to reverse select menus
 bindkey -M menuselect '^[[Z' reverse-menu-complete
+
+# edit current command line in $EDITOR
+bindkey -M vicmd "^V" edit-command-line
 
 # don't show % at the end of partial lines
 export PROMPT_EOL_MARK=""
