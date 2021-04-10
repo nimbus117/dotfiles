@@ -315,8 +315,8 @@ if has('autocmd')
           \ exe "normal! g`\"" |
           \ endif
     " disable cursor line in insert mode
-    autocmd InsertLeave,WinEnter,BufEnter * setlocal cursorline
-    autocmd InsertEnter,WinLeave,BufLeave * setlocal nocursorline
+    autocmd InsertLeave * setlocal cursorline
+    autocmd InsertEnter * setlocal nocursorline
     " call CustomHighlights function when changing colorscheme
     autocmd ColorScheme * call s:CustomHighlights()
   augroup END
