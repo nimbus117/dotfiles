@@ -453,8 +453,8 @@ nnoremap <leader>w <c-w>
 " increase/decrase window size by 10
 nnoremap <leader>w> <c-w>20>
 nnoremap <leader>w< <c-w>20<
-nnoremap <leader>w+ <c-w>20+
-nnoremap <leader>w- <c-w>20-
+nnoremap <leader>w+ <c-w>10+
+nnoremap <leader>w- <c-w>10-
 " move current window into a new tab
 nnoremap <leader>wt <c-w>T
 " toggle markdown checkbox
