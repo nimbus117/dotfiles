@@ -440,8 +440,6 @@ nnoremap <silent> <leader>ss :source .vimsess<cr>
 nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
 nnoremap <silent> <leader>tc :CloseTab<cr>
-" clone current window in new tab
-nnoremap <silent> <leader>tl <c-w>v<c-w>T
 " open new tab
 nnoremap <silent> <leader>tn :tabnew<cr>
 " close all other tabs
@@ -450,11 +448,13 @@ nnoremap <silent> <leader>to :tabonly<cr>
 nnoremap <silent> <leader>ut :UndotreeToggle<cr>
 " same as <c-w>
 nnoremap <leader>w <c-w>
-" increase/decrase window size by 10
+" increase/decrase window size
 nnoremap <leader>w> <c-w>20>
 nnoremap <leader>w< <c-w>20<
 nnoremap <leader>w+ <c-w>10+
 nnoremap <leader>w- <c-w>10-
+" clone current window in new tab
+nnoremap <silent> <leader>wl <c-w>v<c-w>T
 " move current window into a new tab
 nnoremap <leader>wt <c-w>T
 " toggle markdown checkbox
