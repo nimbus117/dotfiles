@@ -196,6 +196,12 @@ function mk(){
   cd $1
 }
 #}}}
+
+# run a command in the background {{{
+background() {
+  nohup $* &>/dev/null &
+}
+#}}}
 #}}}
 
 ## environment variables {{{
