@@ -67,9 +67,6 @@ alias sv='screenVim'
 
 # exit
 alias :q='exit'
-
-# run command in background
-alias bg='background'
 #}}}
 
 ## functions {{{
