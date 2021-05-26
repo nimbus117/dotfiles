@@ -235,14 +235,6 @@ fi
 if [ -d  $HOME/.config/composer/vendor/bin ]; then
   export PATH=$PATH:$HOME/.config/composer/vendor/bin
 fi
-
-if [ -d  /Applications/MAMP/Library/bin ]; then
-  export PATH=$PATH:/Applications/MAMP/Library/bin
-fi
-
-if [ -d  '/Applications/MAMP/bin/php/php7.0.33/bin' ]; then
-  export PATH=/Applications/MAMP/bin/php/php7.0.33/bin:$PATH
-fi
 #}}}
 
 ## misc {{{
@@ -301,6 +293,18 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   export LESS_TERMCAP_se=$'\E[39;49m'
   if command -v gls >/dev/null; then
     alias ls="gls --color"
+  fi
+
+  if [ -d  /usr/local/opt/mongodb-community@4.2/bin ]; then
+    export PATH=/usr/local/opt/mongodb-community@4.2/bin:$PATH
+  fi
+
+  if [ -d  /Applications/MAMP/Library/bin ]; then
+    export PATH=$PATH:/Applications/MAMP/Library/bin
+  fi
+
+  if [ -d  /Applications/MAMP/bin/php/php7.0.33/bin ]; then
+    export PATH=/Applications/MAMP/bin/php/php7.0.33/bin:$PATH
   fi
 fi
 #}}}
