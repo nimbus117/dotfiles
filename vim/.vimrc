@@ -421,7 +421,7 @@ nnoremap <leader>h :tab help<space>
 " show/hide invisibles
 nnoremap <silent> <leader>i :setlocal list!<cr>:setlocal list?<cr>
 " toggle line wrapping
-nnoremap <leader>l :setlocal wrap!<cr>:setlocal wrap?<cr>
+nnoremap <silent> <leader>l :setlocal wrap!<cr>:setlocal wrap?<cr>
 " save current session as .vimsess
 nnoremap <leader>ms :mksession! .vimsess<cr>
 " launch LeaderF to search recently used files in the current directory

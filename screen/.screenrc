@@ -2,7 +2,7 @@
 shell -${SHELL}
 
 # change background-color-erase setting
-defbce "on"
+defbce on
 
 # disable visual bell
 vbell off
