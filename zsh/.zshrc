@@ -22,6 +22,54 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 #}}}
 
+## mac specific {{{
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+  export TERM="screen-256color"
+  export LESS_TERMCAP_so=$'\E[30;43m'
+  export LESS_TERMCAP_se=$'\E[39;49m'
+
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  export PATH=$PATH:$ANDROID_HOME/emulator
+  export PATH=$PATH:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+  if command -v gls >/dev/null; then
+    alias ls="gls --color"
+  fi
+  if command -v gdircolors >/dev/null; then
+    alias dircolors="gdircolors"
+  fi
+
+  if [ -d  /opt/homebrew/opt/mongodb-community@4.2/bin ]; then
+    export PATH=/opt/homebrew/opt/mongodb-community@4.2/bin:$PATH
+  fi
+
+  if [ -d  /opt/homebrew/opt/php@7.4/bin ]; then
+    export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
+    export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
+  fi
+fi
+
+# dev environment {{{
+if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
+  startDevServices() {
+    brew services start mongodb/brew/mongodb-community@4.2;
+    brew services start httpd
+  }
+  stopDevServices() {
+    brew services stop mongodb/brew/mongodb-community@4.2;
+    brew services stop httpd
+  }
+
+  sessionName=devenv
+  devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
+  devdown() { stopDevServices; screen -S $sessionName -X quit }
+fi
+#}}}
+#}}}
+
 ## aliases {{{
 
 # properly clears the terminal
@@ -152,17 +200,6 @@ joke() {
 }
 #}}}
 
-# dev environment {{{
-if [ -f $HOME/code/dotfiles/screen/.screenrcApp ] && [ -d /Applications/MAMP/bin  ]; then
-  startMampApache() { sudo /Applications/MAMP/bin/startApache.sh }
-  stopMampApache() { sudo /Applications/MAMP/bin/stopApache.sh }
-
-  sessionName=devenv
-  devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
-  devdown() { stopMampApache; screen -S $sessionName -X quit }
-fi
-#}}}
-
 # open notes in vim {{{
 notesRoot=$HOME/notes
 notes() {
@@ -283,28 +320,4 @@ export PROMPT_EOL_MARK=""
 HISTFILE="$HOME/.zsh_history"
 HISTSIZE=100000
 SAVEHIST=$HISTSIZE
-#}}}
-
-## mac specific {{{
-
-if [[ $OSTYPE == 'darwin'* ]]; then
-  export TERM="screen-256color"
-  export LESS_TERMCAP_so=$'\E[30;43m'
-  export LESS_TERMCAP_se=$'\E[39;49m'
-  if command -v gls >/dev/null; then
-    alias ls="gls --color"
-  fi
-
-  if [ -d  /usr/local/opt/mongodb-community@4.2/bin ]; then
-    export PATH=/usr/local/opt/mongodb-community@4.2/bin:$PATH
-  fi
-
-  if [ -d  /Applications/MAMP/Library/bin ]; then
-    export PATH=$PATH:/Applications/MAMP/Library/bin
-  fi
-
-  if [ -d  /Applications/MAMP/bin/php/php7.0.33/bin ]; then
-    export PATH=/Applications/MAMP/bin/php/php7.0.33/bin:$PATH
-  fi
-fi
 #}}}

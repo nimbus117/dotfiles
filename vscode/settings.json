@@ -1,6 +1,5 @@
 {
   "workbench.colorTheme": "Better Solarized Dark",
-  "window.zoomLevel": 1,
   "vim.visualstar": true,
   "vim.useSystemClipboard": true,
   "vim.leader": "<space>",
@@ -20,5 +19,6 @@
   "editor.fontLigatures": true,
   "editor.fontSize": 14,
   "editor.formatOnSave": true,
-  "editor.renderWhitespace": "all"
+  "editor.renderWhitespace": "all",
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
