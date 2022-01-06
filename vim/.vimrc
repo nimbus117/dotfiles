@@ -338,20 +338,15 @@ set cursorline " highlight the text line of the cursor
 set diffopt+=vertical " always use vertical diffs
 set display+=lastline " show as much as possible of the last line
 set encoding=utf-8 " set character encoding
-set foldnestmax=5 " sets the maximum nest level of folds
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
 set history=1000 " command line mode history
 set incsearch " search as characters are typed
 set lazyredraw " stops the screen being redrawn during some operations, better performance
 set linebreak " don't split words when wrapping text
 set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
-set nofoldenable " start with all folds open
 set nowrap " don't wrap text
 set nrformats-=octal " don't treat numbers as octal when using ctrl-a
-set number " show line numbers
-set numberwidth=3 " set number column to start at 3
 set pumheight=10 " popup menu max height
-set relativenumber " show relative line numbers
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set shortmess+=I " disable intro message when starting vim
@@ -360,10 +355,17 @@ set signcolumn=number " display signs in the number column
 set spelllang=en_gb " set spelling language to English GB
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window vertically will put the new window to the right of the current one
-set synmaxcol=1000 " only highlight the first 1000 columns
+set synmaxcol=500 " only highlight the first 500 columns
 set t_Co=16 " set number of colors
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
+
+set foldnestmax=5 " sets the maximum nest level of folds
+set nofoldenable " start with all folds open
+
+set number " show line numbers
+set numberwidth=3 " set number column width
+set relativenumber " show relative line numbers
 
 set expandtab " use spaces instead of tabs
 set shiftwidth=2 " number of spaces to use for each step of (auto)indent
