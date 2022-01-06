@@ -20,7 +20,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'jremmen/vim-ripgrep'
 Plug 'Konfekt/FastFold'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'majutsushi/tagbar'
 Plug 'mattn/emmet-vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'mbbill/undotree'
@@ -39,7 +38,6 @@ Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
-Plug 'vim-php/tagbar-phpctags.vim', { 'do': 'make' }
 Plug 'vim-test/vim-test'
 Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
@@ -120,12 +118,6 @@ let g:Lf_PreviewResult = {
       \ 'BufTag': 0,
       \ 'Function': 0,
       \ }
-" }}}
-
-" tagbar - browse tags from the current file {{{
-let g:tagbar_compact = 1 " hide help
-let g:tagbar_show_linenumbers = 2 " show relative line numbers
-let g:tagbar_sort = 0 " sort based on order in source file
 " }}}
 
 " ultisnips - snippets in vim {{{
