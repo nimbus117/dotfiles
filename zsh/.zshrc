@@ -8,6 +8,7 @@ ZSH_THEME="mySimple"
 
 # plugins
 plugins=(
+  aws
   docker
   docker-compose
   git
@@ -38,6 +39,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   if command -v gls >/dev/null; then
     alias ls="gls --color"
   fi
+
   if command -v gdircolors >/dev/null; then
     alias dircolors="gdircolors"
   fi
@@ -50,24 +52,24 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
     export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
   fi
-fi
 
-# dev environment {{{
-if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
-  startDevServices() {
-    brew services start mongodb/brew/mongodb-community@4.2;
-    brew services start httpd
-  }
-  stopDevServices() {
-    brew services stop mongodb/brew/mongodb-community@4.2;
-    brew services stop httpd
-  }
+  # dev environment {{{
+  if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
+    startDevServices() {
+      brew services start mongodb/brew/mongodb-community@4.2;
+      brew services start httpd
+    }
+    stopDevServices() {
+      brew services stop mongodb/brew/mongodb-community@4.2;
+      brew services stop httpd
+    }
 
-  sessionName=devenv
-  devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
-  devdown() { stopDevServices; screen -S $sessionName -X quit }
+    sessionName=devenv
+    devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
+    devdown() { stopDevServices; screen -S $sessionName -X quit }
+  fi
+  #}}}
 fi
-#}}}
 #}}}
 
 ## aliases {{{
