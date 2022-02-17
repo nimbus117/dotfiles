@@ -14,7 +14,6 @@ plugins=(
   git
   history
   npm
-  npx
   nvm
   vi-mode
   z
@@ -51,6 +50,11 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   if [ -d  /opt/homebrew/opt/php@7.4/bin ]; then
     export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
     export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
+  fi
+
+
+  if [ -d  /Users/$USER/Library/Python/3.8/bin ]; then
+    export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
   fi
 
   # dev environment {{{

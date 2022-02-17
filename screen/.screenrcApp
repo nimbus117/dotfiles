@@ -20,8 +20,3 @@ split
 focus down
 select 4
 layout select devenv
-
-
-#stuff " echo -ne '\eklocal\e\\'; cd ~/code/appointedd/local; clear; npm start^M"
-
-#stuff " echo -ne '\ekchronos\e\\'; cd ~/code/appointedd/chronos; clear; MICROSOFT_OAUTH_CLIENT_ID=3811ff60-b355-4f70-8780-50976bbe4e3a MICROSOFT_OAUTH_CLIENT_SECRET=7PKkk~2WqF.dsCTRZZk.Y~49A7WH7_i-K3 MICROSOFT_OAUTH_REDIRECT_URI=http://localhost/microsoft MICROSOFT_OAUTH_SCOPE='offline_access onlinemeetings.readwrite user.read' NODE_DEBUG_OPTION=--inspect PORT=8123 npm run start-dev-watch^M"
