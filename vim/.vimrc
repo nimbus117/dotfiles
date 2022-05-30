@@ -127,7 +127,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>" " jump back in snippet
 " }}}
 
 " vim-rest-console - rest requests {{{
-let s:vrc_auto_format_response_patterns = {
+let g:vrc_auto_format_response_patterns = {
       \ 'json': 'python -m json.tool',
       \ 'xml': 'xmllint --format -',
       \ }
