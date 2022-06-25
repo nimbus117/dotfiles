@@ -87,7 +87,7 @@ endfunction
 
 " return current git HEAD unless in vertical split
 function! LightlineFugitive() abort
-  return winwidth(0) == &columns ? fugitive#head() : ''
+  return winwidth(0) == &columns ? fugitive#Head() : ''
 endfunction
 " }}}
 " }}}
@@ -421,9 +421,9 @@ nnoremap <leader>ms :mksession! .vimsess<cr>
 " launch LeaderF to search recently used files in the current directory
 nnoremap <silent> <leader>mr :LeaderfMruCwd<cr>
 " toggle relative numbering
-nnoremap <silent> <leader>n :setlocal relativenumber!<cr>: setlocal relativenumber?<cr>
+nnoremap <silent> <leader>n :setlocal relativenumber!<cr>:setlocal relativenumber?<cr>
 " toggle paste mode
-nnoremap <silent> <leader>p :set paste!<cr>
+nnoremap <silent> <leader>p :set paste!<cr>:set paste?<cr>
 " find/replace all on word under cursor
 nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
 " toggle spell checking

@@ -52,7 +52,6 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
   fi
 
-
   if [ -d  /Users/$USER/Library/Python/3.8/bin ]; then
     export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
   fi
@@ -87,13 +86,6 @@ alias ll='ls -lAh --group-directories-first'
 
 # notes function
 alias n='notes'
-
-# launch node debug
-if [[ $HOST == 'penguin'* ]]; then
-  alias nd='node --inspect-brk=0.0.0.0'
-else
-  alias nd='node --inspect-brk'
-fi
 
 # open
 if command -v xdg-open >/dev/null; then
@@ -169,12 +161,12 @@ screenVim() {
 
 # pick screen session to reconnect to {{{
 screenPicker() {
-  screens=$(screen -ls | sed '1d;$d')
-  count=$(echo -n "$screens" | grep -c '^')
+  list=$(screen -ls | sed '1d;$d')
+  count=$(echo -n "$list" | grep -c '^')
   if [ $count -gt 0 ]; then
     counter=1
     sessions=
-    echo $screens | while read line; do
+    echo $list | while read line; do
       sessions+="$counter. $line\n"
       (( counter+=1 ))
     done
@@ -182,7 +174,7 @@ screenPicker() {
     echo -n 'Enter number: '
     read num
     if [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
-      screen -d -r $(echo $screens | sed -n ${num}'p' | awk '{print $1}')
+      screen -d -r $(echo $list | sed -n ${num}'p' | awk '{print $1}')
     else
       echo "\nInvalid selection - please enter a number from 1 to $count\n"
       screenPicker
@@ -232,17 +224,18 @@ function _notes(){
   fi
 }
 compdef _notes notes
-
-# make a folder and cd into it
-function mk(){
-  mkdir -p $1
-  cd $1
-}
 #}}}
 
 # run a command in the background {{{
 background() {
   nohup $* &>/dev/null &
+}
+#}}}
+
+# make a folder and cd into it {{{
+function mk(){
+  mkdir -p $1
+  cd $1
 }
 #}}}
 #}}}
@@ -252,6 +245,9 @@ background() {
 # set default editor
 export VISUAL=vim
 export EDITOR=$VISUAL
+
+# don't show % at the end of partial lines
+export PROMPT_EOL_MARK=""
 
 # set less options
 # i - case insensitive search (unless pattern contains capital)
@@ -287,7 +283,7 @@ if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
   source /etc/profile.d/vte.sh
 fi
 
-# if dircolors, set colour for ls
+# set colours for ls
 if [ -f $HOME/.dircolors ]; then
   eval $(dircolors $HOME/.dircolors)
 fi
@@ -319,8 +315,6 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 # edit current command line in $EDITOR
 bindkey -M vicmd "^V" edit-command-line
 
-# don't show % at the end of partial lines
-export PROMPT_EOL_MARK=""
 
 # history settings
 HISTFILE="$HOME/.zsh_history"
