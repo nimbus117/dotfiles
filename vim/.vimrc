@@ -31,6 +31,7 @@ Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
+Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-eunuch'
@@ -268,7 +269,7 @@ command! Vrc call s:Vrc()
 " ### autocmds {{{
 
 if has('autocmd')
-  augroup misc
+  augroup vimrc
     " remove all autocommands for the current group
     autocmd!
     " disable automatic comment leader insertion, remove comment leader when joining lines
