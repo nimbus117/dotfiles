@@ -34,6 +34,7 @@
 --exclude=\*.map
 --exclude=\*.swp
 --exclude=\*.bak
+--exclude=\*.svg
 --exclude=tags
 --exclude=node_modules
 --exclude=bower_components

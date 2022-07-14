@@ -10,6 +10,7 @@
 --exclude=bundle.js
 --exclude=gradlew.bat
 --exclude=.eslintrc.j*
+--exclude=*.svg
 --exclude=*.map
 --exclude=*.swp
 --exclude=*.bak
