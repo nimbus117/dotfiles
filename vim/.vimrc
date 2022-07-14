@@ -190,6 +190,9 @@ let g:grip_default_map = 0
 
 " vim-test - wrapper for running tests
 let test#strategy="vimterminal"
+
+" vim-gutentags - manage tag files
+let g:gutentags_project_root=['.git']
 " }}}
 
 " ### functions/commands {{{
@@ -209,7 +212,6 @@ function! s:CustomHighlights() abort
   highlight SignColumn ctermbg=NONE " sign column/gutter
   highlight SpecialKey ctermbg=NONE " tab/space characters
   highlight SpellBad cterm=underline " spelling mistakes
-  highlight TagbarHighlight ctermbg=black " tagbar current tag
 endfunction
 " }}}
 
@@ -431,8 +433,6 @@ nnoremap <leader>r :%s/\<<c-r><c-w>\>\C//g<left><left>
 nnoremap <silent> <leader>sp :setlocal spell!<cr>:setlocal spell?<cr>
 " source the session saved in .vimsess
 nnoremap <silent> <leader>ss :source .vimsess<cr>
-" open tagbar with autoclose set
-nnoremap <silent> <leader>tb :TagbarOpenAutoClose<cr>
 " close tab
 nnoremap <silent> <leader>tc :CloseTab<cr>
 " open new tab
