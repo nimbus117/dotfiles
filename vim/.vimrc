@@ -6,6 +6,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
         \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
   let new=1
 endif
+
 " plugins {{{
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
@@ -13,7 +14,6 @@ Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'godlygeek/tabular'
-Plug 'google/vim-searchindex'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -44,6 +44,7 @@ Plug 'w0rp/ale'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 call plug#end()
 " }}}
+
 if new == 1
   PlugInstall --sync
 endif
@@ -345,6 +346,7 @@ set pumheight=10 " popup menu max height
 set scrolloff=2 " number of screen lines to keep above and below the cursor
 set sessionoptions-=options " when saving a session do not save all options and mappings
 set shortmess+=I " disable intro message when starting vim
+set shortmess-=S " show search count
 set showcmd " show (partial) command in the last line of the screen
 set signcolumn=number " display signs in the number column
 set spelllang=en_gb " set spelling language to English GB
