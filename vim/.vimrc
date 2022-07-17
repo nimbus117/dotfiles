@@ -232,7 +232,7 @@ command! CloseTab call s:CloseTab()
 let s:notesRoot = '~/notes/'
 
 function! s:Notes(...) abort
-  let l:note = a:0 > 0 ? a:1 : "notes"
+  let l:note = a:0 > 0 ? trim(a:1) : "notes"
   execute 'vnew'.s:notesRoot.l:note.".md"
   execute "lcd ".s:notesRoot
 endfunction
@@ -250,7 +250,7 @@ endfunction
 
 command!
       \ -complete=customlist,s:NotesComplete
-      \ -nargs=?
+      \ -nargs=*
       \ Notes
       \ call s:Notes(<f-args>)
 " }}}
