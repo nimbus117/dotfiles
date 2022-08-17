@@ -328,6 +328,7 @@ syntax enable " enable syntax highlighting
 set autoindent " copy indent from current line when starting a new line
 set background=dark " light/dark
 set backspace=2 " allow backspace over indent, eol, start
+set backupcopy=yes "make a copy of the file and overwrite the original one
 set complete-=i " do not scan included files when using c-p/c-n
 set completeopt-=preview " don't show extra information in preview window
 set cursorline " highlight the text line of the cursor
