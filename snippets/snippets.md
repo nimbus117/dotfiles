@@ -81,3 +81,8 @@ GitHub
   - unified - `javascript:location.href = location.origin + location.pathname + "?diff=unified&w=1&ts=2";`
 - make diffs fill the whole screen width
   - `javascript:document.body.classList.toggle('full-width');`
+
+eslint
+------
+- run eslint against changed files
+  - `eslint $(git diff --name-only HEAD | grep -E '\.(ts|tsx)$' | xargs)`
