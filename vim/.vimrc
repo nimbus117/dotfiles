@@ -455,7 +455,7 @@ nnoremap <leader>w< <c-w>20<
 nnoremap <leader>w+ <c-w>10+
 nnoremap <leader>w- <c-w>10-
 " clone current window in new tab
-nnoremap <silent> <leader>wl <c-w>v<c-w>T
+nnoremap <silent> <leader>we <c-w>v<c-w>T
 " move current window into a new tab
 nnoremap <leader>wt <c-w>T
 " toggle markdown checkbox
