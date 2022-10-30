@@ -305,8 +305,8 @@ if has('autocmd')
           \ nnoremap <buffer>  :ALEGoToDefinition<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
-    " enable spell checking and max text width for markdown
-    autocmd FileType markdown setlocal spell textwidth=80
+    " enable spell checking, max text width and go to file suffix for markdown
+    autocmd FileType markdown setlocal spell textwidth=80 suffixesadd+=.md
     " enable spell checking for gitcommit messages
     autocmd FileType gitcommit setlocal spell
     " return to the last cursor position when opening files
