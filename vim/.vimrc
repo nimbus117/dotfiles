@@ -302,7 +302,8 @@ if has('autocmd')
     " use ale for javascript/typescript omnifunc and goto definition (install typscript globally)
     autocmd FileType javascript,javascriptreact,typescript,typescriptreact
           \ setlocal omnifunc=ale#completion#OmniFunc |
-          \ nnoremap <buffer>  :ALEGoToDefinition<cr>
+          \ nnoremap <buffer>  :ALEGoToDefinition<cr> |
+          \ nnoremap <buffer>  :ALEImport<cr>
     " treat '-' as a regular word character
     autocmd FileType html,css,scss setlocal iskeyword+=-
     " enable spell checking, max text width and go to file suffix for markdown
