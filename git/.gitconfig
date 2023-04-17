@@ -12,6 +12,8 @@
 [core]
   editor = vim
   excludesfile = ~/.gitignore_global
+[pull]
+  ff = only
 [include]
  	path = ~/.gitconfigUser
 ; add to ~/.gitconfigUser
