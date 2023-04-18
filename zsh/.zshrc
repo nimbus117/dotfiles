@@ -244,7 +244,7 @@ function mk(){
 
 # set default editor
 export VISUAL=vim
-export EDITOR=$VISUAL
+export EDITOR=vim
 
 # don't show % at the end of partial lines
 export PROMPT_EOL_MARK=""

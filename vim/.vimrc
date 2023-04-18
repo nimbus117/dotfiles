@@ -13,6 +13,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -198,6 +199,9 @@ let test#strategy="vimterminal"
 
 " vim-gutentags - manage tag files
 let g:gutentags_project_root=['.git']
+
+" ranger.vim - browse using ranger
+let g:ranger_map_keys = 0
 " }}}
 
 " ### functions/commands {{{
