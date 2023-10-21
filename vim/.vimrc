@@ -123,6 +123,7 @@ let g:Lf_PreviewResult = {
       \ 'BufTag': 0,
       \ 'Function': 0,
       \ }
+let g:Lf_PreviewInPopup = 0
 " }}}
 
 " ultisnips - snippets in vim {{{
