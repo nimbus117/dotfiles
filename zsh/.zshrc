@@ -278,11 +278,6 @@ fi
 
 ## misc {{{
 
-# required for tilix
-if [ $TILIX_ID ] || [ $VTE_VERSION ]; then
-  source /etc/profile.d/vte.sh
-fi
-
 # set colours for ls
 if [ -f $HOME/.dircolors ]; then
   eval $(dircolors $HOME/.dircolors)
