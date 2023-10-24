@@ -59,11 +59,11 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   # dev environment {{{
   if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
     startDevServices() {
-      brew services start mongodb/brew/mongodb-community@4.2;
+      brew services start mongodb/brew/mongodb-community@4.4;
       brew services start httpd
     }
     stopDevServices() {
-      brew services stop mongodb/brew/mongodb-community@4.2;
+      brew services stop mongodb/brew/mongodb-community@4.4;
       brew services stop httpd
     }
 
