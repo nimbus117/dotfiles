@@ -158,6 +158,7 @@ let g:fastfold_minlines = 0
 
 " ale - asynchronous lint engine {{{
 let g:ale_sign_error = "->"
+let g:ale_sign_warning = "--"
 let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fix_on_save = 1 " run fixers on save
