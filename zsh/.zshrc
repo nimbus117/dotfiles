@@ -22,56 +22,45 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 #}}}
 
-## mac specific {{{
+## environment variables {{{
 
-if [[ $OSTYPE == 'darwin'* ]]; then
-  export TERM="screen-256color"
-  export LESS_TERMCAP_so=$'\E[30;43m'
-  export LESS_TERMCAP_se=$'\E[39;49m'
+# set terminal type
+export TERM="screen-256color"
 
-  export ANDROID_HOME=$HOME/Library/Android/sdk
-  export PATH=$PATH:$ANDROID_HOME/emulator
-  export PATH=$PATH:$ANDROID_HOME/tools
-  export PATH=$PATH:$ANDROID_HOME/tools/bin
-  export PATH=$PATH:$ANDROID_HOME/platform-tools
+# set default editor
+export VISUAL=vim
+export EDITOR=vim
 
-  if command -v gls >/dev/null; then
-    alias ls="gls --color"
-  fi
+# don't show % at the end of partial lines
+export PROMPT_EOL_MARK=""
 
-  if command -v gdircolors >/dev/null; then
-    alias dircolors="gdircolors"
-  fi
+# set less options
+# i - case insensitive search (unless pattern contains capital)
+# R - enable coloured output
+# S - don't wrap lines
+# c - clear-screen - Causes full screen repaints to be painted from the top line down
+if command -v less >/dev/null; then
+  export LESS=iRSc
+fi
 
-  if [ -d  /opt/homebrew/opt/mongodb-community@4.2/bin ]; then
-    export PATH=/opt/homebrew/opt/mongodb-community@4.2/bin:$PATH
-  fi
+# history settings
+export HISTFILE="$HOME/.zsh_history"
+export HISTSIZE=100000
+export SAVEHIST=$HISTSIZE
+#}}}
 
-  if [ -d  /opt/homebrew/opt/php@7.4/bin ]; then
-    export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
-    export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
-  fi
+## path {{{
 
-  if [ -d  /Users/$USER/Library/Python/3.8/bin ]; then
-    export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
-  fi
+if [ -d  $HOME/.bin ]; then
+  export PATH=$HOME/.bin:$PATH
+fi
 
-  # dev environment {{{
-  if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
-    startDevServices() {
-      brew services start mongodb/brew/mongodb-community@4.4;
-      brew services start httpd
-    }
-    stopDevServices() {
-      brew services stop mongodb/brew/mongodb-community@4.4;
-      brew services stop httpd
-    }
+if [ -d  $HOME/.local/bin/ ]; then
+  export PATH=$HOME/.local/bin:$PATH
+fi
 
-    sessionName=devenv
-    devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
-    devdown() { stopDevServices; screen -S $sessionName -X quit }
-  fi
-  #}}}
+if [ -d  $HOME/.config/composer/vendor/bin ]; then
+  export PATH=$PATH:$HOME/.config/composer/vendor/bin
 fi
 #}}}
 
@@ -240,42 +229,6 @@ function mk(){
 #}}}
 #}}}
 
-## environment variables {{{
-
-# set default editor
-export VISUAL=vim
-export EDITOR=vim
-
-# don't show % at the end of partial lines
-export PROMPT_EOL_MARK=""
-
-# set less options
-# i - case insensitive search (unless pattern contains capital)
-# R - enable coloured output
-# S - don't wrap lines
-# F - quit if output fits in one screen
-# X - don't clear the screen on exit
-# c - clear-screen - Causes full screen repaints to be painted from the top line down
-if command -v less >/dev/null; then
-  export LESS=iRSc #FX
-fi
-#}}}
-
-## path {{{
-
-if [ -d  $HOME/.bin ]; then
-  export PATH=$HOME/.bin:$PATH
-fi
-
-if [ -d  $HOME/.local/bin/ ]; then
-  export PATH=$HOME/.local/bin:$PATH
-fi
-
-if [ -d  $HOME/.config/composer/vendor/bin ]; then
-  export PATH=$PATH:$HOME/.config/composer/vendor/bin
-fi
-#}}}
-
 ## misc {{{
 
 # set colours for ls
@@ -309,10 +262,56 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # edit current command line in $EDITOR
 bindkey -M vicmd "^V" edit-command-line
+#}}}
 
+## mac specific {{{
 
-# history settings
-HISTFILE="$HOME/.zsh_history"
-HISTSIZE=100000
-SAVEHIST=$HISTSIZE
+if [[ $OSTYPE == 'darwin'* ]]; then
+  export LESS_TERMCAP_so=$'\E[30;43m'
+  export LESS_TERMCAP_se=$'\E[39;49m'
+
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  export PATH=$PATH:$ANDROID_HOME/emulator
+  export PATH=$PATH:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+  if command -v gls >/dev/null; then
+    alias ls="gls --color"
+  fi
+
+  if command -v gdircolors >/dev/null; then
+    alias dircolors="gdircolors"
+  fi
+
+  if [ -d  /opt/homebrew/opt/mongodb-community@4.4/bin ]; then
+    export PATH=/opt/homebrew/opt/mongodb-community@4.4/bin:$PATH
+  fi
+
+  if [ -d  /opt/homebrew/opt/php@7.4/bin ]; then
+    export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
+    export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
+  fi
+
+  if [ -d  /Users/$USER/Library/Python/3.8/bin ]; then
+    export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
+  fi
+
+  # dev environment {{{
+  if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
+    startDevServices() {
+      brew services start mongodb/brew/mongodb-community@4.4;
+      brew services start httpd
+    }
+    stopDevServices() {
+      brew services stop mongodb/brew/mongodb-community@4.4;
+      brew services stop httpd
+    }
+
+    sessionName=devenv
+    devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
+    devdown() { stopDevServices; screen -S $sessionName -X quit }
+  fi
+  #}}}
+fi
 #}}}
