@@ -39,4 +39,3 @@ ln -fsv "$(pwd)/powershell/Microsoft.PowerShell_profile.ps1" "$HOME/.config/powe
 # ranger conf file
 mkdir -p "$HOME/.config/ranger"
 ln -fsv "$(pwd)/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
-

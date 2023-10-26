@@ -24,9 +24,6 @@ source $ZSH/oh-my-zsh.sh
 
 ## environment variables {{{
 
-# set terminal type
-export TERM="screen-256color"
-
 # set default editor
 export VISUAL=vim
 export EDITOR=vim

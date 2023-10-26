@@ -1,6 +1,9 @@
 # start as login shell
 shell -${SHELL}
 
+-# set terminal type
+term "screen-256color"
+
 # change background-color-erase setting
 defbce on
 
