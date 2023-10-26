@@ -107,7 +107,9 @@ let g:netrw_list_hide = '\.swp$' " hide *.swp files
 let g:Lf_WindowHeight = 10
 let g:Lf_HideHelp = 1
 let g:Lf_ShowDevIcons = 0
+let g:Lf_PreviewInPopup = 0
 let g:Lf_StlSeparator = {'left': '', 'right': ''}
+let g:Lf_PreviewResult = {'BufTag': 0, 'Function': 0}
 let g:Lf_StlPalette = {
       \ 'stlName': {'ctermfg': 'black','ctermbg': 'darkblue','cterm': 'NONE'},
       \ 'stlCategory': {'ctermfg': 'black','ctermbg': 'green'},
@@ -119,11 +121,6 @@ let g:Lf_StlPalette = {
       \ 'stlLineInfo': {'ctermfg': 'black','ctermbg': 'green'},
       \ 'stlTotal': {'ctermfg': 'black','ctermbg': 'blue'}
       \ }
-let g:Lf_PreviewResult = {
-      \ 'BufTag': 0,
-      \ 'Function': 0,
-      \ }
-let g:Lf_PreviewInPopup = 0
 " }}}
 
 " ultisnips - snippets in vim {{{
@@ -162,8 +159,6 @@ let g:ale_sign_warning = "--"
 let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fix_on_save = 1 " run fixers on save
-let g:ale_javascript_eslint_use_global = 1
-let g:ale_javascript_eslint_executable = 'eslint_d'
 let g:ale_fixers = {
       \ 'javascript': [ 'eslint' ],
       \ 'javascriptreact': [ 'eslint' ],
@@ -176,6 +171,10 @@ let g:ale_fixers = {
       \ 'scss': [ 'prettier' ],
       \ 'yaml': [ 'prettier' ],
       \ }
+
+" use eslint_d global install (npm i -g eslint_d)
+let g:ale_javascript_eslint_use_global = 1
+let g:ale_javascript_eslint_executable = 'eslint_d'
 " }}}
 
 " vim-markdown - markdown settings {{{
