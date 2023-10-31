@@ -22,6 +22,58 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 #}}}
 
+## mac specific {{{
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+  export LESS_TERMCAP_so=$'\E[30;43m'
+  export LESS_TERMCAP_se=$'\E[39;49m'
+
+  export ANDROID_HOME=$HOME/Library/Android/sdk
+  export PATH=$PATH:$ANDROID_HOME/emulator
+  export PATH=$PATH:$ANDROID_HOME/tools
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+  if command -v gls >/dev/null; then
+    alias ls="gls --color"
+  fi
+
+  if command -v gdircolors >/dev/null; then
+    alias dircolors="gdircolors"
+  fi
+
+  if [ -d  /opt/homebrew/opt/mongodb-community@4.4/bin ]; then
+    export PATH=/opt/homebrew/opt/mongodb-community@4.4/bin:$PATH
+  fi
+
+  if [ -d  /opt/homebrew/opt/php@7.4/bin ]; then
+    export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
+    export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
+  fi
+
+  if [ -d  /Users/$USER/Library/Python/3.8/bin ]; then
+    export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
+  fi
+
+  # dev environment {{{
+  if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
+    startDevServices() {
+      brew services start mongodb/brew/mongodb-community@4.4;
+      brew services start httpd
+    }
+    stopDevServices() {
+      brew services stop mongodb/brew/mongodb-community@4.4;
+      brew services stop httpd
+    }
+
+    sessionName=devenv
+    devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
+    devdown() { stopDevServices; screen -S $sessionName -X quit }
+  fi
+  #}}}
+fi
+#}}}
+
 ## environment variables {{{
 
 # set default editor
@@ -259,56 +311,4 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # edit current command line in $EDITOR
 bindkey -M vicmd "^V" edit-command-line
-#}}}
-
-## mac specific {{{
-
-if [[ $OSTYPE == 'darwin'* ]]; then
-  export LESS_TERMCAP_so=$'\E[30;43m'
-  export LESS_TERMCAP_se=$'\E[39;49m'
-
-  export ANDROID_HOME=$HOME/Library/Android/sdk
-  export PATH=$PATH:$ANDROID_HOME/emulator
-  export PATH=$PATH:$ANDROID_HOME/tools
-  export PATH=$PATH:$ANDROID_HOME/tools/bin
-  export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-  if command -v gls >/dev/null; then
-    alias ls="gls --color"
-  fi
-
-  if command -v gdircolors >/dev/null; then
-    alias dircolors="gdircolors"
-  fi
-
-  if [ -d  /opt/homebrew/opt/mongodb-community@4.4/bin ]; then
-    export PATH=/opt/homebrew/opt/mongodb-community@4.4/bin:$PATH
-  fi
-
-  if [ -d  /opt/homebrew/opt/php@7.4/bin ]; then
-    export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
-    export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
-  fi
-
-  if [ -d  /Users/$USER/Library/Python/3.8/bin ]; then
-    export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
-  fi
-
-  # dev environment {{{
-  if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
-    startDevServices() {
-      brew services start mongodb/brew/mongodb-community@4.4;
-      brew services start httpd
-    }
-    stopDevServices() {
-      brew services stop mongodb/brew/mongodb-community@4.4;
-      brew services stop httpd
-    }
-
-    sessionName=devenv
-    devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
-    devdown() { stopDevServices; screen -S $sessionName -X quit }
-  fi
-  #}}}
-fi
 #}}}
