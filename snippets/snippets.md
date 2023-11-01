@@ -28,9 +28,12 @@ Bash
 - Show all cowfile pictures
   - `for f in `cowsay -l | sed "1d"`; do cowsay -f $f "I am $f"; done | less`
 
-- create and extract tar archive with gzip
+- Create and extract tar archive with gzip
   - `tar -zcvf archiveName.tar.gz folderName`
   - `tar -zxvf archiveName.tar.gz`
+
+- Convert unix timestamp
+    - date -r 1624104159
 
 MySQL
 -----
@@ -84,5 +87,13 @@ GitHub
 
 eslint
 ------
+
 - run eslint against changed files
   - `eslint $(git diff --name-only HEAD | grep -E '\.(ts|tsx)$' | xargs)`
+
+PHP
+---
+
+- dump to a file in the directory of the application
+    - file_put_contents('dump.txt', $data);
+
