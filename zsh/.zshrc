@@ -55,6 +55,9 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
   fi
 
+  alias gpt1='git push origin "$(git symbolic-ref --short HEAD)":t1 --force'
+  alias gpt2='git push origin "$(git symbolic-ref --short HEAD)":t2 --force'
+
   # dev environment {{{
   if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
     startDevServices() {
