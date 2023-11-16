@@ -34,6 +34,9 @@ if [[ $OSTYPE == 'darwin'* ]]; then
   export PATH=$PATH:$ANDROID_HOME/tools/bin
   export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+  alias gpt1='git push origin "$(git symbolic-ref --short HEAD)":t1 --force'
+  alias gpt2='git push origin "$(git symbolic-ref --short HEAD)":t2 --force'
+
   if command -v gls >/dev/null; then
     alias ls="gls --color"
   fi
@@ -55,8 +58,16 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
   fi
 
-  alias gpt1='git push origin "$(git symbolic-ref --short HEAD)":t1 --force'
-  alias gpt2='git push origin "$(git symbolic-ref --short HEAD)":t2 --force'
+  # papertrail functions {{{
+  if command -v papertrail >/dev/null; then
+    ptf() { papertrail --follow --delay 5 $* }
+    pt() { papertrail $* }
+
+    if command -v jq >/dev/null; then
+      ptj() { papertrail $* | cut -d' ' -f'7-' | jq }
+    fi
+  fi
+  #}}}
 
   # dev environment {{{
   if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
@@ -139,10 +150,14 @@ if command -v ranger >/dev/null; then
 fi
 
 # http server in current directory (default port 8000)
-alias serve='python3 -m http.server'
+if command -v python3 >/dev/null; then
+  alias serve='python3 -m http.server'
+fi
 
 # open snippets file in vim
-alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
+if [ -f  $HOME/code/dotfiles/snippets/snippets.md ]; then
+  alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
+fi
 
 # always turn colorization on
 alias tree='tree -C'
@@ -166,17 +181,6 @@ cheat() { curl -s "https://cheat.sh/"$1 | less }
 
 # load environment variables for ssh-agent and add ssh pass
 sshadd() { eval $(ssh-agent); ssh-add }
-
-# papertrail functions {{{
-if command -v papertrail >/dev/null; then
-  ptf() { papertrail --follow --delay 5 $* }
-  pt() { papertrail $* }
-
-  if command -v jq >/dev/null; then
-    ptj() { papertrail $* | cut -d' ' -f'7-' | jq }
-  fi
-fi
-#}}}
 
 # open google search for the given args {{{
 google() {
