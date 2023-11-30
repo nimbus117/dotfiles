@@ -1,3 +1,10 @@
+# before oh-my-zsh {{{
+
+if [[ $OSTYPE == 'darwin'* ]]; then
+  FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
+fi
+#}}}
+
 ## oh-my-zsh {{{
 
 # Path to your oh-my-zsh installation
@@ -15,6 +22,7 @@ plugins=(
   history
   npm
   nvm
+  ripgrep
   vi-mode
   z
 )
@@ -27,15 +35,6 @@ source $ZSH/oh-my-zsh.sh
 if [[ $OSTYPE == 'darwin'* ]]; then
   export LESS_TERMCAP_so=$'\E[30;43m'
   export LESS_TERMCAP_se=$'\E[39;49m'
-
-  export ANDROID_HOME=$HOME/Library/Android/sdk
-  export PATH=$PATH:$ANDROID_HOME/emulator
-  export PATH=$PATH:$ANDROID_HOME/tools
-  export PATH=$PATH:$ANDROID_HOME/tools/bin
-  export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-  alias gpt1='git push origin "$(git symbolic-ref --short HEAD)":t1 --force'
-  alias gpt2='git push origin "$(git symbolic-ref --short HEAD)":t2 --force'
 
   if command -v gls >/dev/null; then
     alias ls="gls --color"
@@ -54,22 +53,12 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
   fi
 
-  if [ -d  /Users/$USER/Library/Python/3.8/bin ]; then
-    export PATH=$PATH:/Users/$USER/Library/Python/3.8/bin
-  fi
-
-  # papertrail functions {{{
+  # work {{{
   if command -v papertrail >/dev/null; then
     ptf() { papertrail --follow --delay 5 $* }
     pt() { papertrail $* }
-
-    if command -v jq >/dev/null; then
-      ptj() { papertrail $* | cut -d' ' -f'7-' | jq }
-    fi
   fi
-  #}}}
 
-  # dev environment {{{
   if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
     startDevServices() {
       brew services start mongodb/brew/mongodb-community@4.4;
@@ -84,6 +73,9 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
     devdown() { stopDevServices; screen -S $sessionName -X quit }
   fi
+
+  alias gpt1='git push origin "$(git symbolic-ref --short HEAD)":t1 --force'
+  alias gpt2='git push origin "$(git symbolic-ref --short HEAD)":t2 --force'
   #}}}
 fi
 #}}}
