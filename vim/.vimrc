@@ -13,7 +13,6 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'francoiscabrol/ranger.vim'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -21,14 +20,12 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'joaohkfaria/vim-jest-snippets'
 Plug 'jremmen/vim-ripgrep'
 Plug 'Konfekt/FastFold'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'mattn/emmet-vim'
 Plug 'maximbaz/lightline-ale'
 Plug 'mbbill/undotree'
 Plug 'nimbus117/markdown.vim'
 Plug 'nimbus117/mongodb.vim'
 Plug 'nimbus117/prettier.vim'
-Plug 'olalonde/jest-quickfix-reporter'
 Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
 Plug 'SirVer/ultisnips'
@@ -177,12 +174,6 @@ let g:ale_javascript_eslint_use_global = 1
 let g:ale_javascript_eslint_executable = 'eslint_d'
 " }}}
 
-" vim-markdown - markdown settings {{{
-let g:markdown_folding = 1
-let g:vim_markdown_new_list_item_indent = 2
-let g:vim_markdown_toc_autofit = 1
-" }}}
-
 " matchit - extended matching with %
 packadd! matchit
 
@@ -197,12 +188,6 @@ let g:grip_default_map = 0
 
 " vim-test - wrapper for running tests
 let test#strategy="vimterminal"
-
-" vim-gutentags - manage tag files
-let g:gutentags_project_root=['.git']
-
-" ranger.vim - browse using ranger
-let g:ranger_map_keys = 0
 " }}}
 
 " ### functions/commands {{{
@@ -412,8 +397,6 @@ nnoremap <leader><leader> <c-w>w
 nnoremap <silent> <leader>/ :setlocal hlsearch!<cr>:setlocal hlsearch?<cr>
 " go to alternate buffer
 nnoremap <silent> <leader>a :buffer #<cr>
-" launch LeaderF to search tags (ctags)
-nnoremap <silent> <leader>c :LeaderfTag<cr>
 " toggle file explorer
 nnoremap <silent> <expr> <leader>e &ft == 'netrw' ? ':Rexplore<cr>' : ':Explore<cr>'
 " open git diff of current buffer in a new tab
