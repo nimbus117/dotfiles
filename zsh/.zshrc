@@ -40,6 +40,10 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     alias ls="gls --color"
   fi
 
+  if command -v gsed >/dev/null; then
+    PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
+  fi
+
   if command -v gdircolors >/dev/null; then
     alias dircolors="gdircolors"
   fi
