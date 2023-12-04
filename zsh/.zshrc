@@ -106,6 +106,9 @@ fi
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
+
+# bat (cat replacement) color scheme
+export BAT_THEME='Solarized (dark)'
 #}}}
 
 ## path {{{
@@ -143,6 +146,11 @@ fi
 # ranger file explorer
 if command -v ranger >/dev/null; then
   alias r='source ranger'
+fi
+
+# bat (cat replacement)
+if command -v bat >/dev/null; then
+  alias cat='bat'
 fi
 
 # http server in current directory (default port 8000)
