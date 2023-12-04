@@ -13,6 +13,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
 Plug 'editorconfig/editorconfig-vim'
+Plug 'francoiscabrol/ranger.vim'
 Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
@@ -188,6 +189,9 @@ let g:grip_default_map = 0
 
 " vim-test - wrapper for running tests
 let test#strategy="vimterminal"
+
+" ranger.vim - browse using ranger
+let g:ranger_map_keys = 0
 " }}}
 
 " ### functions/commands {{{
