@@ -1,5 +1,6 @@
 # before oh-my-zsh {{{
 
+# brew autocomplete
 if [[ $OSTYPE == 'darwin'* ]]; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
@@ -7,7 +8,7 @@ fi
 
 ## oh-my-zsh {{{
 
-# Path to your oh-my-zsh installation
+# path to your oh-my-zsh installation
 export ZSH=~/.oh-my-zsh
 
 # Set theme
@@ -98,9 +99,7 @@ export PROMPT_EOL_MARK=""
 # R - enable coloured output
 # S - don't wrap lines
 # c - clear-screen - Causes full screen repaints to be painted from the top line down
-if command -v less >/dev/null; then
-  export LESS=iRSc
-fi
+export LESS=iRSc
 
 # history settings
 export HISTFILE="$HOME/.zsh_history"

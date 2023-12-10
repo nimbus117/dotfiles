@@ -1,8 +1,11 @@
 # start as login shell
 shell -${SHELL}
 
--# set terminal type
+# set terminal type
 term "screen-256color"
+
+# unset COLORTERM (fixes bat syntax highlighting)
+unsetenv COLORTERM
 
 # change background-color-erase setting
 defbce on
