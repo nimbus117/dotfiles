@@ -129,7 +129,7 @@ let g:UltiSnipsJumpBackwardTrigger = "<s-tab>" " jump back in snippet
 
 " vim-rest-console - rest requests {{{
 let g:vrc_auto_format_response_patterns = {
-      \ 'json': 'python -m json.tool',
+      \ 'json': 'python3 -m json.tool',
       \ 'xml': 'xmllint --format -',
       \ }
 
@@ -257,7 +257,7 @@ command!
 " }}}
 
 " format json
-command! -range=% JSON <line1>,<line2>!python -m json.tool
+command! -range=% JSON <line1>,<line2>!python3 -m json.tool
 
 " copy the current buffers full filepath to the default register
 command! CopyFilePath let @" = expand("%:p")
