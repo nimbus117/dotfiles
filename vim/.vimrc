@@ -169,6 +169,9 @@ let g:ale_fixers = {
       \ 'scss': [ 'prettier' ],
       \ 'yaml': [ 'prettier' ],
       \ }
+let g:ale_linters = {
+      \ 'html': [],
+      \ }
 
 " use eslint_d global install (npm i -g eslint_d)
 let g:ale_javascript_eslint_use_global = 1
