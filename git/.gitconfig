@@ -15,8 +15,9 @@
 [pull]
   ff = only
 [include]
- 	path = ~/.gitconfigUser
+  path = ~/.gitconfigUser
+
 ; add to ~/.gitconfigUser
 ; [user]
-; 	name = xxxxx
-; 	email = xxxxx@yyyyy.com
+;   name = xxxxx
+;   email = xxxxx@yyyyy.com
