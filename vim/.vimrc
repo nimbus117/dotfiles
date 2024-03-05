@@ -23,12 +23,12 @@ Plug 'jremmen/vim-ripgrep'
 Plug 'Konfekt/FastFold'
 Plug 'mattn/emmet-vim'
 Plug 'maximbaz/lightline-ale'
-Plug 'mbbill/undotree'
 Plug 'nimbus117/markdown.vim'
 Plug 'nimbus117/mongodb.vim'
 Plug 'nimbus117/prettier.vim'
 Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
+Plug 'simnalamburt/vim-mundo'
 Plug 'SirVer/ultisnips'
 Plug 'swekaj/php-foldexpr.vim'
 Plug 'tommcdo/vim-exchange'
@@ -180,9 +180,6 @@ let g:ale_javascript_eslint_executable = 'eslint_d'
 
 " matchit - extended matching with %
 packadd! matchit
-
-" undotree - visualizes undo history
-let g:undotree_WindowLayout = 2
 
 " editorconfig - maintain consistent coding styles
 let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
@@ -443,7 +440,7 @@ nnoremap <silent> <leader>tn :tabnew<cr>
 " close all other tabs
 nnoremap <silent> <leader>to :tabonly<cr>
 " toggle undotree
-nnoremap <silent> <leader>ut :UndotreeToggle<cr>
+nnoremap <silent> <leader>ut :MundoToggle<cr>
 " same as <c-w>
 nnoremap <leader>w <c-w>
 " increase/decrase window size
