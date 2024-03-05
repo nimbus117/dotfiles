@@ -49,6 +49,7 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     alias dircolors="gdircolors"
   fi
 
+  # work {{{
   if [ -d  /opt/homebrew/opt/mongodb-community@4.4/bin ]; then
     export PATH=/opt/homebrew/opt/mongodb-community@4.4/bin:$PATH
   fi
@@ -58,7 +59,6 @@ if [[ $OSTYPE == 'darwin'* ]]; then
     export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
   fi
 
-  # work {{{
   if command -v papertrail >/dev/null; then
     ptf() { papertrail --follow --delay 5 $* }
     pt() { papertrail $* }
@@ -150,6 +150,9 @@ fi
 # bat (cat replacement)
 if command -v bat >/dev/null; then
   alias cat='bat'
+fi
+if command -v batcat >/dev/null; then
+  alias cat='batcat'
 fi
 
 # http server in current directory (default port 8000)
