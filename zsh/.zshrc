@@ -303,15 +303,6 @@ if [ -f  /usr/local/bin/aws_zsh_completer.sh ]; then
   source /usr/local/bin/aws_zsh_completer.sh
 fi
 
-# vi mode indicator
-function zle-line-init zle-keymap-select {
-  RPS1=${${KEYMAP/vicmd/%{$fg[red]%}<<<}/(main|viins)/%{$fg[green]%}}%{$reset_color%}
-  RPS2=$RPS1
-  zle reset-prompt
-}
-zle -N zle-line-init
-zle -N zle-keymap-select
-
 # enter normal mode in zsh vi-mode
 bindkey "jk" vi-cmd-mode
 
