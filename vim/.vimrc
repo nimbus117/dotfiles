@@ -273,6 +273,8 @@ if has('autocmd')
   augroup vimrc
     " remove all autocommands for the current group
     autocmd!
+    " clear screen on exit
+    autocmd VimLeave * :!clear
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " clean up netrw hidden buffers, enable line numbers
@@ -354,6 +356,7 @@ set splitbelow " splitting a window will put the new window below the current on
 set splitright " splitting a window vertically will put the new window to the right of the current one
 set synmaxcol=500 " only highlight the first 500 columns
 set t_Co=16 " set number of colors
+set t_te="" " clear screen on exit
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
 
