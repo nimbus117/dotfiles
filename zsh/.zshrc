@@ -12,7 +12,7 @@ fi
 export ZSH=~/.oh-my-zsh
 
 # Set theme
-ZSH_THEME="mySimple"
+ZSH_THEME="nimbus117"
 
 # plugins
 plugins=(

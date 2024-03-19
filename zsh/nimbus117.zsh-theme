@@ -1,45 +1,44 @@
-myPrompt() {
+getPrompt() {
 
-   # local divider="%{$fg[cyan]%} | "
-   local divider=" "
+   divider=" "
 
    prompt=""
 
    # Highlight when in a ranger terminal
    if [ -n "$RANGER_LEVEL"  ]; then
-      prompt=$prompt"%{$fg[red]%}ranger$divider"
+      prompt+="%{$fg[red]%}ranger"$divider
    fi
 
    # hostname
-   prompt=$prompt"%{$fg[blue]%}%m"$divider
+   prompt+="%{$fg[blue]%}%m"$divider
 
    # node version
    if which nvm &> /dev/null; then
       node=$(nvm current)
-      prompt=$prompt"%{$fg[cyan]%}("${node%%.*}")"$divider
+      prompt+="%{$fg[cyan]%}("${node%%.*}")"$divider
    fi
 
    # directory
-   prompt=$prompt"%{$fg[green]%}%~"$divider
+   prompt+="%{$fg[green]%}%~"$divider
 
    # git branch/status
-   if [[ -n $(git_prompt_info) ]]; then
-      prompt=$prompt"%{$fg[blue]%}$(git_prompt_info)"$divider
+   if which git &> /dev/null; then
+      prompt+="%{$fg[blue]%}$(git_prompt_info)"$divider
    fi
 
    # fill line
    zero='%([BSUbfksu]|([FK]|){*})'
    promptLength=${#${(S%%)prompt//$~zero/}}
-   prompt=$prompt"%{$fg[gray]%}${(r:$COLUMNS-$promptLength::─:)}"
+   prompt+="%{$fg[gray]%}${(r:$COLUMNS-$promptLength::─:)}"
 
    # new line
-   prompt=$prompt$'\n'
+   prompt+=$'\n'
 
    # return status
-   prompt=$prompt"%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
+   prompt+="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
 
    # reset color
-   prompt=$prompt"%{$reset_color%}"
+   prompt+="%{$reset_color%}"
 
    echo $prompt
 }
@@ -58,4 +57,4 @@ ZSH_THEME_GIT_PROMPT_SUFFIX=""
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔"
 
-PROMPT='$(myPrompt)'
+PROMPT='$(getPrompt)'

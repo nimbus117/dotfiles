@@ -22,8 +22,8 @@ do
   ln -fsv $(pwd)/$i $HOME/${i##*/}
 done
 
-# mySimple zsh theme
-ln -fsv "$(pwd)/zsh/mySimple.zsh-theme" "$HOME/.oh-my-zsh/themes/mySimple.zsh-theme"
+# nimbus117 zsh theme
+ln -fsv "$(pwd)/zsh/nimbus117.zsh-theme" "$HOME/.oh-my-zsh/themes/nimbus117.zsh-theme"
 
 # ranger conf file
 mkdir -p "$HOME/.config/ranger"
