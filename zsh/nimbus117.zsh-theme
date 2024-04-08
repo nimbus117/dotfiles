@@ -1,30 +1,28 @@
-getPrompt() {
+_omz_register_handler _omz_git_prompt_info
 
-   divider=" "
+getPrompt() {
 
    prompt=""
 
-   # Highlight when in a ranger terminal
+   # highlight when in a ranger terminal
    if [ -n "$RANGER_LEVEL"  ]; then
-      prompt+="%{$fg[red]%}ranger"$divider
+      prompt+="%{$fg[red]%}ranger "
    fi
 
    # hostname
-   prompt+="%{$fg[blue]%}%m"$divider
+   prompt+="%{$fg[blue]%}%m "
 
    # node version
    if which nvm &> /dev/null; then
       node=$(nvm current)
-      prompt+="%{$fg[cyan]%}("${node%%.*}")"$divider
+      prompt+="%{$fg[cyan]%}("${node%%.*}") "
    fi
 
    # directory
-   prompt+="%{$fg[green]%}%~"$divider
+   prompt+="%{$fg[green]%}%~ "
 
    # git branch/status
-   if which git &> /dev/null; then
-      prompt+="%{$fg[blue]%}$(git_prompt_info)"$divider
-   fi
+   prompt+="%{$fg[blue]%}$(git_prompt_info) "
 
    # fill line
    zero='%([BSUbfksu]|([FK]|){*})'
@@ -37,7 +35,7 @@ getPrompt() {
    # return status
    prompt+="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
 
-   # reset color
+   # reset colour
    prompt+="%{$reset_color%}"
 
    echo $prompt
