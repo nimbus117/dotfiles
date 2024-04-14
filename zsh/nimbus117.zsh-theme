@@ -1,8 +1,11 @@
-_omz_register_handler _omz_git_prompt_info
+# register git_prompt_info
+if which git &> /dev/null; then
+   _omz_register_handler _omz_git_prompt_info
+fi
 
 getPrompt() {
 
-   prompt=""
+   local prompt=""
 
    # highlight when in a ranger terminal
    if [ -n "$RANGER_LEVEL"  ]; then
@@ -14,7 +17,7 @@ getPrompt() {
 
    # node version
    if which nvm &> /dev/null; then
-      node=$(nvm current)
+      local node=$(nvm current)
       prompt+="%{$fg[cyan]%}("${node%%.*}") "
    fi
 
@@ -22,11 +25,16 @@ getPrompt() {
    prompt+="%{$fg[green]%}%~ "
 
    # git branch/status
-   prompt+="%{$fg[blue]%}$(git_prompt_info) "
+   if which git &> /dev/null; then
+      local gitInfo=$(git_prompt_info)
+      if [ -n "$gitInfo" ]; then
+         prompt+="%{$fg[blue]%}$gitInfo "
+      fi
+   fi
 
    # fill line
-   zero='%([BSUbfksu]|([FK]|){*})'
-   promptLength=${#${(S%%)prompt//$~zero/}}
+   local zero='%([BSUbfksu]|([FK]|){*})'
+   local promptLength=${#${(S%%)prompt//$~zero/}}
    prompt+="%{$fg[gray]%}${(r:$COLUMNS-$promptLength::─:)}"
 
    # new line
