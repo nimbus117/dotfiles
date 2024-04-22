@@ -3,7 +3,7 @@ if which git &> /dev/null; then
    _omz_register_handler _omz_git_prompt_info
 fi
 
-getPrompt() {
+createPrompt() {
 
    local prompt=""
 
@@ -51,7 +51,8 @@ getPrompt() {
 
 # vi mode indicator
 function zle-line-init zle-keymap-select {
-   RPS1=${${KEYMAP/vicmd/%{$fg[red]%}<<<}/(main|viins)/%{$fg[green]%}}%{$reset_color%}
+   # RPS1=${${KEYMAP/vicmd/%{$fg[red]%}NORMAL}/(main|viins)/%{$fg[green]%}INSERT}%{$reset_color%}
+   RPS1=${${KEYMAP/vicmd/%{$fg[red]%}<<<}/(main|viins)/}%{$reset_color%}
    RPS2=$RPS1
    zle reset-prompt
 }
@@ -63,4 +64,4 @@ ZSH_THEME_GIT_PROMPT_SUFFIX=""
 ZSH_THEME_GIT_PROMPT_DIRTY=" %{$fg[red]%}✗"
 ZSH_THEME_GIT_PROMPT_CLEAN=" %{$fg[green]%}✔"
 
-PROMPT='$(getPrompt)'
+PROMPT='$(createPrompt)'
