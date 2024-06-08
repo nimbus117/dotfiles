@@ -8,13 +8,11 @@ read
 
 # create links in home directory
 declare -a dotfiles=(
-  # "ctags/.ctags"
   "git/.gitconfig"
   "git/.gitignore_global"
   "screen/.screenrc"
   "vim/.vimrc"
   "zsh/.zshrc"
-  # "mongo/.mongorc.js"
 )
 
 for i in "${dotfiles[@]}"
@@ -28,11 +26,3 @@ ln -fsv "$(pwd)/zsh/nimbus117.zsh-theme" "$HOME/.oh-my-zsh/themes/nimbus117.zsh-
 # ranger conf file
 mkdir -p "$HOME/.config/ranger"
 ln -fsv "$(pwd)/ranger/rc.conf" "$HOME/.config/ranger/rc.conf"
-
-# universal ctags config
-# mkdir -p "$HOME/.ctags.d"
-# ln -fsv "$(pwd)/ctags/universal.ctags" "$HOME/.ctags.d/universal.ctags"
-
-# powershell profile
-# mkdir -p "$HOME/.config/powershell"
-# ln -fsv "$(pwd)/powershell/Microsoft.PowerShell_profile.ps1" "$HOME/.config/powershell/Microsoft.PowerShell_profile.ps1"

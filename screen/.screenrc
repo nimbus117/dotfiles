@@ -1,13 +1,8 @@
-# start as login shell
-shell -${SHELL}
+# # set terminal type
+term "screen.xterm-256color"
+setenv COLORTERM "screen.xterm-256color"
 
-# set terminal type
-term "screen-256color"
-
-# unset COLORTERM (fixes bat syntax highlighting)
-unsetenv COLORTERM
-
-# change background-color-erase setting
+# set background-color-erase
 defbce on
 
 # disable visual bell

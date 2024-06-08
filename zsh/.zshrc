@@ -1,7 +1,7 @@
-# before oh-my-zsh {{{
+## before oh-my-zsh {{{
 
 # brew autocomplete
-if [[ $OSTYPE == 'darwin'* ]]; then
+if [[ $OSTYPE == 'darwin'* ]] && command -v brew >/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 #}}}
@@ -31,60 +31,6 @@ plugins=(
 source $ZSH/oh-my-zsh.sh
 #}}}
 
-## mac specific {{{
-
-if [[ $OSTYPE == 'darwin'* ]]; then
-  export LESS_TERMCAP_so=$'\E[30;43m'
-  export LESS_TERMCAP_se=$'\E[39;49m'
-
-  if command -v gls >/dev/null; then
-    alias ls="gls --color"
-  fi
-
-  if command -v gsed >/dev/null; then
-    PATH="/opt/homebrew/opt/gnu-sed/libexec/gnubin:$PATH"
-  fi
-
-  if command -v gdircolors >/dev/null; then
-    alias dircolors="gdircolors"
-  fi
-
-  # work {{{
-  if [ -d  /opt/homebrew/opt/mongodb-community@4.4/bin ]; then
-    export PATH=/opt/homebrew/opt/mongodb-community@4.4/bin:$PATH
-  fi
-
-  if [ -d  /opt/homebrew/opt/php@7.4/bin ]; then
-    export export PATH=/opt/homebrew/opt/php@7.4/bin:$PATH
-    export export PATH=/opt/homebrew/opt/php@7.4/sbin:$PATH
-  fi
-
-  if command -v papertrail >/dev/null; then
-    ptf() { papertrail --follow --delay 5 $* }
-    pt() { papertrail $* }
-  fi
-
-  if [ -f $HOME/code/dotfiles/screen/.screenrcApp ]; then
-    startDevServices() {
-      brew services start mongodb/brew/mongodb-community@4.4;
-      brew services start httpd
-    }
-    stopDevServices() {
-      brew services stop mongodb/brew/mongodb-community@4.4;
-      brew services stop httpd
-    }
-
-    sessionName=devenv
-    devup() { screen -S $sessionName -c $HOME/code/dotfiles/screen/.screenrcApp -d -RR }
-    devdown() { stopDevServices; screen -S $sessionName -X quit }
-  fi
-
-  alias gpt1='git push origin "$(git symbolic-ref --short HEAD)":t1 --force'
-  alias gpt2='git push origin "$(git symbolic-ref --short HEAD)":t2 --force'
-  #}}}
-fi
-#}}}
-
 ## environment variables {{{
 
 # set default editor
@@ -101,6 +47,10 @@ export PROMPT_EOL_MARK=""
 # c - clear-screen - Causes full screen repaints to be painted from the top line down
 export LESS=iRSc
 
+# fix less highlighting on mac
+export LESS_TERMCAP_so=$'\E[30;43m'
+export LESS_TERMCAP_se=$'\E[39;49m'
+
 # history settings
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
@@ -108,21 +58,6 @@ export SAVEHIST=$HISTSIZE
 
 # bat (cat replacement) color scheme
 export BAT_THEME='Solarized (dark)'
-#}}}
-
-## path {{{
-
-if [ -d  $HOME/.bin ]; then
-  export PATH=$HOME/.bin:$PATH
-fi
-
-if [ -d  $HOME/.local/bin/ ]; then
-  export PATH=$HOME/.local/bin:$PATH
-fi
-
-if [ -d  $HOME/.config/composer/vendor/bin ]; then
-  export PATH=$PATH:$HOME/.config/composer/vendor/bin
-fi
 #}}}
 
 ## aliases {{{
@@ -137,10 +72,16 @@ alias ll='ls -lAh --group-directories-first'
 # notes function
 alias n='notes'
 
-# open
-if command -v xdg-open >/dev/null; then
-  alias open='xdg-open >/dev/null 2>&1'
-fi
+# exit
+alias :q='exit'
+
+# screen aliases
+alias sl='screenPicker'
+alias sn='screen'
+alias sv='screenVim'
+
+# always turn colorization on
+alias tree='tree -C'
 
 # ranger file explorer
 if command -v ranger >/dev/null; then
@@ -150,8 +91,7 @@ fi
 # bat (cat replacement)
 if command -v bat >/dev/null; then
   alias cat='bat'
-fi
-if command -v batcat >/dev/null; then
+elif command -v batcat >/dev/null; then
   alias cat='batcat'
 fi
 
@@ -161,20 +101,24 @@ if command -v python3 >/dev/null; then
 fi
 
 # open snippets file in vim
-if [ -f  $HOME/code/dotfiles/snippets/snippets.md ]; then
+if [ -f $HOME/code/dotfiles/snippets/snippets.md ]; then
   alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
 fi
 
-# always turn colorization on
-alias tree='tree -C'
+# replace ls with gls if installed
+if command -v gls >/dev/null; then
+  alias ls="gls --color"
+fi
 
-# screen aliases
-alias sl='screenPicker'
-alias sn='screen'
-alias sv='screenVim'
+# replace dircolors with gdircolors if installed
+if command -v gdircolors >/dev/null; then
+  alias dircolors="gdircolors"
+fi
 
-# exit
-alias :q='exit'
+# replace sed with gsed if installed
+if command -v gsed >/dev/null; then
+  alias sed="gsed"
+fi
 #}}}
 
 ## functions {{{
@@ -291,17 +235,7 @@ function mk(){
 #}}}
 #}}}
 
-## misc {{{
-
-# set colours for ls
-if [ -f $HOME/.dircolors ]; then
-  eval $(dircolors $HOME/.dircolors)
-fi
-
-# awscli auto completion
-if [ -f  /usr/local/bin/aws_zsh_completer.sh ]; then
-  source /usr/local/bin/aws_zsh_completer.sh
-fi
+## key bindings {{{
 
 # enter normal mode in zsh vi-mode
 bindkey "jk" vi-cmd-mode
@@ -315,4 +249,17 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 
 # edit current command line in $EDITOR
 bindkey -M vicmd "^V" edit-command-line
+#}}}
+
+## misc {{{
+
+# set colours for ls
+if [ -f $HOME/.dircolors ]; then
+  eval $(dircolors $HOME/.dircolors)
+fi
+
+# awscli auto completion
+if [ -f  /usr/local/bin/aws_zsh_completer.sh ]; then
+  source /usr/local/bin/aws_zsh_completer.sh
+fi
 #}}}

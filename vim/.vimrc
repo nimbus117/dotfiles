@@ -10,11 +10,9 @@ endif
 " plugins {{{
 call plug#begin('~/.vim/plugged')
 Plug 'altercation/vim-colors-solarized'
-Plug 'curist/vim-angular-template'
 Plug 'diepm/vim-rest-console'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'francoiscabrol/ranger.vim'
-Plug 'godlygeek/tabular'
 Plug 'honza/vim-snippets'
 Plug 'itchyny/lightline.vim'
 Plug 'jiangmiao/auto-pairs'
@@ -26,11 +24,9 @@ Plug 'maximbaz/lightline-ale'
 Plug 'nimbus117/markdown.vim'
 Plug 'nimbus117/mongodb.vim'
 Plug 'nimbus117/prettier.vim'
-Plug 'PratikBhusal/vim-grip'
 Plug 'sheerun/vim-polyglot'
 Plug 'simnalamburt/vim-mundo'
 Plug 'SirVer/ultisnips'
-Plug 'swekaj/php-foldexpr.vim'
 Plug 'tommcdo/vim-exchange'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-commentary'
@@ -184,9 +180,6 @@ packadd! matchit
 " editorconfig - maintain consistent coding styles
 let g:EditorConfig_exclude_patterns = [ 'fugitive://.\*' ]
 
-" vim-grip - github readme instant preview
-let g:grip_default_map = 0
-
 " vim-test - wrapper for running tests
 let test#strategy="vimterminal"
 
@@ -273,8 +266,6 @@ if has('autocmd')
   augroup vimrc
     " remove all autocommands for the current group
     autocmd!
-    " clear screen on exit
-    autocmd VimLeave * :!clear
     " disable automatic comment leader insertion, remove comment leader when joining lines
     autocmd FileType * setlocal formatoptions-=cro formatoptions+=j
     " clean up netrw hidden buffers, enable line numbers
@@ -289,8 +280,6 @@ if has('autocmd')
     " set foldmethod to syntax
     autocmd FileType ruby,javascript,javascriptreact,typescript,typescriptreact,json,c,scss
           \ setlocal foldmethod=syntax
-    " set php comment string to // (replaces /*  */)
-    autocmd FileType php setlocal commentstring=//\ %s
     " each VRC buffer uses a different display buffer
     autocmd FileType rest let b:vrc_output_buffer_name =
           \ "__VRC_" . substitute(system('echo $RANDOM'), '\n\+$', '', '') . "__" |
@@ -339,7 +328,6 @@ set encoding=utf-8 " set character encoding
 set hidden " causes buffers to be hidden instead of abandoned, allows changing buffer without saving
 set history=1000 " command line mode history
 set incsearch " search as characters are typed
-set lazyredraw " stops the screen being redrawn during some operations, better performance
 set linebreak " don't split words when wrapping text
 set listchars=space:·,tab:»\ ,eol:¬ " set symbols for invisible characters
 set nowrap " don't wrap text
@@ -355,18 +343,19 @@ set spelllang=en_gb " set spelling language to English GB
 set splitbelow " splitting a window will put the new window below the current one
 set splitright " splitting a window vertically will put the new window to the right of the current one
 set synmaxcol=500 " only highlight the first 500 columns
-set t_Co=16 " set number of colors
-set t_te="" " clear screen on exit
 set wildignorecase " case is ignored when completing file names
 set wildmenu " enhanced autocomplete for command menu
 
+" folds
 set foldnestmax=5 " sets the maximum nest level of folds
 set nofoldenable " start with all folds open
 
+" line numbers
 set number " show line numbers
 set numberwidth=3 " set number column width
 set relativenumber " show relative line numbers
 
+" tabs
 set expandtab " use spaces instead of tabs
 set shiftwidth=2 " number of spaces to use for each step of (auto)indent
 set tabstop=2 " number of visual spaces per TAB
