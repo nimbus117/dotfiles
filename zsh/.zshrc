@@ -23,7 +23,6 @@ plugins=(
   history
   npm
   nvm
-  ripgrep
   vi-mode
   z
 )
