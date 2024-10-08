@@ -154,10 +154,10 @@ let g:ale_lint_on_text_changed = 'normal' " don't run linters in insert mode
 let g:ale_lint_on_insert_leave = 1 " run linters when leaving insert mode
 let g:ale_fix_on_save = 1 " run fixers on save
 let g:ale_fixers = {
-      \ 'javascript': [ 'eslint' ],
-      \ 'javascriptreact': [ 'eslint' ],
-      \ 'typescript': [ 'eslint' ],
-      \ 'typescriptreact': [ 'eslint' ],
+      \ 'javascript': [ 'eslint', 'prettier'],
+      \ 'javascriptreact': [ 'eslint', 'prettier' ],
+      \ 'typescript': [ 'eslint', 'prettier' ],
+      \ 'typescriptreact': [ 'eslint', 'prettier' ],
       \ 'css': [ 'prettier' ],
       \ 'graphql': [ 'prettier' ],
       \ 'html': [ 'prettier' ],
