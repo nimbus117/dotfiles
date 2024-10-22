@@ -131,17 +131,6 @@ cheat() { curl -s "https://cheat.sh/"$1 | less }
 # load environment variables for ssh-agent and add ssh pass
 sshadd() { eval $(ssh-agent); ssh-add }
 
-# open google search for the given args {{{
-google() {
-  searchStr=
-  for i in "$@"; do
-    searchStr="$searchStr+$i"
-  done
-  url="https://www.google.co.uk/search?q=$searchStr"
-  open $url
-}
-#}}}
-
 # launch screen with .screenVim config file {{{
 # ( source .screenrc then open vim )
 screenVim() {
@@ -175,19 +164,6 @@ screenPicker() {
     fi
   else
     echo "No screen sessions"
-  fi
-}
-#}}}
-
-# get dad joke {{{
-joke() {
-  joke=$(curl -s https://icanhazdadjoke.com/)
-  if command -v cowsay >/dev/null && command -v lolcat >/dev/null; then
-    cowFile=$(cowsay -l | sed "1d" | tr " " "\n" | sort --random-sort | sed 1q)
-    echo $joke | cowsay -w -f ${cowFile} | lolcat -a -s 320 -d 6
-    echo ""
-  else
-    echo $joke
   fi
 }
 #}}}
