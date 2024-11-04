@@ -91,3 +91,22 @@ PHP
 - dump to a file in the directory of the application
     - file_put_contents('dump.txt', $data);
 
+Setup Basic Typescript Project
+------------------------------
+
+- npm init
+- npm install eslint @eslint/js @types/eslint__js typescript typescript-eslint prettier ts-node typescript -D
+- npx tsc --init
+- git init
+- vim eslint.config.mjs
+```javascript
+  // @ts-check
+
+  import eslint from '@eslint/js'; // E: Module '"/root/code/fp/node_modules/@types/eslint__js/index"' can only be default-imported using the 'esModuleInterop' flag
+  import tseslint from 'typescript-eslint';
+
+  export default tseslint.config(
+    eslint.configs.recommended,
+    ...tseslint.configs.recommended,
+  );
+```
