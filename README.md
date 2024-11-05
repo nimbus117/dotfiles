@@ -1,22 +1,67 @@
-My dotfiles
-===========
+# Dev Environment Setup
 
-Configuration files for Vim, GNU Screen, Git, Zsh and various other things.
+### brew
+```
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+echo "export PATH=/opt/homebrew/bin:$PATH" >> ~/.bash_profile && source ~/.bash_profile
+```
+```
+brew install \
+bat \
+coreutils \
+gnu-sed \
+highlight \
+neovim \
+ranger \
+ripgrep \
+tmux \
+tree \
+wget \
+zsh
+```
 
-Setup Instructions
-------------------
+### iterm2
+```
+brew install --cask iterm2
+```
+```
+wget -P $TMPDIR https://raw.githubusercontent.com/catppuccin/iterm/refs/heads/main/colors/catppuccin-mocha.itermcolors
+open "$TMPDIR"catppuccin-mocha.itermcolors
+```
 
-1. Install [zsh and Oh My Zsh](https://github.com/ohmyzsh/ohmyzsh)
-2. Install the [solarized dark
-   colorscheme](https://ethanschoonover.com/solarized/) for your terminal
-3. Clone this repository
-4. Run install.sh
+### oh-my-zsh
+```
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+```
 
-Screenshots
------------
+### powerlevel10k
+```
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+```
 
-![Screenshot 2020-06-28 at 15 47 22](https://user-images.githubusercontent.com/37874299/85950852-2c9cfa80-b957-11ea-9dbd-8774a1d08be6.png)
+### tmux plugin manager
+```
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
 
-![Screenshot 2020-06-28 at 15 47 53](https://user-images.githubusercontent.com/37874299/85950872-45a5ab80-b957-11ea-82b5-cb7f2aed40fd.png)
+### link dotfiles
+```
+./link.sh
+```
 
-![Screenshot 2020-06-28 at 15 48 53](https://user-images.githubusercontent.com/37874299/85950879-535b3100-b957-11ea-8b85-f2946f339856.png)
+### install meslo nerd font patched for powerlevel10k
+```
+p10k configure
+```
+
+### bat colorscheme
+```
+mkdir -p "$(bat --config-dir)/themes"
+wget -P "$(bat --config-dir)/themes" https://github.com/catppuccin/bat/raw/main/themes/Catppuccin%20Mocha.tmTheme
+bat cache --build
+```
+
+### install nvm
+```
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash
+```

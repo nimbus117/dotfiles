@@ -1,5 +1,10 @@
 ## before oh-my-zsh {{{
 
+# Enable Powerlevel10k instant prompt
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
 # brew autocomplete
 if [[ $OSTYPE == 'darwin'* ]] && command -v brew >/dev/null; then
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
@@ -12,7 +17,7 @@ fi
 export ZSH=~/.oh-my-zsh
 
 # Set theme
-ZSH_THEME="nimbus117"
+ZSH_THEME="powerlevel10k/powerlevel10k"
 
 # plugins
 plugins=(
@@ -33,8 +38,8 @@ source $ZSH/oh-my-zsh.sh
 ## environment variables {{{
 
 # set default editor
-export VISUAL=vim
-export EDITOR=vim
+export VISUAL=nvim
+export EDITOR=nvim
 
 # don't show % at the end of partial lines
 export PROMPT_EOL_MARK=""
@@ -54,9 +59,6 @@ export LESS_TERMCAP_se=$'\E[39;49m'
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
-
-# bat (cat replacement) color scheme
-export BAT_THEME='Solarized (dark)'
 #}}}
 
 ## aliases {{{
@@ -74,24 +76,18 @@ alias n='notes'
 # exit
 alias :q='exit'
 
-# screen aliases
-alias sl='screenPicker'
-alias sn='screen'
-alias sv='screenVim'
-
 # always turn colorization on
 alias tree='tree -C'
+
+# tmux
+alias ta='tmux a -t'
+alias tn='tmux new-session -s'
+alias tv='devSession'
+alias tk='tmux confirm-before kill-session'
 
 # ranger file explorer
 if command -v ranger >/dev/null; then
   alias r='source ranger'
-fi
-
-# bat (cat replacement)
-if command -v bat >/dev/null; then
-  alias cat='bat'
-elif command -v batcat >/dev/null; then
-  alias cat='batcat'
 fi
 
 # http server in current directory (default port 8000)
@@ -99,9 +95,9 @@ if command -v python3 >/dev/null; then
   alias serve='python3 -m http.server'
 fi
 
-# open snippets file in vim
+# open snippets file in nvim
 if [ -f $HOME/code/dotfiles/snippets/snippets.md ]; then
-  alias snip="vim $HOME/code/dotfiles/snippets/snippets.md"
+  alias snip="nvim $HOME/code/dotfiles/snippets/snippets.md"
 fi
 
 # replace ls with gls if installed
@@ -131,51 +127,35 @@ cheat() { curl -s "https://cheat.sh/"$1 | less }
 # load environment variables for ssh-agent and add ssh pass
 sshadd() { eval $(ssh-agent); ssh-add }
 
-# launch screen with .screenVim config file {{{
-# ( source .screenrc then open vim )
-screenVim() {
-  if [ -f $HOME/code/dotfiles/screen/.screenrcVim ]; then
-    screen -c $HOME/code/dotfiles/screen/.screenrcVim $*
-  else
-    screen $*
-  fi
-}
-#}}}
+# run a command in the background
+background() { nohup $* &>/dev/null & }
 
-# pick screen session to reconnect to {{{
-screenPicker() {
-  list=$(screen -ls | sed '1d;$d')
-  count=$(echo -n "$list" | grep -c '^')
-  if [ $count -gt 0 ]; then
-    counter=1
-    sessions=
-    echo $list | while read line; do
-      sessions+="$counter. $line\n"
-      (( counter+=1 ))
-    done
-    echo $sessions | column -t
-    echo -n 'Enter number: '
-    read num
-    if [ $num -gt 0 2> /dev/null ] && [ $num -le $count ]; then
-      screen -d -r $(echo $list | sed -n ${num}'p' | awk '{print $1}')
-    else
-      echo "\nInvalid selection - please enter a number from 1 to $count\n"
-      screenPicker
-    fi
-  else
-    echo "No screen sessions"
-  fi
-}
-#}}}
+# make a folder and cd into it
+mk(){ mkdir -p $1; cd $1 }
 
-# open notes in vim {{{
+devSession() {
+  name=$1
+
+  tmux new-session -s "$name" -d
+
+  for i in {1..3}; do
+      tmux new-window -t "$name:$i"
+  done
+
+  tmux select-window -t "$name:1"
+  tmux select-window -t "$name:0"
+  tmux send-keys -t "$name:0" "nvim" Enter
+  tmux attach-session -t "$name"
+}
+
+# open notes in nvim {{{
 notesRoot=$HOME/notes
 notes() {
   if [ -d $notesRoot ]; then
     if [ -z "$1" ]; then
       1=notes
     fi
-    vim $notesRoot/$1.md -c "cd $notesRoot"
+    nvim $notesRoot/$1.md -c "cd $notesRoot"
   else
     echo "create directory $notesRoot"
   fi
@@ -195,19 +175,6 @@ function _notes(){
 }
 compdef _notes notes
 #}}}
-
-# run a command in the background {{{
-background() {
-  nohup $* &>/dev/null &
-}
-#}}}
-
-# make a folder and cd into it {{{
-function mk(){
-  mkdir -p $1
-  cd $1
-}
-#}}}
 #}}}
 
 ## key bindings {{{
@@ -226,6 +193,18 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 bindkey -M vicmd "^V" edit-command-line
 #}}}
 
+## bat (cat replacement) {{{
+export BAT_THEME='Catppuccin Mocha'
+
+if command -v bat >/dev/null; then
+  alias cat='bat'
+  export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+elif command -v batcat >/dev/null; then
+  alias cat='batcat'
+  export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
+fi
+# }}}
+
 ## misc {{{
 
 # set colours for ls
@@ -237,4 +216,7 @@ fi
 if [ -f  /usr/local/bin/aws_zsh_completer.sh ]; then
   source /usr/local/bin/aws_zsh_completer.sh
 fi
+
+# Powerlevel10k
+[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 #}}}
