@@ -112,6 +112,7 @@ kmap("n", "<leader>vs", ":TestSuite<cr>", defaultOpts({ desc = "Run all tests" }
 kmap("n", "<leader>w", "<c-w>", defaultOpts({ desc = "Same as CTRL-w" }))
 kmap("n", "<leader>we", "<c-w>v<c-w>T", defaultOpts({ desc = "Clone the current window in a new tab" }))
 kmap("n", "<leader>wt", "<c-w>T", defaultOpts({ desc = "Move the current window to a new tab page" }))
+kmap("n", "<leader>x", ":MdCheckboxToggle<cr>", defaultOpts({ desc = "Toggle markdown checkbox" }))
 -- }}}
 
 -- packages {{{
@@ -515,6 +516,8 @@ require("lazy").setup({
 		-- misc {{{
 		{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = {} },
 		{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
+		"nimbus117/markdown.vim",
+		"nimbus117/prettier.vim",
 		"sindrets/diffview.nvim",
 		"tommcdo/vim-exchange",
 		"tpope/vim-eunuch",
