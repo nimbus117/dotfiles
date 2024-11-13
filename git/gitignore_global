@@ -9,6 +9,9 @@ tags
 tags.lock
 tags.temp
 
+# jetbrains
+.idea
+
 # OS generated files #
 ######################
 .DS_Store

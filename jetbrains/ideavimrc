@@ -1,0 +1,36 @@
+""" Map leader to space ---------------------
+let mapleader=" "
+
+""" Plugins  --------------------------------
+set surround
+set multiple-cursors
+set commentary
+set argtextobj
+set easymotion
+set textobj-entire
+set ReplaceWithRegister
+
+""" Plugin settings -------------------------
+let g:argtextobj_pairs="[:],(:),<:>"
+
+""" Common settings -------------------------
+set showmode
+set so=5
+set hlsearch
+set incsearch
+set nu
+
+set ideajoin
+set ideastatusicon=gray
+set idearefactormode=keep
+
+""" Mappings --------------------------------
+map <leader>sf <action>(com.mituuz.fuzzier.Fuzzier)
+map <leader>sg <action>(FindInPath)
+
+nnoremap <c-t> :action ActivateTerminalToolWindow<CR>
+nnoremap <leader>w <c-w>
+nnoremap <leader>/ :set hlsearch!<cr>
+nnoremap <leader><leader> <c-w><c-w>
+
+inoremap jk <Esc>
