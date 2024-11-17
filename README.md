@@ -34,14 +34,14 @@ open "$TMPDIR"catppuccin-mocha.itermcolors
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-### powerlevel10k
-```
-git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
-```
-
 ### tmux plugin manager
 ```
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+### powerlevel10k
+```
+git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 ```
 
 ### link dotfiles

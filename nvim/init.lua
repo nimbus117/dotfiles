@@ -1,7 +1,9 @@
 -- options {{{
 local set = vim.opt
 
+set.clipboard = "unnamed"
 set.diffopt = set.diffopt + "vertical"
+set.foldenable = false
 set.laststatus = 2
 set.linebreak = true
 set.listchars = { space = "·", tab = "» ", eol = "¬", nbsp = "␣" }
@@ -18,8 +20,6 @@ set.synmaxcol = 500
 set.undofile = true
 set.wildignorecase = true
 set.wrap = false
-
-set.foldenable = false
 
 set.number = true
 set.numberwidth = 3
@@ -58,11 +58,14 @@ local function defaultOpts(opts)
 	return defaults
 end
 
+-- insert mode mappings
 kmap("i", "jk", "<esc>")
 
+-- command mode mappings
 kmap("c", "<c-n>", "<down>")
 kmap("c", "<c-p>", "<up>")
 
+-- normal mode mappings
 kmap(
 	"n",
 	"<leader>/",
