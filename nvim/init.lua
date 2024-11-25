@@ -79,9 +79,6 @@ kmap(
 	"&ft == 'netrw' ? ':Rexplore<cr>' : ':Explore<cr>'",
 	defaultOpts({ desc = "Toggle netrw", expr = true })
 )
-kmap("n", "<leader>gd", ":DiffviewOpen<cr>", defaultOpts({ desc = "Open git diff in new tab" }))
-kmap("n", "<leader>gl", ":tab Git log %<cr>", defaultOpts({ desc = "Open git log of current file in new tab" }))
-kmap("n", "<leader>gs", ":tab Git<cr>", defaultOpts({ desc = "Open git status in new tab" }))
 kmap("n", "<leader>i", ":setlocal list!<cr>:setlocal list?<cr>", defaultOpts({ desc = "Toggle invisibles" }))
 kmap("n", "<leader>l", ":setlocal wrap!<cr>:setlocal wrap?<cr>", defaultOpts({ desc = "Toggle line wrapping" }))
 kmap(
@@ -107,11 +104,6 @@ kmap("n", "<leader>ss", ":source .vimsess<cr>", defaultOpts({ desc = "Source the
 kmap("n", "<leader>tc", ":tabclose<cr>", defaultOpts({ desc = "Close current tab" }))
 kmap("n", "<leader>tn", ":tabnew<cr>", defaultOpts({ desc = "Open new tab" }))
 kmap("n", "<leader>to", ":tabonly<cr>", defaultOpts({ desc = "Close all other tabs" }))
-kmap("n", "<leader>vc", ":VimuxCloseRunner<cr>", defaultOpts({ desc = "Close tests pane" }))
-kmap("n", "<leader>vf", ":TestFile<cr>", defaultOpts({ desc = "Run tests in current file" }))
-kmap("n", "<leader>vl", ":TestLast<cr>", defaultOpts({ desc = "Run last run tests" }))
-kmap("n", "<leader>vn", ":TestNearest<cr>", defaultOpts({ desc = "Run nearest test in file " }))
-kmap("n", "<leader>vs", ":TestSuite<cr>", defaultOpts({ desc = "Run all tests" }))
 kmap("n", "<leader>w", "<c-w>", defaultOpts({ desc = "Same as CTRL-w" }))
 kmap("n", "<leader>we", "<c-w>v<c-w>T", defaultOpts({ desc = "Clone the current window in a new tab" }))
 kmap("n", "<leader>wt", "<c-w>T", defaultOpts({ desc = "Move the current window to a new tab page" }))
@@ -469,14 +461,6 @@ require("lazy").setup({
 			end,
 		},
 		-- }}}
-		-- undotree {{{
-		{
-			"jiaoshijie/undotree",
-			dependencies = "nvim-lua/plenary.nvim",
-			config = true,
-			keys = { { "<leader>ut", "<cmd>lua require('undotree').toggle()<cr>" } },
-		},
-		-- }}}
 		-- tabby {{{
 		{
 			"nanozuki/tabby.nvim",
@@ -517,14 +501,37 @@ require("lazy").setup({
 		},
 		-- }}}
 		-- misc {{{
+		{
+			"jiaoshijie/undotree",
+			dependencies = "nvim-lua/plenary.nvim",
+			config = true,
+			keys = { { "<leader>ut", "<cmd>lua require('undotree').toggle()<cr>" } },
+		},
 		{ "nvim-lualine/lualine.nvim", dependencies = { "nvim-tree/nvim-web-devicons" }, config = {} },
+		{
+			"sindrets/diffview.nvim",
+			config = function()
+				kmap("n", "<leader>gd", ":DiffviewOpen<cr>", defaultOpts({ desc = "Open git diff in new tab" }))
+			end,
+		},
+		{
+			"tpope/vim-fugitive",
+			config = function()
+				kmap(
+					"n",
+					"<leader>gl",
+					":tab Git log %<cr>",
+					defaultOpts({ desc = "Open git log of current file in new tab" })
+				)
+				kmap("n", "<leader>gs", ":tab Git<cr>", defaultOpts({ desc = "Open git status in new tab" }))
+			end,
+		},
 		{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
+		"jremmen/vim-ripgrep",
 		"nimbus117/markdown.vim",
 		"nimbus117/prettier.vim",
-		"sindrets/diffview.nvim",
 		"tommcdo/vim-exchange",
 		"tpope/vim-eunuch",
-		"tpope/vim-fugitive",
 		"tpope/vim-repeat",
 		"tpope/vim-surround",
 		"tpope/vim-unimpaired",
