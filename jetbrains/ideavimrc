@@ -23,6 +23,7 @@ set nu
 set ideajoin
 set ideastatusicon=gray
 set idearefactormode=keep
+set visualbell
 
 """ Mappings --------------------------------
 map <leader>sf <action>(com.mituuz.fuzzier.Fuzzier)

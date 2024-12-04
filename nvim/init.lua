@@ -22,7 +22,7 @@ set.wildignorecase = true
 set.wrap = false
 
 set.number = true
-set.numberwidth = 3
+set.numberwidth = 4
 set.relativenumber = true
 set.signcolumn = "number"
 
