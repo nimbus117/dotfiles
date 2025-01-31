@@ -1,7 +1,6 @@
 -- options {{{
 local set = vim.opt
 
-set.clipboard = "unnamed"
 set.diffopt = set.diffopt + "vertical"
 set.foldenable = false
 set.laststatus = 2
