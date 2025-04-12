@@ -7,6 +7,7 @@ declare -a dotfiles=(
   "git/gitignore_global"
   "jetbrains/ideavimrc"
   "tmux/tmux.conf"
+  # "vim/vimrc"
   "zsh/p10k.zsh"
   "zsh/zprofile"
   "zsh/zshrc"
