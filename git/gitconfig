@@ -16,8 +16,3 @@
   ff = only
 [include]
   path = ~/.gitconfigUser
-
-; add to ~/.gitconfigUser
-; [user]
-;   name = xxxxx
-;   email = xxxxx@yyyyy.com
