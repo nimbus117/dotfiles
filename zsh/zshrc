@@ -5,9 +5,11 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# brew autocomplete
+# Brew setup
 if [[ $OSTYPE == 'darwin'* ]] && [ -f /opt/homebrew/bin/brew ]; then
+  # environment variables
   eval "$(/opt/homebrew/bin/brew shellenv)"
+  # autocomplete
   FPATH="$(brew --prefix)/share/zsh/site-functions:${FPATH}"
 fi
 #}}}
@@ -61,9 +63,6 @@ export LESS_TERMCAP_se=$'\E[39;49m'
 export HISTFILE="$HOME/.zsh_history"
 export HISTSIZE=100000
 export SAVEHIST=$HISTSIZE
-
-# set bat as man pager
-export MANPAGER="sh -c 'col -bx | cat -l man -p'"
 #}}}
 
 ## aliases {{{
@@ -86,9 +85,9 @@ alias tree='tree -C'
 
 # tmux
 alias ta='tmux a -t' # attach to a session
-alias tl='tmux list-sessions' # list all sessions
-alias tn='newTmuxSession' # start a new named session
-alias tv='newTmuxDevSession' # see function below
+alias tl='tmux list-sessions' # list sessions
+alias tn='newTmuxSession' # start a new session
+alias tv='newTmuxDevSession' # start a new dev session
 
 # ranger file explorer
 if command -v ranger >/dev/null; then
@@ -209,9 +208,10 @@ bindkey -M menuselect '^[[Z' reverse-menu-complete
 bindkey -M vicmd "^V" edit-command-line
 #}}}
 
-## bat (cat replacement) {{{
-export BAT_THEME='Catppuccin Mocha'
+## misc {{{
 
+# bat (cat replacement)
+export BAT_THEME='Catppuccin Mocha'
 if command -v bat >/dev/null; then
   alias cat='bat'
   export MANPAGER="sh -c 'col -bx | bat -l man -p'"
@@ -219,11 +219,8 @@ elif command -v batcat >/dev/null; then
   alias cat='batcat'
   export MANPAGER="sh -c 'col -bx | batcat -l man -p'"
 fi
-# }}}
 
-## misc {{{
-
-# set colours for ls
+# set colours for ls etc
 if command -v dircolors >/dev/null && [ -f $HOME/.dircolors ] ; then
   eval $(dircolors $HOME/.dircolors)
 fi

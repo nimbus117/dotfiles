@@ -554,7 +554,7 @@ vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
 vim.api.nvim_create_autocmd({ "BufReadPre", "FileReadPre" }, {
 	desc = "Enbale folds using the marker method in certain files",
 	group = customGroup,
-	pattern = { "init.lua", "zshrc", "vimrc" },
+	pattern = { "init.lua", "zshrc", "vimrc", "tmux.conf" },
 	command = "setlocal foldmethod=marker",
 })
 
