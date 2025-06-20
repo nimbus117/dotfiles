@@ -8,6 +8,7 @@ declare -a dotfiles=(
   "jetbrains/ideavimrc"
   "tmux/tmux.conf"
   # "vim/vimrc"
+  # "screen/screenrc"
   "zsh/p10k.zsh"
   "zsh/zprofile"
   "zsh/zshrc"

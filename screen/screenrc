@@ -1,0 +1,116 @@
+# # set terminal type
+term "screen.xterm-256color"
+setenv COLORTERM "screen.xterm-256color"
+
+# set background-color-erase
+defbce on
+
+# disable visual bell
+vbell off
+
+# hide startup message
+startup_message off
+
+# auto detach on disconnect
+autodetach on
+
+# scrollback buffer
+defscrollback 10000
+
+# timeout used for keymapping
+maptimeout 5
+
+# enable utf8
+defutf8 on
+
+# enable alternate screen
+altscreen on
+
+# status line and caption {{{
+hardstatus alwayslastline
+hardstatus string '%{Bk} %D %d %{kG}%=%-Lw%{bk} %n*%f %t %{-}%+Lw%=%{Bk} %0c '
+caption string '%{G}%2n %t'
+rendition so = kG
+#}}}
+
+# window setup {{{
+
+# window numbering starts at 1
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+
+# create 4  windows at startup
+screen 1
+screen 2
+screen 3
+screen 4
+
+# layouts {{{
+layout new a
+select 1
+layout new h1
+select 1
+split
+resize -v 70%
+focus down
+select 2
+layout new h2
+select 1
+split
+resize -v 70%
+focus down
+select 2
+split -v
+focus right
+select 3
+layout new v2
+select 2
+split -v
+resize -h 35%
+split
+focus down
+select 3
+focus right
+select 1
+focus left
+focus down
+layout new v1
+select 2
+split -v
+resize -h 35%
+focus right
+select 1
+focus left
+layout select a
+#}}}
+
+# windows 1-3 will be in the directory screen was launched from, window 4 is set to home
+# the terminal in each window is also cleared
+select 4
+stuff " cd ~; clear^M"
+select 3
+stuff " clear^M"
+select 2
+stuff " clear^M"
+select 1
+stuff " clear^M"
+#}}}
+
+# key bindings {{{
+
+# change focus between regions
+bind j focus down
+bind k focus up
+bind l focus right
+bind h focus left
+
+# Ctrl+up/down arrow to move one layout forward or back
+bindkey "[1;5A" layout next
+bindkey "[1;5B" layout prev
+
+# disable keys
+bind s
+bind z
+bind x
+#}}}
