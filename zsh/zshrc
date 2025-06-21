@@ -67,6 +67,9 @@ export SAVEHIST=$HISTSIZE
 
 ## aliases {{{
 
+# hostname
+alias hn=hostname
+
 # properly clears the terminal
 alias cls='tput reset'
 

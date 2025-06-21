@@ -325,10 +325,13 @@ require("lazy").setup({
 					}
 				end,
 				formatters_by_ft = {
-					lua = { "stylua" },
+					css = { "prettierd" },
+					html = { "prettierd" },
 					javascript = { "eslint_d", "prettierd" },
-					typescript = { "eslint_d", "prettierd" },
 					javascriptreact = { "eslint_d", "prettierd" },
+					lua = { "stylua" },
+					scss = { "prettierd" },
+					typescript = { "eslint_d", "prettierd" },
 					typescriptreact = { "eslint_d", "prettierd" },
 				},
 			},
@@ -425,29 +428,35 @@ require("lazy").setup({
 			"nvim-treesitter/nvim-treesitter",
 			build = ":TSUpdate",
 			main = "nvim-treesitter.configs",
-			opts = {
-				ensure_installed = {
-					"css",
-					"html",
-					"javascript",
-					"json",
-					"lua",
-					"luadoc",
-					"markdown",
-					"markdown_inline",
-					"scss",
-					"typescript",
-				},
-				-- auto_install = true,
-				highlight = {
-					enable = true,
-					additional_vim_regex_highlighting = { "ruby" },
-				},
-				indent = { enable = true, disable = { "ruby" } },
-			},
 			config = function()
 				vim.wo.foldmethod = "expr"
 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+				require("nvim-treesitter.configs").setup({
+					modules = {},
+					ensure_installed = {
+						"css",
+						"html",
+						"javascript",
+						"json",
+						"lua",
+						"luadoc",
+						"markdown",
+						"markdown_inline",
+						"scss",
+						"tsx",
+						"typescript",
+						"yaml",
+					},
+					sync_install = false,
+					auto_install = false,
+					ignore_install = {},
+					highlight = {
+						enable = true,
+						additional_vim_regex_highlighting = { "ruby" },
+					},
+					indent = { enable = true, disable = { "ruby" } },
+				})
 			end,
 		},
 		-- }}}
