@@ -170,9 +170,7 @@ newTmuxDevSession() {
 notesRoot=$HOME/notes
 notes() {
   if [ -d $notesRoot ]; then
-    if [ -z "$1" ]; then
-      1=notes
-    fi
+    [ -z "$1" ] && 1=notes
     nvim $notesRoot/$1.md -c "cd $notesRoot"
   else
     echo "create directory $notesRoot"

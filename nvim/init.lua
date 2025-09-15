@@ -552,7 +552,7 @@ require("lazy").setup({
 
 -- autocmds {{{
 local customGroup = vim.api.nvim_create_augroup("Custom", {
-	clear = false,
+	clear = true,
 })
 
 vim.api.nvim_create_autocmd({ "BufWinEnter" }, {
