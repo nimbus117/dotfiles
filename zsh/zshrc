@@ -153,17 +153,24 @@ newTmuxDevSession() {
     echo "Session name required"; return
   fi
 
-  name=$1
-  tmux new-session -s "$name" -d
+  sessionName=$1
+  tmux has-session -t $sessionName 2>/dev/null
 
-  for i in {1..3}; do
-      tmux new-window -t "$name:$i"
-  done
+  if [ $? != 0 ]; then
+    tmux new-session -s "$sessionName" -d
 
-  tmux select-window -t "$name:1"
-  tmux select-window -t "$name:0"
-  tmux send-keys -t "$name:0" "nvim" Enter
-  tmux attach-session -t "$name"
+    for i in {2..4}; do
+        tmux new-window -t "$sessionName:$i"
+    done
+
+    tmux select-window -t "$sessionName:2"
+    tmux select-window -t "$sessionName:1"
+    tmux send-keys -t "$sessionName:1" "nvim" Enter
+    tmux attach-session -t "$sessionName"
+  else
+    echo "duplicate session: $sessionName"; return
+  fi
+
 }
 
 # open notes in nvim {{{
