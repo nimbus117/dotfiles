@@ -5,7 +5,7 @@ declare -a dotfiles=(
   "dircolors/dircolors"
   "git/gitconfig"
   "git/gitignore_global"
-  "jetbrains/ideavimrc"
+  # "jetbrains/ideavimrc"
   "tmux/tmux.conf"
   # "vim/vimrc"
   # "screen/screenrc"
