@@ -153,7 +153,6 @@ require("lazy").setup({
 		{
 			"nvim-telescope/telescope.nvim",
 			event = "VimEnter",
-			branch = "0.1.x",
 			dependencies = {
 				"nvim-lua/plenary.nvim",
 				{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
@@ -427,12 +426,13 @@ require("lazy").setup({
 		{
 			"nvim-treesitter/nvim-treesitter",
 			build = ":TSUpdate",
-			main = "nvim-treesitter.configs",
+			main = "nvim-treesitter.config",
 			config = function()
 				vim.wo.foldmethod = "expr"
 				vim.wo.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
-				require("nvim-treesitter.configs").setup({
+				require("nvim-treesitter.config").setup({
+					install_dir = vim.fn.stdpath("data") .. "/site",
 					modules = {},
 					ensure_installed = {
 						"css",
